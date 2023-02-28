@@ -1,0 +1,21 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+header {
+  background-color: grey;
+}
+#header-black h3 {
+  color: #fff;
+  text-align: center;
+}
+
+.rcmd-tag .rcmd-tag-item {
+  background-color: green;
+  width: 20vw;
+  height: 5vh;
+  text-align: center;
+  color : white;
+  border-radius: 15px;
+}

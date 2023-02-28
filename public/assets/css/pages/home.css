@@ -1,0 +1,211 @@
+
+
+/* 신메뉴 = 이벤트배너 = 슬라이드 이미지 ======================== */
+section#whats_new {
+  padding: 0px;
+  /* position : absolute; */
+  margin-top: 100px;
+}
+section#whats_new .whats_new_list{
+  /*position: relative; */
+
+}
+section h2{
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+section#whats_new .whats_new_list{
+  width: 100%;
+  display : flex;
+  align-items: center;
+  justify-content: space-between;
+}
+section#whats_new .whats_new_img {
+
+}
+section#whats_new .whats_new_img img{
+  width: 100%;
+  height: auto;
+}
+/*======이벤트배너 = 슬라이드 이미지 끝 ======================== */
+
+
+/* 미리 만나는 봄, 체리블라썸 MD ============================== */
+section#recommand_md{
+  padding : 20px 20px;
+}
+
+section#recommand_md .md_items{
+  overflow-x: scroll;
+  display: flex;
+}
+
+section#recommand_md .md_items::-webkit-scrollbar {
+  display: none;
+}
+
+section#recommand_md .md_items .md_item{
+  width: 140px;
+  height: auto;
+  margin: 0px 14px;
+  padding: 0px;
+}
+
+section#recommand_md .md_items .md_item .md_item_img{
+  width: 200px;
+}
+
+section#recommand_md .md_items .md_item img{
+  border-radius: 5px;
+  width: 150px;
+}
+
+.new{
+  font-size: 0.8rem;
+  color: #0db904;
+  font-weight: lighter;
+  font-style: italic;
+}
+
+.md_item_name{
+  line-height: 1.5;
+  letter-spacing: 1.2;
+}
+
+.md_item_name p{
+}
+
+
+.md_item_cost span {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 춘식 */
+section#chunsik{
+  padding : 20px 20px;
+}
+
+#chunsik .chunsik-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#chunsik .chunsik-item img {
+  width: 100%;
+  height: auto;
+}
+
+section#chunsik .md_items .md_item{
+  width: 140px;
+  height: auto;
+  margin: 0px 14px;
+  padding: 0px;
+}
+
+
+#chunsik .chunsik-item .chunsik-item-info {
+  width: 70%;
+  margin-left: 5%;
+}
+
+/* 마이 페이지 =============================== 
+===========헤더는 header.css 와 동일 =============*/
+
+#my-page-top{
+  margin-top: 150px; /*header height: 120px */
+  padding: 0px 30px;
+}
+
+#my-page-top a{
+  color : #404040
+}
+
+.order-status .mp-sub {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mp-sub-title { /* 주문/배송 현황 */
+}
+
+#my-page-top .mp-sub span { /* 최근 3개월 동안 구매한 상품 */
+  font-size: 0.85rem;
+  color: #404040;
+  right: 0;
+  line-height: 62px;
+  margin-right: 0;
+  opacity: 0.6;
+}
+
+.order-stages {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.each-stage {
+  display: flex;
+  justify-content: space-between;
+}
+.each-stage span { /* 0 */
+  text-align: center;
+  width: 80px;
+}
+
+.each-stage h4 { /*상품준비중*/
+  margin: 0;
+  text-align: center;
+}
+
+.each-stage small {
+  opacity: 0.6;
+  
+}
+
+.each-stage small:nth-child(4) {
+  opacity: 0.6;
+  display: none;
+}
+
+
+
+.service .mp-sub .mp-sub-title{
+  background-color: gold;
+}
+
+#my-page-bottom {
+  background: lightgray;
+}
+
+#my-page-bottom h3{
+  display: inline-block;
+}
+
+#my-page-bottom a {
+  color : #404040
+}
+
+.wrapper-mp-bottom{
+  padding: 10px 30px;
+}
+
+
+.wrapper-mp-bottom .mp-sub-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mp-sub-title .service-list{
+  flex: 1;
+}
+
+#my-page-bottom ul {
+  display: inlin
+}
+
+
+/* 마이 페이지 끝 ============================ */
