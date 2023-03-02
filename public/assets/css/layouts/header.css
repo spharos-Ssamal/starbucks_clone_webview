@@ -23,11 +23,13 @@
 /* 온라인 쇼핑몰 */
 .header-top .header-top-center{
   width: 30%;
-  text-align: center;
+  
 }
 
 .header-top .header-top-center h1{
   font-size: 1.1rem;
+  text-align: center;
+  padding: 5px 0;
 }
 
 /* 최상단 우측 아이콘 : 검색 장바구니 유저  */
@@ -42,9 +44,10 @@
   padding-right: 0px;
   margin-right: 0px;
 }
+
 .header-top .header-top-right ul li{
   list-style-type: none;
-  margin: 0 5px;
+  margin: 0 7%;
 }
 
 .header-top .header-top-right ul li:last-child {
@@ -54,7 +57,7 @@
 .header-top .header-top-right img{
   width: 20px;
   height: auto;
-  justify-content:space-between;
+  justify-content: end;
   opacity: 0.8;
 }
 

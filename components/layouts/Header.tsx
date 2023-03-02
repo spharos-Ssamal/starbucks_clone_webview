@@ -1,11 +1,25 @@
-
+import { headerMenu } from '@/type/starbucksTypes';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { headerNavMenus, headerIcons } from '../../data/starbucksStaticDatas';
 
 function Header() {
+
+  const { pathname } = useRouter();
+  const [ headerMenus, setHeaderMenus ] = useState<headerMenu[]>(headerNavMenus);
+
   return (  
     <header>
       <div className="header-top">
         <div className="header-top-left">
-          <img src="assets/images/icons/menu.svg" alt="" />
+          <Image 
+            src="/assets/images/icons/menu.svg"
+            alt="menu"
+            width={20}
+            height={20}
+          />
         </div>
 
         <div className="header-top-center">
@@ -14,19 +28,31 @@ function Header() {
 
         <div className="header-top-right">
           <ul>
-            <li className="icon"><img src="assets/images/icons/search.svg" alt="search" /></li>
-            <li className="icon"><img src="assets/images/icons/shopping-cart.svg" alt="cart" /></li>
-            <li className="icon"><img src="assets/images/icons/user.svg" alt="user" /></li>
+            {
+              headerIcons.map(icon => (
+                <li className="icon">
+                  <Link href={icon.link}>
+                  <Image
+                    src={icon.icon}
+                    alt={icon.name}
+                    width={20}
+                    height={20}
+                  />
+                  </Link>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
       <div className="header-bottom">
         <div className="nav-bar">
           <ul>
-            <li className="active"><a href="">메인</a></li>
-            <li><a href="">기획전</a></li>
-            <li><a href="">베스트</a></li>
-            <li><a href="">마이페이지</a></li>
+            {
+              headerMenus.map(menu => (
+                <li key={menu.id} className={pathname === menu.link ? 'active' : ''}><Link href={menu.link}>{menu.name}</Link></li>
+              ))
+            }
           </ul>
         </div>
       </div>
