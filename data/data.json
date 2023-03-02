@@ -1,0 +1,44 @@
+[
+  {
+    "productInfo": {
+      "name": "화이트 사이렌 그라인더",
+      "price": 74000,
+      "description": "따뜻한 화이트 컬러 배색의 심플하면서도 감각적인 그라인더로 나만의 홈 카페를 완벽하게 꾸며줄 상품입니다.",
+      "thumbnail": "https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg?type=f296_296"
+    },
+    "categoryIds": [
+      5
+    ],
+    "hashTagNames": [
+      "티/커피용품"
+    ]
+  },
+  {
+    "productInfo": {
+      "name": "23 뉴이어 클래식 블랙 그라인더",
+      "price": 74000,
+      "description": "블랙 컬러에 심플한 디자인으로 나만의 홈 카페를 만들어 줄 블랙 그라인더입니다.",
+      "thumbnail": "https://shop-phinf.pstatic.net/20221226_272/1672022860246fdjrS_JPEG/73158643947500456_1709423482.jpg?type=f296_296"
+    },
+    "categoryIds": [
+      5
+    ],
+    "hashTagNames": [
+      "티/커피용품"
+    ]
+  },
+  {
+    "productInfo": {
+      "name": "크림 컴프레소",
+      "price": 68000,
+      "description": "크림과 그린 컬러의 조화로 클래식한 분위기가 돋보여 가정에서 데일리로 사용하기 좋은 컴프레소입니다.",
+      "thumbnail": "https://shop-phinf.pstatic.net/20220117_11/1642385335685xqJw8_JPEG/43521163513775632_1199077540.jpg?type=f140"
+    },
+    "categoryIds": [
+      5
+    ],
+    "hashTagNames": [
+      "티/커피용품"
+    ]
+  }
+]
