@@ -8,6 +8,7 @@ import { headerNavMenus, headerIcons } from '../../data/starbucksStaticDatas';
 function Header() {
 
   const { pathname } = useRouter();
+  const productPath = pathname.split('/')[1];
   const [ headerMenus, setHeaderMenus ] = useState<headerMenu[]>(headerNavMenus);
 
   return (  
@@ -23,7 +24,7 @@ function Header() {
         </div>
 
         <div className="header-top-center">
-          <h1>온라인 스토어</h1>
+          <h1><Link href="/">온라인 스토어</Link></h1>
         </div>
 
         <div className="header-top-right">
@@ -45,17 +46,24 @@ function Header() {
           </ul>
         </div>
       </div>
-      <div className="header-bottom">
-        <div className="nav-bar">
-          <ul>
-            {
-              headerMenus.map(menu => (
-                <li key={menu.id} className={pathname === menu.link ? 'active' : ''}><Link href={menu.link}>{menu.name}</Link></li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
+      {
+        productPath === 'product' ? (
+          null 
+        ) : (
+          <div className="header-bottom">
+            <div className="nav-bar">
+              <ul>
+                {
+                  headerMenus.map(menu => (
+                    <li key={menu.id} className={pathname === menu.link ? 'active' : ''}><Link href={menu.link}>{menu.name}</Link></li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        )
+      }
+      
     </header>
   );
 }

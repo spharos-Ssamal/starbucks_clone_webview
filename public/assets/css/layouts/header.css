@@ -27,9 +27,14 @@
 }
 
 .header-top .header-top-center h1{
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   text-align: center;
   padding: 5px 0;
+}
+
+.header-top .header-top-center h1 a{
+  color: #404040;
+  text-decoration: none;
 }
 
 /* 최상단 우측 아이콘 : 검색 장바구니 유저  */

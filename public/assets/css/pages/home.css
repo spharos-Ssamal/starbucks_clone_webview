@@ -6,10 +6,7 @@ section#whats_new {
   /* position : absolute; */
   margin-top: 100px;
 }
-section#whats_new .whats_new_list{
-  /*position: relative; */
 
-}
 section h2{
   font-size: 1.4rem;
   font-weight: bold;
@@ -19,7 +16,7 @@ section#whats_new .whats_new_list{
   width: 100%;
   display : flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 section#whats_new .whats_new_img {
 
