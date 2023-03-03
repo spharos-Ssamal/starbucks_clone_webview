@@ -1,6 +1,36 @@
 import Head from "next/head";
+import Link from "next/link";
+
+import { loginData } from "@/type/starbucksTypes";
+import React, { useState } from "react";
 
 function Login() {
+
+  const [inputData, setInputData] = useState({} as loginData);
+  const [isError, setIsError] = useState({
+    email: false,
+    password: false
+  });
+
+  const handleOnChange = (event:any) => {
+    const {name, value} = event.target;
+    if(name === 'email') {
+      setInputData({...inputData, email: value})
+    } else if(name === 'password') {
+      setInputData({...inputData, password: value})
+    }
+  }
+
+  const handleSubmit = (event:any) => {
+    event.preventDefault();
+    if( inputData.email === '' || inputData.password === '' ) {
+      alert('이메일과 비밀번호를 입력해 주세요.');
+      return;
+    } 
+
+    console.log(inputData);
+  }
+
   return ( 
     <>
       <Head>
@@ -9,51 +39,33 @@ function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div id="header-login">
-        <a href="index.html" className="back">
-          <img src="assets/images/icons/left-chevron.svg" alt="" width="20px;" />
-        </a>
-        <h1>로그인</h1>
+      <div>
+        <Link href="/"><img src="/assets/images/icons/left.png" className="back-button"/></Link>
       </div>
-
-      <section id="greeting">
-        <a href="#">
-          <img src="assets/images/icons/logo.png" alt="logo" />
-        </a>
-        <h2 className="hello">
-          <p>안녕하세요.</p>
-          <p>스타벅스입니다</p>
-        </h2>
-        <p className="text7">회원 서비스 이용을 위해 로그인 해주세요</p>
-      </section>
-
-      <section id="login_func">
-        <form >
-          <div className="txt_field">
-            <input type="text" required />
-            <span></span>
-            <label>아이디</label>
+        <div className="login-header">
+            <h1>로그인</h1>
+        </div>
+        <div className="greeting">
+            <img id="starbucks-logo" src="./assets/images/starbucks-logo.png"/>
+            <h2>안녕하세요.<br />스타벅스입니다.</h2>
+            <p>회원 서비스 이용을 위해 로그인 해주세요.</p>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div id="login-input">
+              <input type="email" name = 'email' placeholder="이메일" onChange={handleOnChange}/>
+              { isError.email  ?  <p className="error-message">이메일을 입력해 주세요.</p> : null }
+              <input type="password" name = 'password' placeholder="비밀번호" onChange={handleOnChange}/>
+              { isError.password ? <p className="error-message">비밀번호를 입력해 주세요.</p> : null }
           </div>
-          <div className="txt_field">
-            <input type="password" required />
-            <span></span>
-            <label>비밀번호</label>
+          <div id="login-service">
+              <Link href={'/'}>아이디 찾기</Link>
+              <Link href={'/'}>비밀번호 찾기</Link>
+              <Link href={'/'}>회원가입</Link>
           </div>
-          
-          <div className="signup_link">
-            <a href="#">아이디 찾기</a>
-            <span className="pass">|</span>
-            <a href="#">비밀번호 찾기</a>
-            <span className="pass">|</span>
-            <a href="#">회원가입</a>
-          </div>
-
-          <div className="btn">
-            <input type="submit" value="로그인하기" />
-          </div>
+          <div className="submit-container">
+              <button type="submit">로그인하기</button>
+          </div>    
         </form>
-
-      </section>
       </>
    );
 }

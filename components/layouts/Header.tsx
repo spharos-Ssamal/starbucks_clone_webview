@@ -14,7 +14,7 @@ function Header() {
   return (  
     <header>
       <div className="header-top">
-        <div className="header-top-left">
+        <div className="menu-icon">
           <Image 
             src="/assets/images/icons/menu.svg"
             alt="menu"
@@ -22,16 +22,12 @@ function Header() {
             height={20}
           />
         </div>
-
-        <div className="header-top-center">
           <h1><Link href="/">온라인 스토어</Link></h1>
-        </div>
-
-        <div className="header-top-right">
+          <nav>
           <ul>
             {
               headerIcons.map(icon => (
-                <li className="icon">
+                <li>
                   <Link href={icon.link}>
                   <Image
                     src={icon.icon}
@@ -44,14 +40,14 @@ function Header() {
               ))
             }
           </ul>
-        </div>
+          </nav>
       </div>
       {
         productPath === 'product' ? (
           null 
         ) : (
-          <div className="header-bottom">
-            <div className="nav-bar">
+          <div className='header-bottom'>
+          <nav>
               <ul>
                 {
                   headerMenus.map(menu => (
@@ -59,8 +55,8 @@ function Header() {
                   ))
                 }
               </ul>
-            </div>
-          </div>
+          </nav>
+        </div>
         )
       }
       
