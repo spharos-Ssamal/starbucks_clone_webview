@@ -8,12 +8,13 @@ import { headerNavMenus, headerIcons } from '../../data/starbucksStaticDatas';
 function Header() {
 
   const { pathname } = useRouter();
+  const productPath = pathname.split('/')[1];
   const [ headerMenus, setHeaderMenus ] = useState<headerMenu[]>(headerNavMenus);
 
   return (  
     <header>
       <div className="header-top">
-        <div className="header-top-left">
+        <div className="menu-icon">
           <Image 
             src="/assets/images/icons/menu.svg"
             alt="menu"
@@ -21,16 +22,12 @@ function Header() {
             height={20}
           />
         </div>
-
-        <div className="header-top-center">
-          <h1>온라인 스토어</h1>
-        </div>
-
-        <div className="header-top-right">
+          <h1><Link href="/">온라인 스토어</Link></h1>
+          <nav>
           <ul>
             {
               headerIcons.map(icon => (
-                <li className="icon">
+                <li>
                   <Link href={icon.link}>
                   <Image
                     src={icon.icon}
@@ -43,19 +40,26 @@ function Header() {
               ))
             }
           </ul>
-        </div>
+          </nav>
       </div>
-      <div className="header-bottom">
-        <div className="nav-bar">
-          <ul>
-            {
-              headerMenus.map(menu => (
-                <li key={menu.id} className={pathname === menu.link ? 'active' : ''}><Link href={menu.link}>{menu.name}</Link></li>
-              ))
-            }
-          </ul>
+      {
+        productPath === 'product' ? (
+          null 
+        ) : (
+          <div className='header-bottom'>
+          <nav>
+              <ul>
+                {
+                  headerMenus.map(menu => (
+                    <li key={menu.id} className={pathname === menu.link ? 'active' : ''}><Link href={menu.link}>{menu.name}</Link></li>
+                  ))
+                }
+              </ul>
+          </nav>
         </div>
-      </div>
+        )
+      }
+      
     </header>
   );
 }

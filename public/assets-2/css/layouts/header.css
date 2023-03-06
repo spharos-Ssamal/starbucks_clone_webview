@@ -1,0 +1,102 @@
+
+.header-top {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 1rem;
+}
+
+/* 최상단 좌측 아이콘 */
+.header-top .header-top-left{
+  width: 35%;
+}
+
+.header-top .header-top-left img{
+  width: 20px;
+  height: auto;
+  opacity: 0.8;
+}
+
+/* 온라인 쇼핑몰 */
+.header-top .header-top-center{
+  width: 30%;
+  
+}
+
+.header-top .header-top-center h1{
+  font-size: 1.0rem;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.header-top .header-top-center h1 a{
+  color: #404040;
+  text-decoration: none;
+}
+
+/* 최상단 우측 아이콘 : 검색 장바구니 유저  */
+.header-top .header-top-right{ 
+  width: 35%;
+}
+
+.header-top .header-top-right ul{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 0px;
+  margin-right: 0px;
+}
+
+.header-top .header-top-right ul li{
+  list-style-type: none;
+  margin: 0 7%;
+}
+
+.header-top .header-top-right ul li:last-child {
+  margin-right: 0px;
+}
+
+.header-top .header-top-right img{
+  width: 20px;
+  height: auto;
+  justify-content: end;
+  opacity: 0.8;
+}
+
+.header-bottom a{
+  color : #404040;
+}
+
+.header-bottom .nav-bar ul{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.header-bottom .nav-bar ul li {
+  height: 40px;
+  list-style-type: none;
+  width: 25%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0.8rem 0;
+  font-size: 0.8rem;
+  font-weight: lighter;
+}
+
+.header-bottom .nav-bar ul li.active {
+  border-bottom: 2px solid var(--color-primary);
+  font-weight: bold;
+}
+
+.header-bottom .nav-bar ul li:first-child {
+  margin-left: 0px;
+}
+
+
