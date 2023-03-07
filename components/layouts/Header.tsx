@@ -27,7 +27,7 @@ function Header() {
         <nav>
           <ul>
             {headerIcons.map((icon) => (
-              <li>
+              <li key={icon.id}>
                 <Link href={icon.link}>
                   <Image
                     src={icon.icon}

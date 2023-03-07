@@ -19,22 +19,44 @@
 
 .greeting .signup-info {
     font-weight: normal;
+    font-size: 1.6rem;
     line-height: 35px;
+    padding-left: 8px;
+    opacity: 0.7;
 }
 
+.signup-title {
+    box-sizing: border-box;
+    margin: 80px 0 0 0;
+    padding: 0 24px;
+}
+
+.signup-title h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
 .agree-input {
     width: 100%;
     padding: 0;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     margin-top: 80px;
+    opacity: 0.7;
 }
-
+.form-group {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 20px;
+}
 .agree-input input {
-    margin: 10px 3px 15px 25px;
-    vertical-align: middle;
+    /* margin: 10px 3px 15px 25px; */
+    box-sizing: border-box;
+    margin-right: 10px;
 }
 
-.agree-input>input[type=checkbox] {
+.agree-input input[type=checkbox] {
     transform : scale(1.2);
     appearance: none;
     width: 1rem;
@@ -43,9 +65,21 @@
     border: 1px solid var(--color-gray-button);
 }
 
+.arrow {
+    position: fixed;
+    right: 0px;
+}
+
 input[type="checkbox"]:checked {
     background: var(--color-light-green);
     border: none;
+}
+
+.form-group-small {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .agree-input .advertising-info input[type=checkbox] {
@@ -55,10 +89,17 @@ input[type="checkbox"]:checked {
     height: 1rem;
     border-radius: 15%;
 }
+.small-left-50 {
+    margin-left: 50px;
+}
+.agree-input .advertising-info label {
+   font-size: 0.9rem;
+   margin-right: 20px;
+}
 
 .agree-input .advertising-info input[type=checkbox]:checked {
     background-color: var(--color-light-green);
-    background-image: url(https://blog.kakaocdn.net/dn/t7a2D/btrhtVgLYmG/dUxzAkBy9hIZ4gHmyllQrk/img.png);
+    border: none;
 }
 
 
@@ -68,33 +109,6 @@ input[type="checkbox"]:checked {
     padding: 5px;
     float: right;
 }
-
-/* 요소를 숨기는 class.
-.txt-hide {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-/*체크를 안 했을 때*/
-/* label::before{
-	display: inline-block;
-    content:"";
-    width: 1rem;
-    height: 1rem;
-    margin-right: 10px;
-    border-radius: 50%;
-    border: 1px solid var(--color-gray-button);
-    /* background-image:url("체크 안된 상태의 이미지.png"); */
-/* } */
-
-/*체크했을 때*/
-/* input:checked+.labl::before{
-	background-image: url(/assets/images/icons/check_white.png);
-
-} */
 
 .agree-input #advertising-email {
     margin-left: 50px;
@@ -107,37 +121,29 @@ input[type="checkbox"]:checked {
 }
 
 .agree-input p {
-    padding-left: 50px;
-    margin: 0;
     font-size: 0.8rem;
     color: var(--color-gray-text);
 }
 
-#identification-agree {
-    margin-top: 230px;
-}
-
-#identification-agree p {
-    padding-left: 25px;
-    display: inline-block;
-}
-
-
-#identification-agree .arrow {
-    height: 0.8rem;
-    padding-right: 30px;
-}
-
-#identification-agree a {
+.form-group-step {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    align-items: center;
+    margin-bottom : 10px;
+}
+
+.form-group-step p {
+    padding: 0px 0px 0px 5px;
+    margin: 0px;
+}
+.agree-input a {
     text-decoration: none;
-    padding: 5px;
 }
 
 #identification-input {
-    margin-top: 15px;
     padding: 25px;
+    box-sizing: border-box;
+    opacity: 0.7;
 }
 
 #identification-input input {
@@ -157,7 +163,9 @@ input[type="checkbox"]:checked {
     display: flex;
     
 }
-
+.phonenumber-input select {
+    appearance: none;
+}
 #identification-input input:focus {
     border-bottom: 1.5px solid var(--color-light-green);
 }
@@ -300,4 +308,19 @@ input[type="checkbox"]:checked {
 
 #email-input select option {
     font-size: 0.8rem;
+}
+.slide-in {
+    animation: showUp 0.3s ease-in-out;
+}
+
+@keyframes showUp {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
 }

@@ -17,3 +17,15 @@ export interface VeriftyEmailReq {
   email: string;
   verifyCode: string;
 }
+
+export interface inputRegisterType {
+  userEmail: string | undefined;
+  userName: string | undefined;
+  userNickname: string | undefined;
+  birthday: Date | undefined;
+  password: string | undefined;
+  confirmPassword: string | undefined;
+  phone: string | undefined;
+  isUserConfirm: boolean | undefined;
+  isAgree: boolean | undefined;
+}

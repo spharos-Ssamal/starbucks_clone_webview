@@ -8,7 +8,7 @@ import {
 import { RequestReissueToken } from "@/Service/AuthService/AuthService";
 
 export const CustomAxios = axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: "http://10.10.10.215:8081",
   headers: {
     "Content-Type": "application/json",
   },

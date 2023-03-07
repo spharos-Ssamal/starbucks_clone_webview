@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className='container'>
       {
-        router.pathname === '/login' ? null :  <Header />
+        router.pathname === '/signup' ? null :  <Header />
       }
       <Component {...pageProps} />
     </div>
