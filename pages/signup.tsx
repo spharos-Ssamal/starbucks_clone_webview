@@ -1,10 +1,10 @@
 import { inputRegisterType } from '@/Types/UserRequest/Request';
 import React, {useState} from 'react'
-import Step01 from './signup/Step01';
-import Step02 from './signup/Step02';
-import Step03 from './signup/Step03';
-import Step04 from './signup/Step04';
-import Step05 from './signup/Step05';
+import Step01 from '../components/page/signup/Step01';
+import Step02 from '../components/page/signup/Step02';
+import Step03 from '../components/page/signup/Step03';
+import Step04 from '../components/page/signup/Step04';
+import Step05 from '../components/page/signup/Step05';
 import StButton from '@/components/ui/StButton';
 
 

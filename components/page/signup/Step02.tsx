@@ -32,7 +32,7 @@ const Step02 = ( { inputData, setInputData } : ChildProps) => {
       <h1>본인확인을 위해<br />인증을 진행해 주세요.</h1>
     </div>
     <form className="agree-input" style={{ padding: "0px 20px", boxSizing: "border-box", marginBottom: "30px"}}>
-        <div className='form-group-step'>
+        {/* <div className='form-group-step'>
           <input type="checkbox" id="certified-agree" />
           <label>본인 인증 서비스 약관 전체동의</label>
         </div>
@@ -47,7 +47,7 @@ const Step02 = ( { inputData, setInputData } : ChildProps) => {
         </div>
         <div className='form-group-step'>
         <p>고유식별정보 처리 (필수)</p><img className="arrow" src="./assets/images/icons/contents/right-arrow.png" />
-        </div>
+        </div> */}
     </form>
     <hr />
     <form id="identification-input">

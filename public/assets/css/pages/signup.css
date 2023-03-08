@@ -3,12 +3,14 @@
     display: flex;
     font-size: 1.3rem;
     align-items: center;
+    box-sizing: border-box; 
 }
 
 .signup-header p {
     padding: 0;
     padding-left: 25%;
     margin: 0;
+
 }
 
 .page-num {
@@ -18,7 +20,7 @@
 
 .greeting {
     width: 100%;
-    padding-left: 3rem;
+    box-sizing: border-box;
 }
 
 /* signup - step 01 */
