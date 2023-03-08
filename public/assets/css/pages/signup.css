@@ -16,44 +16,30 @@
     color: var(--color-gray-text);
 }
 
+.greeting {
+    width: 100%;
+    padding-left: 3rem;
+}
 
+/* signup - step 01 */
 .greeting .signup-info {
     font-weight: normal;
-    font-size: 1.6rem;
-    line-height: 35px;
+    font-size: 1.4rem;
     padding-left: 8px;
     opacity: 0.7;
 }
 
-.signup-title {
-    box-sizing: border-box;
-    margin: 80px 0 0 0;
-    padding: 0 24px;
-}
-
-.signup-title h1 {
-    font-size: 1.4rem;
-    font-weight: normal;
-    margin: 0;
-    padding: 0;
-}
 .agree-input {
     width: 100%;
     padding: 0;
     font-size: 1.0rem;
-    margin-top: 80px;
+    margin-top: 2rem;
     opacity: 0.7;
 }
-.form-group {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 10px 20px;
-}
+
 .agree-input input {
-    /* margin: 10px 3px 15px 25px; */
     box-sizing: border-box;
-    margin-right: 10px;
+    margin-right: 0.7rem;
 }
 
 .agree-input input[type=checkbox] {
@@ -65,15 +51,51 @@
     border: 1px solid var(--color-gray-button);
 }
 
-.arrow {
-    position: fixed;
-    right: 0px;
-}
-
-input[type="checkbox"]:checked {
+.agree-input input[type="checkbox"]:checked {
     background: var(--color-light-green);
     border: none;
 }
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 20px;
+}
+
+.form-group .left-form {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+}
+
+.form-group .arrow {
+    height: 0.5rem;
+    opacity: 0.7;
+}
+
+
+
+/* .signup-title {
+    box-sizing: border-box;
+    margin-top: 2rem;
+    padding: 0 24px;
+}
+
+.signup-title h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+} */
+
+
+
+
 
 .form-group-small {
     display: flex;
@@ -114,11 +136,7 @@ input[type="checkbox"]:checked {
     margin-left: 50px;
 }
 
-.agree-input .arrow {
-    height: 0.8rem;
-    padding-right: 30px;
-    opacity: 0.5;
-}
+
 
 .agree-input p {
     font-size: 0.8rem;
@@ -311,6 +329,9 @@ input[type="checkbox"]:checked {
 }
 .slide-in {
     animation: showUp 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @keyframes showUp {

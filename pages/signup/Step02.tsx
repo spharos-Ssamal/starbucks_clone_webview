@@ -52,8 +52,7 @@ const Step02 = ( { inputData, setInputData } : ChildProps) => {
     <hr />
     <form id="identification-input">
         <input type="text" id="identification" name="name" placeholder="이름" /><br />
-        <input type="number" id="identification" name="birth" placeholder="생년월일 6자리" /> -
-        <input type="number" id="identification" name="birth" /><br />
+        <input type="number" id="identification" name="birth" placeholder="생년월일 6자리 - " /><br />
         <div className="phonenumber-input">
             <select>
                 <option>SKT</option>

@@ -5,6 +5,7 @@ import Step02 from './signup/Step02';
 import Step03 from './signup/Step03';
 import Step04 from './signup/Step04';
 import Step05 from './signup/Step05';
+import StButton from '@/components/ui/StButton';
 
 
 
@@ -42,11 +43,16 @@ export default function signup() {
   }
 
   return (
-    <div>
+    <>
+     
       {steps[stepId-1][stepId]}
       <section className="submit-container">
-        <button onClick={handleStepNext}>다음</button>
+        <StButton
+          buttonText = 'NEXT'
+          textSize = '1.1rem'
+          handler = { handleStepNext }
+        />
       </section>
-    </div>
+    </>
   )
 }
