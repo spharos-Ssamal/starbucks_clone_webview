@@ -45,3 +45,41 @@ export const headerIcons = [
     icon: '/assets/images/icons/user.svg',
   }
 ]
+
+export const mainEventList = [
+  {
+    id : 1,
+    titleShort : '케이크',
+    titleLong : '스타벅스 케이크를 선물하세요(케잌임티)',
+    imgUrl : '../publish_data/assets/images/event/cake/01.jpg',
+    onOff : true
+  },
+  {
+    id : 2,
+    titleShort : '4+1 기획전',
+    titleLong : '4개 구매 시 1개 증정',
+    imgUrl : '../publish_data/assets/images/event/star/01.jpg',
+    onOff : true
+  },
+  {
+    id : 3,
+    titleShort : '바리스타 춘식',
+    titleLong : '',
+    imgUrl : '../publish_data/assets/images/event/chunsik/01.jpg',
+    onOff : true
+  },
+  {
+    id : 4,
+    titleShort : '핸디 데스크',
+    titleLong : '',
+    imgUrl : '../publish_data/assets/images/event/desk/01.jpg',
+    onOff : true
+  },
+  {
+    id : 5,
+    titleShort : '선물하기',
+    titleLong : '',
+    imgUrl : '../publish_data/assets/images/event/cake/01.jpg',
+    onOff : true
+  },
+]
