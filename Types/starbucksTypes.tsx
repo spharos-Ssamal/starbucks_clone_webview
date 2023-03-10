@@ -19,5 +19,7 @@ export interface eventData {
   onOff: boolean
 }
 
-//export interface 
+export interface SingleProdInfoType {
+  
+}
 

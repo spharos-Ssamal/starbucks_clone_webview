@@ -1,4 +1,6 @@
+import StButton from '@/components/ui/StButton';
 import * as React from 'react';
+import { useState } from 'react';
 
 export default function Product() {
 
@@ -6,6 +8,8 @@ export default function Product() {
   // axios.get('https://api.example.com/products/1')
 
   // useState and useEffect hooks
+
+  const [ prodOne, setProdOne ] = useState();
 
   return (
     <>
@@ -87,7 +91,11 @@ export default function Product() {
       </div>
       <div className="fixed-bottom">
         <div className="drag_me" />
-        <div className="btn-action">구매하기</div>
+        <StButton 
+          buttonText={'구매하기'} 
+          textSize={'1.1rem'} 
+          //handler = {}  
+        />
       </div>
     </>
   );
