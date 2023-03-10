@@ -83,3 +83,42 @@ export const mainEventList = [
     onOff : true
   },
 ]
+
+export const storeRcmdMenu = [
+  {
+    id : 1,
+    name: '케이크',
+    imgUrl: 'assets/images/products/category/category-cake.jpg',
+    link : '../'
+  },
+  {
+    id : 2,
+    name: '텀블러/보온병',
+    imgUrl: 'assets/images/products/category/category-tumblr.jpg',
+    link : '../'
+  },
+  {
+    id : 3,
+    name: '머그/컵',
+    imgUrl: 'assets/images/products/category/category-cup.jpg',
+    link : '../'
+  },
+  {
+    id : 4,
+    name: '라이프스타일',
+    imgUrl: 'assets/images/products/category/category-lifestyle.jpg',
+    link : '../'
+  },
+  {
+    id : 5,
+    name: '티/커피용품',
+    imgUrl: 'assets/images/products/category/category-tea.jpg',
+    link : '../'
+  },
+  {
+    id : 6,
+    name: '세트',
+    imgUrl: 'assets/images/products/category/category-set.jpg',
+    link : '../'
+  },
+]

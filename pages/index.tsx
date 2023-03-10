@@ -1,3 +1,6 @@
+import HeaderBottom from '@/components/layouts/HeaderBottom'
+import HeaderSub from '@/components/layouts/HeaderSub'
+import HeaderTop from '@/components/layouts/HeaderTop'
 import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
 import RecommandMdList from '@/components/widgets/RecommandMdList'
@@ -12,6 +15,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <HeaderTop/>
+      <HeaderBottom />
       <MainBanner />
       <RecommandMdList />
       <ChunsikList />

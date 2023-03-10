@@ -23,3 +23,9 @@ export interface SingleProdInfoType {
   
 }
 
+export interface storeRcmdMenuType {
+  id: number,
+  name: string,
+  imgUrl: string,
+  link: string,
+}

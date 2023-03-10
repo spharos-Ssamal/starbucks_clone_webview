@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Separator(props : { color?: string, gutter?: number }) {
+export default function Separator(props : { color?: string, gutter?: number, borderWidth?: string, opacity?: number }) {
   return (
     <div 
       className='separator' 

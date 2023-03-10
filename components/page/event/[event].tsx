@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 export default function event() {
 
-  const [ evt, setEvt ] = useState<eventData>();
+  const [ evt, setEvt ] = useState<eventData[]>();
   
   return (
     <>
@@ -16,7 +16,7 @@ export default function event() {
       <div className="event-info">
         {
           evt && evt.map( item => (
-            <img src={evt.imageUrl} width="100%" height="100%"/>
+            <img src={item.imageUrl} width="100%" height="100%"/>
             
           ))
         }
@@ -27,7 +27,7 @@ export default function event() {
         <div className="product-item">
           <img src="assets/images/event/cake/01.jpg" className="thumbnail"/>
           <div className="product-item-info">
-            <p className="product-item-name">{evt?.titleShort}</p>
+            <p className="product-item-name">{item.titleShort}</p>
             <p className="product-item-price">19,900원</p>
           </div>
         </div>

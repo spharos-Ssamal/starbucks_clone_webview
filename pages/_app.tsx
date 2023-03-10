@@ -12,9 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <div className='container'>
-      {
-        router.pathname === '/signup' ? null :  <Header />
-      }
+      {/* {
+        router.pathname === '/signup || /sidebar ' ? null :  <Header />
+      } */}
       <Component {...pageProps} />
     </div>
     ); 

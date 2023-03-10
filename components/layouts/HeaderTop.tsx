@@ -6,21 +6,23 @@ import { headerMenu } from "../../Types/starbucksTypes";
 
 export default function Header() {
   const [headerMenus, setHeaderMenus] = useState<headerMenu[]>(headerNavMenus);
-  console.log('HeaderTop.tsx')
+  
 
   return (
 
       <div className="header-top">
         <div className="menu-icon">
-          <Image
-            src="/assets/images/icons/menu.svg"
-            alt="menu"
-            width={20}
-            height={20}
-          />
+          <Link href="/sidebar">
+            <Image
+              src="/assets/images/icons/menu.svg"
+              alt="menu"
+              width={20}
+              height={20}
+            />
+          </Link>
         </div>
         <h1>
-          <Link href="/">온라인 스토어</Link>
+          <Link href="/sidebar">온라인 스토어</Link>
         </h1>
         <nav>
           <ul>
@@ -33,7 +35,7 @@ export default function Header() {
                     width={20}
                     height={20}
                   />
-                </Link>ƒ
+                </Link>
               </li>
             ))}
           </ul>
