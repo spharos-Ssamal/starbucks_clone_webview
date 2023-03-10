@@ -1,9 +1,11 @@
 import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
 import RecommandMdList from '@/components/widgets/RecommandMdList'
+import Config from '@/configs/config.export'
 import Head from 'next/head'
 
 export default function Home() {
+  console.log(Config().baseUrl)
   return (
     <>
       <Head>
