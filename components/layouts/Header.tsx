@@ -4,16 +4,24 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { headerNavMenus, headerIcons } from "../../data/starbucksStaticDatas";
+import LoginModal from "../modals/LoginModal";
 
 function Header() {
   const { pathname } = useRouter();
   const productPath = pathname.split("/")[1];
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [headerMenus, setHeaderMenus] = useState<headerMenu[]>(headerNavMenus);
 
+  console.log(isModalOpen)
   return (
+    <>
+    <LoginModal 
+      isModalOpen={isModalOpen}
+      setIsModalOpen={setIsModalOpen}
+    />
     <header>
       <div className="header-top">
-        <div className="menu-icon">
+        <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
           <Image
             src="/assets/images/icons/menu.svg"
             alt="menu"
@@ -58,6 +66,7 @@ function Header() {
         </div>
       )}
     </header>
+  </>
   );
 }
 
