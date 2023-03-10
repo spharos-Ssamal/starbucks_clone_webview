@@ -1,8 +1,13 @@
+import { useState } from "react";
+
 export default function Sidebar() {
+    const [ sideBar, setSideBar ] = useState<>();
+    
 
   return(
     <>
     
+
     
     <section className="contents-head">
             <div className= "close-icon">
