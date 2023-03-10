@@ -1,4 +1,5 @@
 import { inputRegisterType } from '@/Types/UserRequest/Request';
+import Separator from '@/components/ui/Separator';
 import React, {useState, useEffect } from 'react';
 
 interface ChildProps {
@@ -49,7 +50,12 @@ const Step02 = ( { inputData, setInputData } : ChildProps) => {
         <p>고유식별정보 처리 (필수)</p><img className="arrow" src="./assets/images/icons/contents/right-arrow.png" />
         </div> */}
     </form>
-    <hr />
+    
+    <Separator 
+            color = '#e5e5e5'
+            gutter = {1}
+          />
+
     <form id="identification-input">
         <input type="text" id="identification" name="name" placeholder="이름" /><br />
         <input type="number" id="identification" name="birth" placeholder="생년월일 6자리 - " /><br />

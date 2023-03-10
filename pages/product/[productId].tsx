@@ -1,4 +1,6 @@
+import { productInfo } from '@/Types/starbucksTypes';
 import * as React from 'react';
+import { useState } from 'react';
 
 export default function Product() {
 
@@ -6,6 +8,13 @@ export default function Product() {
   // axios.get('https://api.example.com/products/1')
 
   // useState and useEffect hooks
+
+  // 2 Render the product data
+  
+  const [prodOne, setProdOne] = useState<productInfo>(); 
+  
+  // useEffect(() => {
+  // })
 
   return (
     <>
