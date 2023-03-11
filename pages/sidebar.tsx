@@ -62,29 +62,33 @@ export default function Sidebar() {
         </section>
         <section id="nav-event-best">
             <div className="nav-button">
-                <button>
-                    <div className="nav-container"> 
-                        <div>
-                            <span className="title">기획전</span>
-                            <br />
-                            <span>진행중인 기획전을 만나보세요.</span>
+                <Link href="/event">
+                    <button>
+                        <div className="nav-container"> 
+                            <div>
+                                <span className="title">기획전</span>
+                                <br />
+                                <span>진행중인 기획전을 만나보세요.</span>
+                            </div>
+                            <img src="assets/images/icons/contents/right-arrow.png" alt="" />
                         </div>
-                        <img src="assets/images/icons/contents/right-arrow.png" alt="" />
-                    </div>
-                </button>
-                <hr />
+                    </button>
+                </Link>
+                <Separator />
             </div>
             <div className="nav-button">
-                <button>
-                    <div className="nav-container"> 
-                        <div>
-                            <span className="title">베스트</span>
-                            <br />
-                            <span>스타벅스의 베스트 상품을 만나보세요.</span>
+                <Link href="/best">
+                    <button>
+                        <div className="nav-container"> 
+                            <div>
+                                <span className="title">베스트</span>
+                                <br />
+                                <span>스타벅스의 베스트 상품을 만나보세요.</span>
+                            </div>
+                            <img src="assets/images/icons/contents/right-arrow.png" alt="" />
                         </div>
-                        <img src="assets/images/icons/contents/right-arrow.png" alt="" />
-                    </div>
-                </button>
+                    </button>
+                </Link>
             </div>
         </section>
 

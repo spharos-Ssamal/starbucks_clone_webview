@@ -11,11 +11,11 @@ export interface loginData {
 
 export interface eventData {
   id: number,
-  titleShort?: String,
-  titleLong?: String,
+  titleShort?: string,
+  titleLong?: string,
   link? : number,
-  imageUrl?: String,
-  extraImageUrl?: String,
+  imgUrl?: string,
+  extraImageUrl?: string,
   onOff: boolean
 }
 

@@ -51,7 +51,7 @@ export const mainEventList = [
     id : 1,
     titleShort : '케이크',
     titleLong : '스타벅스 케이크를 선물하세요(케잌임티)',
-    imgUrl : '../publish_data/assets/images/event/cake/01.jpg',
+    imgUrl : '/assets/images/event/cake/01.jpg',
     onOff : true
   },
   {

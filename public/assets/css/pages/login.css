@@ -1,7 +1,7 @@
 
 .login-header {
     padding: 0 15px;
-    margin-top: 10vw;
+    margin-top: 40px;
 }
 
 .login-header h1 {
@@ -44,7 +44,6 @@
     vertical-align: bottom;
     display: inline;
     margin-bottom: 30px;
-    transition: 0.5s;
 
 }
 
@@ -55,17 +54,14 @@
 #login-input input::placeholder {
     color: var(--color-black);
     font-weight: normal;
-    transition: 0.5s;
 }
 
 #login-input input:focus {
     border-bottom: 1.5px solid var(--color-light-green);
-    transition: 0.5s;
 }
 
 #login-input input:focus::placeholder {
     /* opacity: 0; */
-    transition: 0.5s;
     position: relative;
     top: -15px;
     font-size: 70%;

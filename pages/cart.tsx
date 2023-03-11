@@ -1,17 +1,16 @@
 import Header from "@/components/layouts/Header";
+import HeaderTop from "@/components/layouts/HeaderTop";
 
 export default function Cart() {
 
   return(
     <>
-      <Header />
-
         <div className="cart-container">
           <div>
             <header id="store-head">
               <div className="store-header-top">
                 <div className="menu-icon">
-                  <img src="assets/images/icons/menu.svg" alt="" />
+                  <img src="assets/images/icons/left.png" alt="" />
                 </div>
                 <h1><a href="">온라인 스토어</a></h1>
                 <nav>
