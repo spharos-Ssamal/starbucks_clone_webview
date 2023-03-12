@@ -1,3 +1,4 @@
+import Card from '@/components/Card/Card';
 import HeaderSub from '@/components/layouts/HeaderSub'
 import HeaderTop from '@/components/layouts/HeaderTop'
 import { mainEventList } from '@/data/starbucksStaticDatas';
@@ -25,17 +26,8 @@ export default function event() {
         }
       </div>
     </div>
-    <div id="event-product">
-      <div className="product-container">
-        <div className="product-item">
-          <img src="assets/images/event/cake/01.jpg" className="thumbnail"/>
-          <div className="product-item-info">
-            <p className="product-item-name">dkdkdk</p>
-            <p className="product-item-price">19,900원</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
+        <Card/>
     
 
   </div>

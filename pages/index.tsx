@@ -1,5 +1,5 @@
 
-import Header from '@/components/layouts/HeaderTop'
+import Header from '@/components/layouts/Header'
 import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
 import RecommandMdList from '@/components/widgets/RecommandMdList'
