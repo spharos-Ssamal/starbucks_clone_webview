@@ -8,6 +8,7 @@ import { RequestProductRecommend } from "@/Service/ProductService/ProductService
 import { RecommendInfo } from "@/Types/Products/ProductTypes";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { SampleData } from "@/data/MainRecommendMDData";
 
 export default function Home() {
   console.log(Config().baseUrl);
@@ -15,11 +16,15 @@ export default function Home() {
   const [recommendData, setRecommendData] = useState<RecommendInfo>({});
 
   useEffect(() => {
-    RequestProductRecommend().then((res) => {
-      const result: RecommendInfo = res.data;
-      setRecommendData(result);
-      console.log(recommendData);
-    });
+    const resultData = SampleData.data;
+    // 얘는 추후에 서버랑 통신할때 쓰세요
+    // RequestProductRecommend().then((res) => {
+    //   const result: RecommendInfo = res.data;
+    //   setRecommendData(result);
+    //   console.log(recommendData);
+    // });
+    console.log(resultData);
+    setRecommendData(resultData);
   }, []);
 
   return (
