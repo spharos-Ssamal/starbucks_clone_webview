@@ -12,7 +12,7 @@ export const CustomAxios = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 CustomAxios.interceptors.request.use((config) => {
