@@ -1,5 +1,6 @@
 import HeaderTop from '@/components/layouts/HeaderTop';
-import StButton from '@/components/ui/StButton';
+import PayModal from '@/components/modals/PayModal';
+import ShareModal from '@/components/modals/ShareModal';
 import { ST } from 'next/dist/shared/lib/utils';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -29,17 +30,20 @@ export default function Product() {
     return state;
   }
 
+  const [ open, setOpen ] = useState(false);
+  const [ share, setShare ] = useState(false);
+
   const {y} = useScroll();
-  
   return (
     <>
     <HeaderTop />
-    
+    {open && <PayModal />}
+    {share && <ShareModal />}
     <div id="product-top">
     <div className="product-img">
       <img
         src="https://www.starbucks.co.kr:3443/upload/giftshop/goods/20230213/0ab0d443-af0e-4854-9c66-bd57b0174f02.jpg"
-        style={{ width: y > 100 ? "10%" : "100%" }}
+        style={{ width: y > 100 ? "10%" : "100%" }} //width = setState.. how?
         alt="" />
     </div>
     <div className="product-info">
@@ -47,7 +51,7 @@ export default function Product() {
         <div>
           <p>23 체리블라썸 페탈 미르 보온병 976ml<span className="is-new">New</span></p>
         </div>
-        <div className="share-icon">
+        <div className="share-icon" onClick={()=>setShare(!share)}>
           <img src="./assets/images/icons/user.svg" alt="" />
         </div>
       </div>
@@ -116,10 +120,10 @@ export default function Product() {
   </section>
 
   <section id="purchase-button"> 
-    <div className="toggle-icon"></div>
-    <StButton buttonText={'구매하기'} textSize={'1.1rem'}/>
+  <div className="toggle-icon"></div>
+    <button onClick={()=>setOpen(!open)}>구매하기</button>
   </section>
-
+    
     </>
   );
 }
