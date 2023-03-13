@@ -4,8 +4,10 @@ import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
 import RecommandMdList from '@/components/widgets/RecommandMdList'
 import Head from 'next/head'
+import { useState } from 'react'
 
 export default function Home() {
+  const [ rcmd, setRcmd ] = useState<RecommendInfo>();
   return (
     <>
       <Head>
@@ -16,7 +18,7 @@ export default function Home() {
       </Head>
       <Header />
       <MainBanner />
-      <RecommandMdList />
+      <RecommandMdList key={key}/>
       <ChunsikList />
     </>
   )
