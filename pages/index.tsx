@@ -1,8 +1,9 @@
 
 import Header from '@/components/layouts/Header'
+import RecommendMdList from '@/components/ui/RecommendMd'
 import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
-import RecommandMdList from '@/components/widgets/RecommandMdList'
+import { RecommendInfo } from '@/Types/ProdType'
 import Head from 'next/head'
 import { useState } from 'react'
 
@@ -18,7 +19,10 @@ export default function Home() {
       </Head>
       <Header />
       <MainBanner />
-      <RecommandMdList key={key}/>
+      {Object.keys().map(key => {
+        const value = recommendData[key];
+      }}
+      <RecommendMdList key={key} mdName={key} productList={value}/>
       <ChunsikList />
     </>
   )
