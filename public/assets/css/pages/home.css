@@ -6,7 +6,7 @@ section#event-banner {
   padding: 0px;
 }
 
-.recommand section h2{
+.recommand section h2 {
   font-size: 1.2rem;
   font-weight: 900;
   letter-spacing: 0.7px;
@@ -15,7 +15,6 @@ section#event-banner {
 .recommand {
   margin-bottom: 0;
 }
-
 
 section .recommand-product-list {
   display: flex;
@@ -46,12 +45,19 @@ section .recommand-product-list .recommand-product-item:last-child {
   margin-right: 0px;
 }
 
-section .recommand-product-list .recommand-product-item .recommand-product-item__img{
+section
+  .recommand-product-list
+  .recommand-product-item
+  .recommand-product-item__img {
   width: 100%;
   height: auto;
 }
 
-section .recommand-product-list .recommand-product-item .recommand-product-item__img img{
+section
+  .recommand-product-list
+  .recommand-product-item
+  .recommand-product-item__img
+  img {
   border-radius: 5px;
 }
 
