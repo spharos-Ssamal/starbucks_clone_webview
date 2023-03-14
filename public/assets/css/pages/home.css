@@ -44,11 +44,12 @@ section .recommand-product-list .recommand-product-item:last-child {
 }
 
 section .recommand-product-list .recommand-product-item .recommand-product-item__img{
-  width: 100%;
+  width: 200px;
   height: auto;
 }
 
 section .recommand-product-list .recommand-product-item .recommand-product-item__img img{
+  width: 100%;
   border-radius: 5px;
 }
 

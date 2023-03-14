@@ -65,7 +65,7 @@ h1 {
   padding: 0px;
   margin: 0px;
 }
-.loginModal {
+.modalWrap {
   position: fixed;
   top: 0;
   left: 0;
@@ -73,4 +73,38 @@ h1 {
   height: 100%;
   background-color: white;
   z-index: 999;
+}
+
+.slide-in {
+  animation: showUp 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes showUp {
+  0% {
+      opacity: 0;
+      transform: translateX(20px);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translateX(0px);
+  }
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-red);
+  color: white;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 800;
 }

@@ -329,21 +329,3 @@
 #email-input select option {
     font-size: 0.8rem;
 }
-.slide-in {
-    animation: showUp 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-@keyframes showUp {
-    0% {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}

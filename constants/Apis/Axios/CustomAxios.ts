@@ -6,14 +6,17 @@ import {
   CODE_REFRESH_TOKEN_EXPIRED,
 } from "@/constants/enums/ErrorCode";
 import { RequestReissueToken } from "@/Service/AuthService/AuthService";
+import Config from "@/configs/config.export";
 
+const { baseUrl } = Config();
 export const CustomAxios = axios.create({
-  baseURL: "http://10.10.10.215:8081",
+  baseURL: baseUrl,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true, 
 });
+
 
 CustomAxios.interceptors.request.use((config) => {
   const token = localStorage.getItem("ACCESS_TOKEN");

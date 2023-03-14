@@ -1,6 +1,8 @@
-import { productInfo } from '@/Types/starbucksTypes';
+import { BaseRes } from '@/constants/Apis/Types/ResponseType';
+import {useFetch} from '@/customHooks/useFetch';
+import axios from 'axios';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Product() {
 
@@ -10,11 +12,10 @@ export default function Product() {
   // useState and useEffect hooks
 
   // 2 Render the product data
+
+  const res = useFetch('products/1')
+  console.log(res)
   
-  const [prodOne, setProdOne] = useState<productInfo>(); 
-  
-  // useEffect(() => {
-  // })
 
   return (
     <>
