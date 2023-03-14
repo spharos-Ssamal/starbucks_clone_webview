@@ -1,6 +1,6 @@
 import { RecommendInfoRes } from "@/Types/ProdType";
 
-function RecommandMdList(props: {mdName: string, productList: RecommendInfoRes}) {
+function RecommendMdList(props: {mdName: string, productList: RecommendInfoRes}) {
   return (
     <section className="recommand" id="recommand-md-1">
     <div>
@@ -33,4 +33,4 @@ function RecommandMdList(props: {mdName: string, productList: RecommendInfoRes})
   );
 }
 
-export default RecommandMdList;
+export default RecommendMdList;
