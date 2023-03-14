@@ -8,7 +8,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 
 export default function Home() {
-  const [ rcmd, setRcmd ] = useState<RecommendInfo>();
+  const [ rcmd, setRcmd ] = useState<RecommendInfo>({});
   return (
     <>
       <Head>
@@ -19,10 +19,13 @@ export default function Home() {
       </Head>
       <Header />
       <MainBanner />
-      {Object.keys().map(key => {
-        const value = recommendData[key];
-      }}
-      <RecommendMdList key={key} mdName={key} productList={value}/>
+      {Object.keys(rcmd).map(key => {
+        const value = rcmd[key];
+        return(
+          <RecommendMdList key={key} mdName={key} productList={value}/>
+
+        );
+      })}
       <ChunsikList />
     </>
   )
