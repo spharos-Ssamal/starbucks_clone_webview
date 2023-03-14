@@ -1,5 +1,6 @@
 
 import Header from '@/components/layouts/Header'
+import RecommendMd from '@/components/ui/RecommendMd'
 import RecommendMdList from '@/components/ui/RecommendMd'
 import ChunsikList from '@/components/widgets/ChunsikList'
 import MainBanner from '@/components/widgets/MainBanner'
@@ -22,7 +23,7 @@ export default function Home() {
       {Object.keys(rcmd).map(key => {
         const value = rcmd[key];
         return(
-          <RecommendMdList key={key} mdName={key} productList={value}/>
+          <RecommendMd key={key} mdName={key} productList={value}/>
 
         );
       })}
