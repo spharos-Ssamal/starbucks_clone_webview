@@ -24,7 +24,7 @@ function Header() {
 
       <div className="header-top">
         <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
-          <Image
+          <img
             src="/assets/images/icons/menu.svg"
             alt="menu"
             width={20}
@@ -39,7 +39,7 @@ function Header() {
             {headerIcons.map((icon) => (
               <li key={icon.id}>
                 <Link href={icon.link}>
-                  <Image
+                  <img
                     src={icon.icon}
                     alt={icon.name}
                     width={20}

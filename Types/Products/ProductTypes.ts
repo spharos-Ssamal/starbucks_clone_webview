@@ -1,18 +1,15 @@
-export interface ProductInfo {
+export interface Products {
   id: number;
-  thumbnail: string;
   name: string;
-  price: string;
-  regTime: Date;
+  price: number;
+  description : string;
+  thumbnail: string;
   size: string;
-  season: string;
+  season : string;
+  regTime: string;
 }
 
 export interface RecommendInfoRes {
   categoryName: string;
-  products: ProductInfo;
-}
-
-export interface RecommendInfo {
-  [key: string]: RecommendInfoRes[];
+  products: Products;
 }

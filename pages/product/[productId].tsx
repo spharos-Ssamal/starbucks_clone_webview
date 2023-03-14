@@ -1,4 +1,4 @@
-import { productInfo } from '@/Types/starbucksTypes';
+import { ProductInfo } from '@/Types/ProdType';
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ export default function Product() {
 
   // 2 Render the product data
   
-  const [prodOne, setProdOne] = useState<productInfo>(); 
+  const [prodOne, setProdOne] = useState<ProductInfo>(); 
   
   // useEffect(() => {
   // })

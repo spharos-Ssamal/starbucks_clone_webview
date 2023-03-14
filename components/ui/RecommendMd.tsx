@@ -1,4 +1,5 @@
 import { RecommendInfoRes } from "@/Types/ProdType";
+import MdList from "../widgets/MdList";
 import RecommendMdList from "../widgets/RecommendMdList";
 
 export default function RecommendMd(props: {mdName: string; productList: RecommendInfoRes[] } ) {
@@ -11,7 +12,7 @@ export default function RecommendMd(props: {mdName: string; productList: Recomme
       <div className="recommand-product-list">
         {props.productList.map( item => (
           <>
-            <RecommendMdList key={item.products.id} product={item}/>
+            <MdList key={item.products.id} product={item}/>
           </>
         ))}
       </div>
