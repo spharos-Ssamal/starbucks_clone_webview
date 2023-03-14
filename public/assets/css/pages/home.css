@@ -45,6 +45,7 @@ section .recommand-product-list .recommand-product-item:last-child {
   margin-right: 0px;
 }
 
+<<<<<<< HEAD
 section
   .recommand-product-list
   .recommand-product-item
@@ -58,6 +59,15 @@ section
   .recommand-product-item
   .recommand-product-item__img
   img {
+=======
+section .recommand-product-list .recommand-product-item .recommand-product-item__img{
+  width: 200px;
+  height: auto;
+}
+
+section .recommand-product-list .recommand-product-item .recommand-product-item__img img{
+  width: 100%;
+>>>>>>> develop
   border-radius: 5px;
 }
 

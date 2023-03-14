@@ -1,16 +1,18 @@
 import { inputRegisterType } from '@/Types/UserRequest/Request';
-import React, {useState} from 'react'
-import Step01 from '../components/page/signup/Step01';
-import Step02 from '../components/page/signup/Step02';
-import Step03 from '../components/page/signup/Step03';
-import Step04 from '../components/page/signup/Step04';
-import Step05 from '../components/page/signup/Step05';
-import StButton from '@/components/ui/StButton';
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import Step01 from '../page/signup/Step01';
+import Step02 from '../page/signup/Step02';
+import Step03 from '../page/signup/Step03';
+import Step04 from '../page/signup/Step04';
+import Step05 from '../page/signup/Step05';
+import StButton from '../ui/StButton';
 
+export interface SignupModalProps {
+  isSignupModalOpen: boolean;
+  setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-
-export default function signup() {
-
+export default function SignupModal({ isSignupModalOpen, setIsSignupModalOpen }: SignupModalProps) {
   const [stepId, setStepId] = useState<number>(1);
   const [inputData, setInputData] = useState<inputRegisterType>({
     userEmail: "",
@@ -38,13 +40,20 @@ export default function signup() {
       return;
     } else if (inputData.isAgree && stepId === 1) {
       setStepId(2);
+    } else if (inputData.isUserConfirm && stepId === 2) {
+      setStepId(3);
     }
-    
   }
 
+  if ( !isSignupModalOpen ) return null;
+
   return (
-    <>
-     
+    <div className='modalWrap'>
+      <div>
+        <div onClick={()=>setIsSignupModalOpen(false)}>
+          <img src="/assets/images/icons/left.png" className="back-button" />
+        </div>
+      </div>
       {steps[stepId-1][stepId]}
       <section className="submit-container">
         <StButton
@@ -53,6 +62,6 @@ export default function signup() {
           handler = { handleStepNext }
         />
       </section>
-    </>
+    </div>
   )
 }

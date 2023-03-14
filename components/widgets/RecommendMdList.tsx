@@ -1,36 +1,39 @@
-import { RecommendInfoRes } from "@/Types/ProdType";
+import Config from "@/configs/config.export";
+import { BaseRes, eventData, recommandData } from "@/constants/Apis/Types/ResponseType";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import RecommandProductCard from "../ui/RecommandProductCard";
 
-function RecommendMdList(props: {mdName: string, productList: RecommendInfoRes}) {
+function RecommandMdList(props:{ data: eventData}) {
+
+  const { baseUrl } = Config();
+  const [ recommandData, setRecommandData ] = useState<BaseRes>({} as BaseRes)
+
+  useEffect(()=>{
+    axios.get(`${baseUrl}api/v1/recommend/get?recommendId=${props.data.id}`)
+    .then(res => {
+      setRecommandData(res.data)
+      console.log(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      })
+  },[props, baseUrl])
+
   return (
     <section className="recommand" id="recommand-md-1">
     <div>
-      <h2>Cherry Blossom🌸</h2>
+      <h2>{props.data.name}</h2>
       <div className="recommand-product-list">
-        <div className="recommand-product-item">
-          <div className="recommand-product-item__img">
-            <img src="assets/images/products/01.png" alt="23 SS 체리 밸류 로맨틱 텀블러 355ml" />
-          </div>
-          <div className="recommand-product-item__info">
-            <p className="item-new">New</p>
-            <p className="item-title">23 SS 체리 밸류 로맨틱 텀블러 355ml</p>
-            <p className="item-price"><span>32,000</span>원</p>
-          </div>
-        </div>
-        <div className="recommand-product-item">
-          <div className="recommand-product-item__img">
-            <img src="assets/images/products/01.png" alt="" />
-          </div>
-          <div className="recommand-product-item__info">
-            <p className="item-new hide">New</p>
-            <p className="item-title">23 SS 체리 밸류 로맨틱 텀블러 355ml</p>
-            <p className="item-price"><span>32,000</span>원</p>
-          </div>
-        </div>
-        
+      {
+        recommandData.data && recommandData.data.map(
+          (item: recommandData , idx: number) => <RecommandProductCard key={idx} data={item} />
+        )
+      }
       </div>
     </div>
   </section>
   );
 }
 
-export default RecommendMdList;
+export default RecommandMdList;

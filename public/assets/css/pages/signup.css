@@ -1,14 +1,15 @@
-
 .signup-header {
     display: flex;
     font-size: 1.3rem;
     align-items: center;
+    box-sizing: border-box; 
 }
 
 .signup-header p {
     padding: 0;
     padding-left: 25%;
     margin: 0;
+
 }
 
 .page-num {
@@ -16,25 +17,33 @@
     color: var(--color-gray-text);
 }
 
+.greeting {
+    width: 100%;
+    box-sizing: border-box;
+}
 
+/* signup - step 01 */
 .greeting .signup-info {
     font-weight: normal;
-    line-height: 35px;
+    font-size: 1.4rem;
+    padding-left: 8px;
+    opacity: 0.7;
 }
 
 .agree-input {
     width: 100%;
     padding: 0;
-    font-size: 1.2rem;
-    margin-top: 80px;
+    font-size: 1.0rem;
+    margin-top: 2rem;
+    opacity: 0.7;
 }
 
 .agree-input input {
-    margin: 10px 3px 15px 25px;
-    vertical-align: middle;
+    box-sizing: border-box;
+    margin-right: 0.7rem;
 }
 
-.agree-input>input[type=checkbox] {
+.agree-input input[type=checkbox] {
     transform : scale(1.2);
     appearance: none;
     width: 1rem;
@@ -43,9 +52,56 @@
     border: 1px solid var(--color-gray-button);
 }
 
-input[type="checkbox"]:checked {
+.agree-input input[type="checkbox"]:checked {
     background: var(--color-light-green);
     border: none;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 20px;
+}
+
+.form-group .left-form {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+}
+
+.form-group .arrow {
+    height: 0.5rem;
+    opacity: 0.7;
+}
+
+
+
+/* .signup-title {
+    box-sizing: border-box;
+    margin-top: 2rem;
+    padding: 0 24px;
+}
+.signup-title h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+} */
+
+
+
+
+
+.form-group-small {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .agree-input .advertising-info input[type=checkbox] {
@@ -55,10 +111,17 @@ input[type="checkbox"]:checked {
     height: 1rem;
     border-radius: 15%;
 }
+.small-left-50 {
+    margin-left: 50px;
+}
+.agree-input .advertising-info label {
+   font-size: 0.9rem;
+   margin-right: 20px;
+}
 
 .agree-input .advertising-info input[type=checkbox]:checked {
     background-color: var(--color-light-green);
-    background-image: url(https://blog.kakaocdn.net/dn/t7a2D/btrhtVgLYmG/dUxzAkBy9hIZ4gHmyllQrk/img.png);
+    border: none;
 }
 
 
@@ -69,75 +132,36 @@ input[type="checkbox"]:checked {
     float: right;
 }
 
-/* 요소를 숨기는 class.
-.txt-hide {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-/*체크를 안 했을 때*/
-/* label::before{
-	display: inline-block;
-    content:"";
-    width: 1rem;
-    height: 1rem;
-    margin-right: 10px;
-    border-radius: 50%;
-    border: 1px solid var(--color-gray-button);
-    /* background-image:url("체크 안된 상태의 이미지.png"); */
-/* } */
-
-/*체크했을 때*/
-/* input:checked+.labl::before{
-	background-image: url(/assets/images/icons/check_white.png);
-
-} */
-
 .agree-input #advertising-email {
     margin-left: 50px;
 }
 
-.agree-input .arrow {
-    height: 0.8rem;
-    padding-right: 30px;
-    opacity: 0.5;
-}
+
 
 .agree-input p {
-    padding-left: 50px;
-    margin: 0;
     font-size: 0.8rem;
     color: var(--color-gray-text);
 }
 
-#identification-agree {
-    margin-top: 230px;
-}
-
-#identification-agree p {
-    padding-left: 25px;
-    display: inline-block;
-}
-
-
-#identification-agree .arrow {
-    height: 0.8rem;
-    padding-right: 30px;
-}
-
-#identification-agree a {
+.form-group-step {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    align-items: center;
+    margin-bottom : 10px;
+}
+
+.form-group-step p {
+    padding: 0px 0px 0px 5px;
+    margin: 0px;
+}
+.agree-input a {
     text-decoration: none;
-    padding: 5px;
 }
 
 #identification-input {
-    margin-top: 15px;
     padding: 25px;
+    box-sizing: border-box;
+    opacity: 0.7;
 }
 
 #identification-input input {
@@ -157,7 +181,9 @@ input[type="checkbox"]:checked {
     display: flex;
     
 }
-
+.phonenumber-input select {
+    appearance: none;
+}
 #identification-input input:focus {
     border-bottom: 1.5px solid var(--color-light-green);
 }
@@ -300,18 +326,4 @@ input[type="checkbox"]:checked {
 
 #email-input select option {
     font-size: 0.8rem;
-}
-
-.slide-in {
-    animation: slide-in 0.5s ease-in-out;
-    animation-duration: 3s;
-}
-
-@keyframes slide-in {
-    0% {
-        transform: translateX(300);
-    }
-    100% {
-        transform: translateX(0);
-    }
 }

@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { ProductInfo } from '@/Types/ProdType';
+=======
+import { BaseRes } from '@/constants/Apis/Types/ResponseType';
+import {useFetch} from '@/customHooks/useFetch';
+import axios from 'axios';
+>>>>>>> develop
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Product() {
 
@@ -10,11 +16,17 @@ export default function Product() {
   // useState and useEffect hooks
 
   // 2 Render the product data
+
+  const res = useFetch('products/1')
+  console.log(res)
   
+<<<<<<< HEAD
   const [prodOne, setProdOne] = useState<ProductInfo>(); 
   
   // useEffect(() => {
   // })
+=======
+>>>>>>> develop
 
   return (
     <>
