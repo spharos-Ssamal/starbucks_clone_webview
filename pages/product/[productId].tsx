@@ -1,4 +1,4 @@
-import PayModal from '@/components/modals/PayModal';
+import askGiftOrPayModal from '@/components/modals/askGiftOrPayModal';
 import ShareModal from '@/components/modals/ShareModal';
 import Config from '@/configs/config.export';
 import { BaseRes } from '@/constants/Apis/Types/ResponseType';
@@ -61,7 +61,7 @@ export default function Product() {
 
   return (
     <>
-    {open && <PayModal />}
+    {open && <askGiftOrPayModal />}
     {share && <ShareModal />}
   <section id="product-top">
     <div className="product-img">
