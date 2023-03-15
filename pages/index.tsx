@@ -12,6 +12,7 @@ export default function Home() {
   
   const { baseUrl } = Config();
   const [ data, setData ] = useState<BaseRes>({} as BaseRes) 
+  const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
 
   useEffect(()=>{
 
@@ -21,6 +22,16 @@ export default function Home() {
        setData(res.data)
       })
       .catch(err => {
+        console.log(err)
+      })
+
+      axios.get(`${baseUrl}api/v1/event/active`)
+      .then(res => {
+        console.log(res)
+        let rndNumber = Math.floor(Math.random() * res.data.data.length);
+        setViewByOthersData(res.data.data[rndNumber]);
+      })
+      .catch(err=> {
         console.log(err)
       })
 
@@ -40,7 +51,9 @@ export default function Home() {
           (item: eventData) => <RecommandMdList key={item.id} data={item} />
         ) 
       }
-      <ChunsikList />
+      <ChunsikList 
+        data={viewByOthersData}
+      />
     </>
   )
 }

@@ -4,13 +4,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RecommandProductCard from "../ui/RecommandProductCard";
 
-function RecommandMdList(props:{ data: eventData, title ?: string }) {
+function EventMdList(props:{ data: eventData, title ?: string }) {
 
   const { baseUrl } = Config();
   const [ recommandData, setRecommandData ] = useState<BaseRes>({} as BaseRes)
 
   useEffect(()=>{
-    axios.get(`${baseUrl}api/v1/recommend/get?recommendId=${props.data.id}`)
+    axios.get(`${baseUrl}api/v1/event/get?eventId=${props.data.id}`)
     .then(res => {
       setRecommandData(res.data)
       console.log(res.data)
@@ -36,4 +36,4 @@ function RecommandMdList(props:{ data: eventData, title ?: string }) {
   );
 }
 
-export default RecommandMdList;
+export default EventMdList;

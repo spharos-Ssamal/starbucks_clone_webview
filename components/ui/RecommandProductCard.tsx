@@ -1,4 +1,5 @@
 import { recommandData } from '@/constants/Apis/Types/ResponseType'
+import Link from 'next/link'
 import React from 'react'
 
 export default function RecommandProductCard(props: {data: recommandData}) {
@@ -8,7 +9,9 @@ export default function RecommandProductCard(props: {data: recommandData}) {
         <div 
           className="recommand-product-item__img"
         >
+          <Link href={`/product/${props.data.products.id}`}>
           <img src={props.data.products.thumbnail} alt={props.data.products.description} />
+          </Link>
         </div>
         <div className="recommand-product-item__info">
           <p className="item-new">New</p>

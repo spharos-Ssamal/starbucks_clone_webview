@@ -3,9 +3,9 @@ section#event-banner {
   padding: 0px;
 }
 
-.recommand section h2{
-  font-size: 1.2rem;
-  font-weight: 900;
+.recommand h2{
+  font-size: 1.15rem;
+  font-weight: 600;
   letter-spacing: 0.7px;
 }
 
@@ -59,15 +59,21 @@ section .recommand-product-list .recommand-product-item .recommand-product-item_
 }
 
 #chunsik .chunsik-item {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
+  box-size: border-box;
 }
 
-#chunsik .chunsik-item img {
+#chunsik .chunsik-item a{
   width: 25%;
-  height: auto;
+}
+
+#chunsik .chunsik-item a img {
+  width: 100%;
+  border-radius: 5px;
 }
 
 #chunsik .chunsik-item .chunsik-item-info {

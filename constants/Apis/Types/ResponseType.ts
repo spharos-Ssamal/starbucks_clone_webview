@@ -13,6 +13,7 @@ export interface eventData {
 export interface recommandData {
   categoryName: string,
   products: {
+    id: number,
     description: string,
     name: string,
     price: number,

@@ -10,14 +10,25 @@ export interface loginData {
 }
 
 export interface productDataType {
-  id: string,
+  id: number,
   name: string,
   price: number,
   description: string,
   thumbnail: string,
   size: string,
-  season: string,
-  imgUrl_1: string,
-  imgUrl_2?: string,
-  imgUrl_3?: string
+  season: string
+}
+
+export interface chunsikDataType {
+
+  categoryName: string,
+  products: {
+    id: number,
+    description: string,
+    name: string,
+    price: number,
+    size: string,
+    thumbnail: string,
+    season: string,
+  }
 }
