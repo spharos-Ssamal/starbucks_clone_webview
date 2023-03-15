@@ -9,6 +9,7 @@ import rightArrow from '@/public/assets/images/contents/arrow_right.png';
 import RecommandMdList from '@/components/widgets/RecommandMdList';
 import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType';
 import EventMdList from '@/components/widgets/EventMdList';
+import ClickBuyModal from '@/components/modals/ClickBuyModal';
 
 export default function Product() {
   
@@ -118,6 +119,7 @@ export default function Product() {
       </section>
       <section id="product-detail">
         <p>상품 정보</p>
+        <ClickBuyModal />
         <img src="./assets/images/products/product-detail.png" alt="" />
       </section>
       <RecommandMdList 

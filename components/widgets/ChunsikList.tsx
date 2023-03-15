@@ -15,21 +15,23 @@ function ChunsikList(props: {data: eventData}) {
     .then(res => {
       setChunsikData(res.data)
       console.log(res.data)
+      console.log('props.data.id '+props.data.id)
     })
     .catch(err => {
       console.log(err)
       })
   },[props, baseUrl])
 
+  
   return ( 
     <section className="recommand" id="chunsik">
-      <h2>바리스타 춘식 MD💛</h2>
+      <h2>{props.data.name}</h2>
       {
         chunsikData.data && chunsikData.data.map(
           (chunsik: chunsikDataType) => (
             <div className="chunsik-item" key={chunsik.products.id}>
               
-                <Link href={`/products/${chunsik.products.id}`}>
+                <Link href={`/product/${chunsik.products.id}`}>
                 <img src={chunsik.products.thumbnail} alt={chunsik.products.description}/>
                 </Link>
              

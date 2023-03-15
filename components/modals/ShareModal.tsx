@@ -1,3 +1,5 @@
+import styles from './ShareModal.module.css'
+
 export default function ShareModal() {
   return (
     <div>
