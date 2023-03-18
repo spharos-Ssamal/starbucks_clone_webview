@@ -17,6 +17,7 @@
 .sharemd-btn {
   position: absolute;
   bottom : 30px;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;

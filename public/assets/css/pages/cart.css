@@ -87,6 +87,7 @@
 }
 
 .cart-product .item-info {
+  width: 80%;
   display: flex;
   padding: 0px;
   margin: 0px 10px;

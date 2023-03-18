@@ -11,13 +11,20 @@ export default function CheckBox(
     isArrow: boolean, 
     inputName: string, 
     link: string, 
+    value?: boolean
     handler?: handleInput
   }) {
  
   return (
     <div className='form-group'>
       <div className='left-form'>
-      <input type="checkbox" id="tos-agree" name={props.inputName} onChange = { props.handler && props.handler } />
+      <input 
+        type="checkbox" 
+        id="tos-agree" 
+        name={props.inputName} 
+        onChange = { props.handler && props.handler } 
+        checked = { props.value && props.value }
+      />
       <label>{props.lableText}</label>
       </div>
       <Link href={props.link && props.link}>

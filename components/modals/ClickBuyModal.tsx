@@ -4,25 +4,28 @@ export default function ClickBuyModal() {
     <div className="ClickBuyModal_wrap">
       <div className="grey-bar"></div>
       <div className="greybox">
-        <div className="greybox-head">product name</div>
-        <div className="count-left">
-          <div className="minus">
-            <img src="assets/images/icons/minus.png" alt="" />
+
+        <div className="graybox-wrap">
+          <div className="greybox-head">product name</div>
+          <div className="count-left">
+            <div className="minus">
+              <img src="assets/images/icons/minus.png" alt="" />
+            </div>
+            <div className="qty">1</div>
+            <div className="plus">
+              <img src="assets/images/icons/plus.png" alt="" />
+            </div>
           </div>
-          <div className="qty">1</div>
-          <div className="plus">
-            <img src="assets/images/icons/plus.png" alt="" />
-          </div>
+          <div className="count-right">20000won</div>
         </div>
-        <div className="count-right">20000won</div>
       </div>
 
       <hr />
 
       <div className="total">
         <div className="total_small">TOTAL</div>
-        <div className="total_amount">TOTAL</div>
-        <div className="total_unit">Won</div>
+        <div className="total_amount">11,000</div>
+        <div className="total_won">Won</div>
       </div>
 
       <div className="bottom">
