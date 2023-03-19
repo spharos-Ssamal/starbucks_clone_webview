@@ -1,3 +1,14 @@
+.wrapper{
+    height: 100vh;
+    background-color: white;
+  }
+  
+.wrapper2{
+height: 100vh;
+background-color: grey;
+}
+  
+
 #purchase-list-date {
     margin-top: 40px;
 }
