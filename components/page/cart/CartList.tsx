@@ -46,7 +46,7 @@ export default function CartList() {
       <div className="select">
         <div className="select-items">
           <div className={listAllCheck ? 'sbCheckBoxOn':'sbCheckBox'} onClick={()=>handleCartListAllCheck(listAllCheck)}></div>
-          <p>일반상품</p>
+          <p className='cart-select-btn'>일반상품</p>
         </div>
       </div>
       {
@@ -63,7 +63,7 @@ export default function CartList() {
         <div className="select">
           <div className="select-items">
           <div className={listFreezeAllCheck ? 'sbCheckBoxOn':'sbCheckBox'} onClick={()=>handleFreezeCartListAllCheck(listFreezeAllCheck)}></div>
-          <p>냉동상품</p>
+          <p className='cart-select-btn'>냉동상품</p>
           </div>
         </div>
         {
