@@ -36,7 +36,7 @@
 }
 
 .sbCheckBoxOn {
-  width: 20px;
+  width: 25px;
   height: 20px;
   background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
