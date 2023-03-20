@@ -5,8 +5,8 @@ section#event-banner {
 
 .event-banner{
   display: block;
-  height: fit-content;
-  position: fixed;
+  height: 300px;
+  overflow: hidden;
 }
 
 .recommand h2{
