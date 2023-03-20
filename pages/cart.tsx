@@ -16,8 +16,9 @@ export default function Cart() {
   const setCartList = useSetRecoilState<cartType>(cartListState);
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/cartListByUser`)
-    .then((res) => {     
+    axios.get(`http://localhost:3001/cartListByUser`)
+    .then((res) => {    
+      console.log(res.data) 
       setCartList({
         cartListFreeze: res.data.filter((item:cartListType) => item.bigCategoryId === 1),
         cartList: res.data.filter((item:cartListType) => item.bigCategoryId !== 1)
