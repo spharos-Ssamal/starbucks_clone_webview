@@ -10,18 +10,21 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import styles from "./cart.module.css";
+import Config from "@/configs/config.export";
 
 export default function Cart() {
+
+  const baseUrl = Config().baseUrl;
 
   const setCartList = useSetRecoilState<cartType>(cartListState);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/cartListByUser`)
+    axios.get(`${baseUrl}api/v1/cart/get?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`)
     .then((res) => {    
       console.log(res.data) 
       setCartList({
-        cartListFreeze: res.data.filter((item:cartListType) => item.bigCategoryId === 1),
-        cartList: res.data.filter((item:cartListType) => item.bigCategoryId !== 1)
+        cartListFreeze: res.data.data.filter((item:cartListType) => item.frozen === true),
+        cartList: res.data.data.filter((item:cartListType) => item.frozen === false)
       })
     }).catch((err) => {
       console.log(err)

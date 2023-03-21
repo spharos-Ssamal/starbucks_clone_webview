@@ -40,6 +40,9 @@ export default function CartList() {
       })
     })
   }
+
+  console.log(cartItems.cartListFreeze)
+  
   return (
     <section id="cart-list">
       
@@ -52,7 +55,7 @@ export default function CartList() {
       {
         cartItems.cartList.map((item:cartListType) => (
           <CartItem 
-            key={item.cartId}
+            key={item.id}
             data={item} 
           />
         ))
@@ -69,7 +72,7 @@ export default function CartList() {
         {
           cartItems.cartListFreeze.map((item:cartListType) => (
             <CartItem 
-              key={item.cartId}
+              key={item.id}
               data={item} 
             />
           ))
