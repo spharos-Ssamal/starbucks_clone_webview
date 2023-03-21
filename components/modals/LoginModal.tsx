@@ -1,34 +1,47 @@
+import { LoginReq } from '@/Types/UserRequest/Request';
+import { LoginRes } from '@/Types/UserRequest/Response';
+import { cookies } from 'next/headers';
 import { loginData } from '@/Types/starbucksTypes';
 import Config from '@/configs/config.export';
 import { REQUEST_LOGIN } from '@/constants/Apis/URL';
+import { userIsLogin } from '@/state/user/atom/userIsLoginState';
+import { userLoginState } from '@/state/user/atom/userLoginState';
 import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import Swal from 'sweetalert2';
 
 export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Function}) {
   const BASE_URL = Config().baseUrl;
+  const [loginData, setLoginData] = useRecoilState<LoginRes>(userLoginState);
+  const setIsLogIn = useSetRecoilState<boolean>(userIsLogin);
 
-  const [inputData, setInputData] = useState({} as loginData);
+  const [inputData, setInputData] = useState<LoginReq>({
+    userEmail: "",
+    password: "",
+  });
   const [isError, setIsError] = useState({
-    email: false,
+    userEmail: false,
     password: false,
   });
 
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === "email") {
-      setInputData({ ...inputData, email: value });
-    } else if (name === "password") {
-      setInputData({ ...inputData, password: value });
-    }
+    setInputData({ ...inputData, [name]: value });
   };
 
   //로그인 확인용 => Recoil 셋업 되는대로 라우팅 처리 하겠습니다.
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    if (inputData.email === "" || inputData.password === "") {
-      alert("이메일과 비밀번호를 입력해 주세요.");
+    console.log(inputData);
+    if (inputData.userEmail === "" || inputData.password === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "이메일과 비밀번호를 입력해주세요!",
+      });
       return;
     } else {
       // RequestLogin({
@@ -39,14 +52,32 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
       // });
 
       axios.post(`${BASE_URL}${REQUEST_LOGIN}`, {
-        userEmail: inputData.email,
+        userEmail: inputData.userEmail,
         password: inputData.password,
       }).then(res=> {
         console.log(res);
-      })
+        setLoginData(res.data.data);
+        setIsLogIn(true);
+        let myLogin = localStorage;
+        myLogin.setItem('userId', res.data.data.userId);
+        myLogin.setItem('accessToken', res.data.data.accessToken); 
+        myLogin.setItem('refreshToken', res.data.data.refreshToken);        
 
+      }).then(() => {
+        Swal.fire({
+          icon: "success",
+          text: "Welcome!",
+        });
+        props.setIsModalOpen(false)
+      })
+      .catch(err=> {
+        console.log(err);
+      })
+      
     }
   };
+
+  console.log(loginData)
   
   if(!props.isModalOpen) return null;
 
@@ -80,11 +111,11 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
         <div id="login-input">
           <input
             type="email"
-            name="email"
+            name="userEmail"
             placeholder="이메일"
             onChange={handleOnChange}
           />
-          {isError.email ? (
+          {isError.userEmail ? (
             <p className="error-message">이메일을 입력해 주세요.</p>
           ) : null}
           <input
@@ -102,12 +133,12 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
           <Link href={"/"}>비밀번호 찾기</Link>
           <Link href={"/"}>회원가입</Link>
         </div>
-       
-      </form>
-      </div>
-      <div className="submit-container">
+        <div className="submit-container">
           <button type="submit">로그인하기</button>
         </div>
+      </form>
+      </div>
+      
       
     </div>
   );

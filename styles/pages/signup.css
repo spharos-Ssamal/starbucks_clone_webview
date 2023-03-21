@@ -1,0 +1,331 @@
+
+.signup-header {
+    display: flex;
+    font-size: 1.3rem;
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+.signup-header p {
+    padding: 0;
+    padding-left: 25%;
+    margin: 0;
+
+}
+
+.page-num {
+    letter-spacing: -3.5px;
+    color: var(--color-gray-text);
+}
+
+.greeting {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* signup - step 01 */
+.greeting .signup-info {
+    font-weight: normal;
+    font-size: 1.4rem;
+    padding-left: 8px;
+    opacity: 0.7;
+}
+
+.agree-input {
+    width: 100%;
+    padding: 0;
+    font-size: 1.0rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+}
+
+.agree-input input {
+    box-sizing: border-box;
+    margin-right: 0.7rem;
+}
+
+.agree-input input[type=checkbox] {
+    transform : scale(1.2);
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-gray-button);
+}
+
+.agree-input input[type="checkbox"]:checked {
+    background: var(--color-light-green);
+    border: none;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 20px;
+}
+
+.form-group .left-form {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+}
+
+.form-group .arrow {
+    height: 0.5rem;
+    opacity: 0.7;
+}
+
+
+
+/* .signup-title {
+    box-sizing: border-box;
+    margin-top: 2rem;
+    padding: 0 24px;
+}
+
+.signup-title h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+} */
+
+
+
+
+
+.form-group-small {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.agree-input .advertising-info input[type=checkbox] {
+    border: 1px solid var(--color-gray-button);
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 15%;
+}
+.small-left-50 {
+    margin-left: 50px;
+}
+.agree-input .advertising-info label {
+   font-size: 0.9rem;
+   margin-right: 20px;
+}
+
+.agree-input .advertising-info input[type=checkbox]:checked {
+    background-color: var(--color-light-green);
+    border: none;
+}
+
+
+#agree-main a {
+    justify-content: space-between;
+    text-decoration: none;
+    padding: 5px;
+    float: right;
+}
+
+.agree-input #advertising-email {
+    margin-left: 50px;
+}
+
+
+
+.agree-input p {
+    font-size: 0.8rem;
+    color: var(--color-gray-text);
+}
+
+.form-group-step {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom : 10px;
+}
+
+.form-group-step p {
+    padding: 0px 0px 0px 5px;
+    margin: 0px;
+}
+.agree-input a {
+    text-decoration: none;
+}
+
+#identification-input {
+    padding: 25px;
+    box-sizing: border-box;
+    opacity: 0.7;
+}
+
+#identification-input input {
+    border: 0;
+    border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
+    font-size: 1.2rem;
+    width: 100%;
+    outline: none;
+    padding: 2px;
+    height: 40px;
+    vertical-align: bottom;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.phonenumber-input {
+    display: flex;
+    
+}
+.phonenumber-input select {
+    appearance: none;
+}
+#identification-input input:focus {
+    border-bottom: 1.5px solid var(--color-light-green);
+}
+
+#identification-input select {
+    appearance: none;
+    border: none;
+    font-size: 1.2rem;
+    padding-left: 5px;
+    vertical-align: middle;
+    position: sticky;
+    appearance: none;
+    height: 40px;
+    background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat;
+    background-size: 20px;
+    padding: 5px 30px 5px 10px;
+    width: 30%;
+}
+
+#identification-input select option {
+    font-size: 0.8rem;
+}
+
+#identification-input p {
+    color: var(--color-gray-text);
+    margin-top: 0;
+    padding: 0 10px;
+}
+
+.request {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    white-space: nowrap;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    color: var(--color-gray-text);
+}
+
+#id-password-input {
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding: 0 25px;
+}
+
+#id-password-input input {
+    border: 0;
+    border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
+    font-size: 1.2rem;
+    width: 100%;
+    outline: none;
+    padding: 2px;
+    height: 40px;
+    vertical-align: bottom;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#id-password-input p {
+    font-size: 1.3rem;
+    color: var(--color-gray-text)
+}
+
+#id-password-input input:focus {
+    border-bottom: 1.5px solid var(--color-light-green);
+}
+
+
+#id-password-input select {
+    appearance: none;
+    border: none;
+    font-size: 1.2rem;
+    padding-left: 5px;
+    vertical-align: middle;
+    position: sticky;
+    appearance: none;
+    height: 40px;
+    background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat;
+    background-size: 20px;
+    padding: 5px 30px 5px 10px;
+    width: 70%;
+    color: var(--color-gray-text);
+}
+
+#id-password-input select option {
+    font-size: 0.8rem;
+}
+
+.email-guideline {
+    margin: 0;
+    padding: 0 25px;
+    color: var(--color-gray-text);
+}
+
+#email-input {
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding: 0 25px;
+    display: flex;
+    align-items: baseline;
+}
+
+#email-input select {
+    appearance: none;
+    border: none;
+    font-size: 1.2rem;
+    padding-left: 5px;
+    vertical-align: middle;
+    position: sticky;
+    appearance: none;
+    height: 40px;
+    background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat;
+    background-size: 20px;
+    padding: 5px 30px 5px 10px;
+    width: 70%;
+    color: var(--color-gray-text);
+}
+
+#email-input input {
+    border: 0;
+    border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
+    font-size: 1.2rem;
+    width: 100%;
+    outline: none;
+    padding: 2px;
+    height: 40px;
+    vertical-align: bottom;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#email-input p {
+    font-size: 1.3rem;
+    color: var(--color-gray-text)
+}
+
+#email-input input:focus {
+    border-bottom: 1.5px solid var(--color-light-green);
+}
+
+
+#email-input select option {
+    font-size: 0.8rem;
+}

@@ -4,15 +4,22 @@ import CartHeader from "@/components/page/cart/CartHeader";
 import CartInfo from "@/components/page/cart/CartInfo";
 import CartList from "@/components/page/cart/CartList";
 import CartMenu from "@/components/page/cart/CartMenu";
-import { cartListState } from "@/state/cartListState";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styles from "./cart.module.css";
 import Config from "@/configs/config.export";
+import { cartListState } from "@/state/cart/atom/cartListState";
+import withAuth from "@/util/withAuth";
+import { useRouter } from "next/router";
+import { userIsLogin } from "@/state/user/atom/userIsLoginState";
+import Swal from "sweetalert2";
 
-export default function Cart() {
+function Cart() {
+
+  const router = useRouter();
+  const isLogin = useRecoilValue(userIsLogin)
 
   const baseUrl = Config().baseUrl;
 
@@ -31,6 +38,16 @@ export default function Cart() {
     })
   },[])
 
+  if(!isLogin) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'You must login first!',
+    })
+    router.replace('/login');
+    return null;
+  }
+
   return(
     <>
     <Head>
@@ -45,3 +62,5 @@ export default function Cart() {
     </>
   );
 }
+
+export default (Cart);
