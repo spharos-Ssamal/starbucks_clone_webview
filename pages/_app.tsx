@@ -3,8 +3,6 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 
 import Header from '../components/layouts/Header'
-import { useState } from 'react';
-import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -14,12 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <div className='container'>
-      <RecoilRoot >
       {
-        router.pathname === '/signup' || router.pathname === '/cart' ? null :  <Header/>
+        router.pathname === '/login' ? null :  <Header />
       }
       <Component {...pageProps} />
-      </RecoilRoot>
     </div>
     ); 
   }
