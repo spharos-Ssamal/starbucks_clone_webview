@@ -4,6 +4,7 @@ import { productDataType } from '@/Types/starbucksTypes';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import Image from 'next/image'
 
 import rightArrow from '@/public/assets/images/contents/arrow_right.png';
 import RecommandMdList from '@/components/widgets/RecommandMdList';
@@ -97,7 +98,7 @@ export default function Product() {
       {/* <ClickBuyModal /> */}
       <section id="product-top">
         <div className="product-img">
-          <img 
+          <Image 
             src={productData.thumbnail}
             alt={productData.description}
           />
@@ -108,7 +109,7 @@ export default function Product() {
               <p>{productData.name}<span className="is-new">New</span></p>
             </div>
             <div className="share-icon" onClick={()=>setShare(!share)}>
-              <img src="@/public/assets/images/icons/user.svg" alt=""/>
+              <Image src="@/public/assets/images/icons/user.svg" alt=""/>
             </div>
           </div>
           <div className="description">
@@ -125,7 +126,7 @@ export default function Product() {
         <p>상품 정보</p>
         {
           productImages && productImages.map( (item:productResponseDetailImages) => (
-            <img key={item.id} src={item.imageUrl} alt=""/>
+            <Image key={item.id} src={item.imageUrl} alt=""/>
           ))
         }
       </section>
@@ -144,7 +145,7 @@ export default function Product() {
               <div>
                 <p className="title">이용조건 및 배송안내</p>
               </div>
-              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
             </div>
           </button>
         </div>
@@ -154,7 +155,7 @@ export default function Product() {
               <div>
                 <p className="title">상품제공정보고시</p>
               </div>
-              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
             </div>
           </button>
         </div>
@@ -164,7 +165,7 @@ export default function Product() {
               <div>
                 <p className="title">교환/반품 안내</p>
               </div>
-              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
             </div>
           </button>
         </div>
@@ -174,7 +175,7 @@ export default function Product() {
               <div>
                 <p className="title">취소/환불 안내</p>
               </div>
-              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
             </div>
           </button>
         </div>

@@ -37,8 +37,8 @@ function MainBanner() {
           autoplay={ {delay: 2000} }
           loop={true}
         >
-          {bannerData.map((bannerInfo, index) => (
-            <>
+          {bannerData.map((bannerInfo: bannerInfo, idx) => (
+              <>
               <SwiperSlide>
                 <div className="event-banner__item">
                   <div className="event-banner__item__img">
@@ -51,7 +51,7 @@ function MainBanner() {
                   </div>
                 </div>
               </SwiperSlide>
-            </>
+              </>
           ))}
         </Swiper>
       </div>

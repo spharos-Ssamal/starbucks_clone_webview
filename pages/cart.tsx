@@ -24,6 +24,7 @@ function Cart() {
   const baseUrl = Config().baseUrl;
 
   const setCartList = useSetRecoilState<cartType>(cartListState);
+  const cartData = useRecoilValue<cartType>(cartListState);
 
   useEffect(() => {
     axios.get(`${baseUrl}api/v1/cart/get?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`)
@@ -38,26 +39,37 @@ function Cart() {
     })
   },[])
 
-  if(!isLogin) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'You must login first!',
-    })
-    return null;
-  }
+  // if(!isLogin) {
+  //   Swal.fire({
+  //     icon: 'error',
+  //     title: 'Oops...',
+  //     text: 'You must login first!',
+  //   })
+  //   return null;
+  // }
 
   return(
     <>
+    {/* <CartHeader /> */}
+    {
+      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? 
+      <>
+        <Head>
+          <title>장바구니</title>
+        </Head>
+          <div>장바구니가 비어있습니다.</div></> :
+      <>
+      
     <Head>
       <title>장바구니</title>
-      
     </Head>
-      <CartHeader />
       <CartMenu />
       <CartList />
       <CartInfo />
       <CartFooter />
+      </>
+    }
+      
     </>
   );
 }
