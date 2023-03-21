@@ -9,7 +9,7 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-
+import styles from "./cart.module.css";
 
 export default function Cart() {
 
@@ -34,13 +34,11 @@ export default function Cart() {
       <title>장바구니</title>
       
     </Head>
-    <div className="cart-container">
       <CartHeader />
       <CartMenu />
       <CartList />
       <CartInfo />
       <CartFooter />
-    </div>
     </>
   );
 }

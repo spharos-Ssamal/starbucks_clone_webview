@@ -41,7 +41,7 @@ export default function CartMenu() {
         <div className={listAllCheck ?'sbCheckBoxOn':'sbCheckBox'} onClick={()=>handleAllCheck(listAllCheck)}></div>
         <p className='cart-select-btn'>전체선택</p>
         </div>
-        <div className="select-del">
+        <div className="selectDel">
           <p className='cart-select-btn'>선택삭제</p>
           <p className='cart-select-btn'>전체삭제</p>
         </div>
