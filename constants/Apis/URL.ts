@@ -1,4 +1,4 @@
-export const REQUEST_LOGIN = "/api/auth/v1/user/login";
+export const REQUEST_LOGIN = "/api/auth/v1/login";
 export const REQUEST_LOGOUT = "/api/auth/v1/user/logout";
 export const REQUEST_REGISTER = "/api/auth/v1/user/register";
 export const REQUEST_VERIFY_EMAIL = "/api/auth/v1/user/email/verify";

@@ -1,8 +1,8 @@
 import { cartListType } from '@/Types/cart/cartListType';
-import { cartListState } from '@/state/cartListState';
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import CartItem from './CartItem';
+import { cartListState } from '@/state/cart/atom/cartListState';
 
 export default function CartList() {
 
@@ -42,7 +42,7 @@ export default function CartList() {
   }
 
   console.log(cartItems.cartListFreeze)
-  
+
   return (
     <section id="cart-list">
       

@@ -1,5 +1,5 @@
 import { cartListType, cartType } from '@/Types/cart/cartListType'
-import { cartListState } from '@/state/cartListState'
+import { cartListState } from '@/state/cart/atom/cartListState'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 

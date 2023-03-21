@@ -6,8 +6,7 @@ import Link from "next/link";
 import LoginModal from "../modals/LoginModal";
 import SignupModal from "../modals/SignupModal";
 // recoil
-import { useRecoilValue } from "recoil";
-import { cartState } from "../../state/cartState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { headerMenu } from "@/Types/starbucksTypes";
 import { filterMenuType, filterSubCategoryType, filterType, sizeType, smallCategoryType } from "@/Types/header/filterType";
@@ -15,10 +14,19 @@ import { filterMenuType, filterSubCategoryType, filterType, sizeType, smallCateg
 import { headerNavMenus, headerIcons, categoryList } from "../../data/starbucksStaticDatas";
 import axios from "axios";
 import Config from "@/configs/config.export";
+import { cartState } from "@/state/cart/atom/cartState";
+import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 
 function Header() {
 
   const baseUrl = Config().baseUrl;
+  const setIsLogin = useSetRecoilState(userIsLogin);
+
+  // if(myStorage.getItem('accessToken')) {
+  //   setIsLogin(true)
+  // }
+
+  const isLogin = useRecoilValue(userIsLogin);
 
   const router = useRouter();
   const { pathname, query } = useRouter();
@@ -104,7 +112,9 @@ function Header() {
     />
     <header>
       <div className="header-top">
-        <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
+        {
+          !isLogin ? 
+          <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
           <Image
             src="/assets/images/icons/menu.svg"
             alt="menu"
@@ -112,6 +122,9 @@ function Header() {
             height={20}
           />
         </div>
+        : null
+        }
+        
         <h1>
           <Link href="/">온라인 스토어</Link>
         </h1>
