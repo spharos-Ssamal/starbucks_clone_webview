@@ -10,31 +10,30 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
   
-  const { baseUrl } = Config();
+  const baseUrl = Config().baseUrl;
   const [ data, setData ] = useState<BaseRes>({} as BaseRes) 
   const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
 
   useEffect(()=>{
+    console.log(baseUrl)
+    axios.get(`http://10.10.10.89:8081/api/v1/recommend/active`)
+    .then(res => {
+     console.log(res)
+     setData(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
-      // axios.get(`${baseUrl}api/v1/recommend/active`)
-      // .then(res => {
-      //  console.log(res)
-      //  setData(res.data)
-      // })
-      // .catch(err => {
-      //   console.log(err)
-      // })
-
-      // axios.get(`${baseUrl}api/v1/event/active`)
-      // .then(res => {
-      //   console.log(res)
-      //   let rndNumber = Math.floor(Math.random() * res.data.data.length);
-      //   setViewByOthersData(res.data.data[rndNumber]);
-      // })
-      // .catch(err=> {
-      //   console.log(err)
-      // })
-
+    axios.get(`${baseUrl}/api/v1/event/active`)
+    .then(res => {
+      console.log(res)
+      let rndNumber = Math.floor(Math.random() * res.data.data.length);
+      setViewByOthersData(res.data.data[rndNumber]);
+    })
+    .catch(err=> {
+      console.log(err)
+    })
   },[])
 
   console.log("home")

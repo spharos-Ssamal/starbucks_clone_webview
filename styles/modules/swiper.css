@@ -1,0 +1,11 @@
+.swiper {
+  position: relative;
+}
+.swiper .swiper-pagination {
+  position: absolute;
+  top: 260px !important;
+}
+.swiper .swiper-pagination-bullet {
+  background-color: var(--color-primary);
+  margin: 0 5px !important;
+}

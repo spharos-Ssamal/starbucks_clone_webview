@@ -10,10 +10,12 @@ import RecommandMdList from '@/components/widgets/RecommandMdList';
 import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType';
 import EventMdList from '@/components/widgets/EventMdList';
 import ClickBuyModal from '@/components/modals/ClickBuyModal';
+import { productResponseDetailImages } from '@/Types/ProductRequest/Response';
 
 export default function Product() {
   
   const [ productData, setProductData ] = useState<productDataType>();
+  const [ productImages, setProductImages ]  = useState<productResponseDetailImages[]>([]);
   const [ recommandData, setRecommandData] = useState<eventData>({} as eventData);
   const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
 
@@ -26,18 +28,19 @@ export default function Product() {
   console.log('query',query)
   
   useEffect(() => {
-    axios.get(`${baseUrl}api/v1/product/read?productId=${query.productId}`)
+    axios.get(`${baseUrl}/api/v1/product/read?productId=${query.productId}`)
     .then(res => {
-      console.log(res.data.data)
-      setProductData(res.data.data.productDTO);
+      console.log("productdata",res.data)
+      setProductData(res.data.data.productInfo);
+      setProductImages(res.data.data.imageList)
     })
     .catch(err=> {
       console.log(err)
     })
-  },[query.productId, baseUrl])
+  },[])
 
   useEffect(() => {
-    axios.get(`${baseUrl}api/v1/recommend/active`)
+    axios.get(`${baseUrl}/api/v1/recommend/active`)
     .then(res => {
       console.log(res)
       let rndNumber = Math.floor(Math.random() * res.data.data.length);
@@ -46,7 +49,7 @@ export default function Product() {
     .catch(err=> {
       console.log(err)
     })
-    axios.get(`${baseUrl}api/v1/event/active`)
+    axios.get(`${baseUrl}/api/v1/event/active`)
     .then(res => {
       console.log(res)
       let rndNumber = Math.floor(Math.random() * res.data.data.length);
@@ -91,6 +94,7 @@ export default function Product() {
     {
       productData &&
       <>
+      {/* <ClickBuyModal /> */}
       <section id="product-top">
         <div className="product-img">
           <img 
@@ -119,8 +123,11 @@ export default function Product() {
       </section>
       <section id="product-detail">
         <p>상품 정보</p>
-        <ClickBuyModal />
-        <img src="./assets/images/products/product-detail.png" alt="" />
+        {
+          productImages && productImages.map( (item:productResponseDetailImages) => (
+            <img key={item.id} src={item.imageUrl} alt=""/>
+          ))
+        }
       </section>
       <RecommandMdList 
         data={recommandData}

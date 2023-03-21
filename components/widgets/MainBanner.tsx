@@ -3,12 +3,12 @@ import { bannerInfo } from "@/constants/Apis/Types/ResponseType";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MainBanner() {
   const { baseUrl } = Config();
@@ -16,7 +16,7 @@ function MainBanner() {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}api/v1/banner`)
+      .get(`${baseUrl}/api/v1/banner`)
       .then((res) => {
         setBannerData([...res.data.data]);
         console.log(bannerData);
@@ -31,9 +31,11 @@ function MainBanner() {
       <div className="event-banner">
         <Swiper
           className="banner"
-          spaceBetween={50}
+          spaceBetween={0}
           slidesPerView={1}
-          pagination={{ clickable: true }}
+          pagination={{ clickable: false }}
+          autoplay={ {delay: 2000} }
+          loop={true}
         >
           {bannerData.map((bannerInfo, index) => (
             <>

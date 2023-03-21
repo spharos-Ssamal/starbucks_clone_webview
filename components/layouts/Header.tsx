@@ -43,35 +43,35 @@ function Header() {
   const [filterList, setFilterList ] = useState<filterType[]>([])
 
 
-  useEffect(()=>{
-    axios.get(`${baseUrl}/size`)
-    .then((res) => {
-      setSizeList(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  },[])
+  // useEffect(()=>{
+  //   axios.get(`${baseUrl}/size`)
+  //   .then((res) => {
+  //     setSizeList(res.data)
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  // },[])
 
-  useEffect(()=>{
-    console.log(query.category)
-    axios.get(`${baseUrl}/smallCategory?bigCategory=${query.category}`)
-    .then((res) => {
-      console.log(res.data)
-      setSubCategory(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  },[query.category])
+  // useEffect(()=>{
+  //   console.log(query.category)
+  //   axios.get(`${baseUrl}/smallCategory?bigCategory=${query.category}`)
+  //   .then((res) => {
+  //     console.log(res.data)
+  //     setSubCategory(res.data)
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  // },[query.category])
 
-  useEffect(()=>{
-    console.log("filterList", filterList)
-    let url = ''
+  // useEffect(()=>{
+  //   console.log("filterList", filterList)
+  //   let url = ''
    
-    filterList.map((filter) => (
-      filter.checked ? url += `&${filter.name}=${filter.value}` : ''
-    ))
-    // router.push(`/listview?category=${query.category}${url}`, undefined, { shallow: true })
-  },[filterList])
+  //   filterList.map((filter) => (
+  //     filter.checked ? url += `&${filter.name}=${filter.value}` : ''
+  //   ))
+  //   // router.push(`/listview?category=${query.category}${url}`, undefined, { shallow: true })
+  // },[filterList])
 
   const handleFilter = (name: String) => {
     setFilterList([])

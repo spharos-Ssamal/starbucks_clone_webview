@@ -9,15 +9,17 @@ section#event-banner {
   overflow: hidden;
 }
 
+.recommand {
+  margin-bottom: 0;
+}
+
 .recommand h2{
   font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.7px;
 }
 
-.recommand {
-  margin-bottom: 0;
-}
+
 
 section .recommand-product-list {
   display: flex;

@@ -10,7 +10,7 @@ function RecommandMdList(props:{ data: eventData, title ?: string }) {
   const [ recommandData, setRecommandData ] = useState<BaseRes>({} as BaseRes)
 
   useEffect(()=>{
-    axios.get(`${baseUrl}api/v1/recommend/get?recommendId=${props.data.id}`)
+    axios.get(`${baseUrl}/api/v1/recommend/get?recommendId=${props.data.id}`)
     .then(res => {
       setRecommandData(res.data)
       console.log(res.data)
@@ -22,15 +22,14 @@ function RecommandMdList(props:{ data: eventData, title ?: string }) {
 
   return (
     <section className="recommand" id="recommand-md-1">
-    <div>
-      <h2>{props.title ? props.title : props.data.name}</h2>
-      <div className="recommand-product-list">
-      {
-        recommandData.data && recommandData.data.map(
-          (item: recommandData , idx: number) => <RecommandProductCard key={idx} data={item} />
-        )
-      }
-      </div>
+    
+    <h2>{props.title ? props.title : props.data.name}</h2>
+    <div className="recommand-product-list">
+    {
+      recommandData.data && recommandData.data.map(
+        (item: recommandData , idx: number) => <RecommandProductCard key={idx} data={item} />
+      )
+    }
     </div>
   </section>
   );

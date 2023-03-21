@@ -44,7 +44,6 @@ function Cart() {
       title: 'Oops...',
       text: 'You must login first!',
     })
-    router.replace('/login');
     return null;
   }
 
