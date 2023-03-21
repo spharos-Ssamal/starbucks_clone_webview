@@ -34,10 +34,10 @@ export default function CartItem(props:{data:cartListType}) {
   return (
     <div className="cart-product">
         <div className={props.data.check ?'sbCheckBoxOn':'sbCheckBox'} onClick={handleCheck}></div>
-        <div>
+        <div className="itemLists">
           <div className="item-info">
             <img src="./assets/images/products/cake.jpg" alt="" className="product-img" />
-            <div>
+            <div className="itemNamePrice">
               <p className="name">부드러운 고구마 생크림 케이크</p>
               <p className="price">33,000원</p>
             </div>
