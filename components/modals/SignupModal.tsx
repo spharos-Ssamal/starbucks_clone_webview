@@ -1,5 +1,7 @@
 import { inputRegisterType } from '@/Types/UserRequest/Request';
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+
+import Swal from 'sweetalert2';
 import Step01 from '../page/signup/Step01';
 import Step02 from '../page/signup/Step02';
 import Step03 from '../page/signup/Step03';
@@ -13,18 +15,23 @@ export interface SignupModalProps {
 }
 
 export default function SignupModal({ isSignupModalOpen, setIsSignupModalOpen }: SignupModalProps) {
+
   const [stepId, setStepId] = useState<number>(1);
   const [inputData, setInputData] = useState<inputRegisterType>({
-    userEmail: "",
-    userName: "",
-    userNickname: "",
+    userEmail: '',
+    userName: '',
+    userNickname: '',
     birthday: new Date(),
-    password: "",
-    confirmPassword: "",
-    phone: "",
+    password: '',
+    confirmPassword: '',
+    phone: '',
     isUserConfirm: false,
-    isAgree: false
-  })
+    privateAgree: {
+      isAgree: false,
+      isUseConfirm: false,
+      isAdvertisingConfirm: false,
+    },
+  });
 
   const steps:any = [
     { 1: <Step01 inputData={inputData} setInputData={setInputData}/> },
@@ -34,15 +41,26 @@ export default function SignupModal({ isSignupModalOpen, setIsSignupModalOpen }:
     { 5: <Step05 inputData={inputData} setInputData={setInputData}/> }
   ]
 
+  useEffect(()=>{
+    console.log(inputData)
+  },[inputData])
+
   const handleStepNext = () => {
-    if(!inputData.isAgree) {
-      alert("약관에 동의해주세요.");
-      return;
-    } else if (inputData.isAgree && stepId === 1) {
-      setStepId(2);
-    } else if (inputData.isUserConfirm && stepId === 2) {
-      setStepId(3);
-    }
+    console.log(inputData.privateAgree)
+    if(stepId === 1 && inputData.privateAgree) {
+      if(!inputData.privateAgree.isAgree  || !inputData.privateAgree.isUseConfirm  ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '필수 항목을 동의 해주세요.',
+          customClass: {
+            confirmButton: 'swal-confirm-button',
+          }
+        })
+        return;
+      } 
+      setStepId(stepId+1);
+    };
   }
 
   if ( !isSignupModalOpen ) return null;

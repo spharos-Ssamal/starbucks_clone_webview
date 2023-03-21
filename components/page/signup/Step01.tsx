@@ -1,4 +1,4 @@
-import { inputRegisterType } from '@/Types/UserRequest/Request';
+import { inputRegisterType, privateAgreeType } from '@/Types/UserRequest/Request';
 import CheckBox from '@/components/ui/CheckBox';
 import Separator from '@/components/ui/Separator';
 import React, {useState, useEffect } from 'react';
@@ -9,23 +9,32 @@ interface ChildProps {
 }
 const Step01 = ( { inputData, setInputData } : ChildProps) => {
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name , checked } = e.target;
-    setInputData({
-      ...inputData,
-      [name]: checked,
-    });
-  }
-
-  const [ agreeArray, setAgreeArray ] = useState<boolean[]>([false, false, false]);
+  const [ agreeArray, setAgreeArray ] = useState<privateAgreeType>({} as privateAgreeType);
   const [ adOption, setAdOption ] = useState<object>([
     {id: 1, name: 'E-mail', checked: false},
     {id: 2, name: 'SMS', checked: false},
   ]);
 
   useEffect(()=> {
-    console.log(inputData)
-  },[inputData])
+    setInputData({...inputData, privateAgree: agreeArray})
+  },[agreeArray])
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name , checked } = e.target;
+    if(name === 'isAllAgree') {
+      setAgreeArray({
+        isAgree: checked,
+        isUseConfirm: checked,
+        isAdvertisingConfirm: checked,
+    })} 
+    else {
+      setAgreeArray({
+        ...agreeArray,
+        [name]: checked,
+      });
+    }
+  }
+
 
   return (
     <> 
@@ -38,7 +47,7 @@ const Step01 = ( { inputData, setInputData } : ChildProps) => {
           <CheckBox 
             lableText = '약관 전체동의'
             isArrow = {false}
-            inputName = 'isAgree'
+            inputName = 'isAllAgree'
             link = '/best_cake'
             handler = { handleInput }
           />
@@ -49,20 +58,26 @@ const Step01 = ( { inputData, setInputData } : ChildProps) => {
           <CheckBox 
             lableText = '이용약관 동의(필수)'
             isArrow = {true}
-            inputName = 'isAgree_port_1'
+            inputName = 'isAgree'
             link = '/best_cake'
+            handler = { handleInput }
+            value = { agreeArray.isAgree }
           />
           <CheckBox 
             lableText = '개인정보 수집 및 이용동의(필수)'
             isArrow = {true}
-            inputName = 'isAgree_port_2'
+            inputName = 'isUseConfirm'
             link = '/best_cake'
+            handler = { handleInput }
+            value = { agreeArray.isUseConfirm }
           />
           <CheckBox 
             lableText = '광고성 정보 수신동의(선택)'
             isArrow = {true}
-            inputName = 'isAgree_port_3'
+            inputName = 'isAdvertisingConfirm'
             link = '/best_cake'
+            handler = { handleInput }
+            value = { agreeArray.isAdvertisingConfirm }
           />
           <div className="advertising-info">
             <p className='small-left-50'>광고성 정보 수신 방법(선택)</p>

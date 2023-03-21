@@ -3,6 +3,12 @@ section#event-banner {
   padding: 0px;
 }
 
+.event-banner{
+  display: block;
+  height: 300px;
+  overflow: hidden;
+}
+
 .recommand h2{
   font-size: 1.15rem;
   font-weight: 600;
