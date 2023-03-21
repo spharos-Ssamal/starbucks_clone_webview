@@ -112,8 +112,8 @@ function Header() {
     />
     <header>
       <div className="header-top">
-        {
-          !isLogin ? 
+       
+          
           <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
           <Image
             src="/assets/images/icons/menu.svg"
@@ -122,8 +122,6 @@ function Header() {
             height={20}
           />
         </div>
-        : null
-        }
         
         <h1>
           <Link href="/">온라인 스토어</Link>
@@ -175,7 +173,7 @@ function Header() {
           </ul>
         </nav>
       </div>
-      {pathname === "/product" ?  (
+      
         <div className="header-bottom">
         <nav>
           <ul>
@@ -192,8 +190,7 @@ function Header() {
           </ul>
         </nav>
       </div>
-      ) : null
-      }
+      {/*
 
       { pathname === "/listview" ? 
         <div className="header-bottom">
@@ -253,8 +250,8 @@ function Header() {
             </nav>
           </div> 
           : null
-        }
-    </header>
+        }*/}
+    </header> 
   </>
   );
 }

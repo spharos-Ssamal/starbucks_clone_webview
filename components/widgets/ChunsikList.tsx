@@ -15,7 +15,6 @@ function ChunsikList(props: {data: eventData}) {
     .then(res => {
       setChunsikData(res.data)
       console.log(res.data)
-      console.log('props.data.id '+props.data.id)
     })
     .catch(err => {
       console.log(err)

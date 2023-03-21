@@ -67,7 +67,7 @@
 
 .form-group .left-form {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -101,7 +101,7 @@
 
 .form-group-small {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 10px;
 }
@@ -147,7 +147,7 @@
 
 .form-group-step {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom : 10px;
 }

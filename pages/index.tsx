@@ -16,26 +16,28 @@ export default function Home() {
 
   useEffect(()=>{
 
-      axios.get(`${baseUrl}api/v1/recommend/active`)
-      .then(res => {
-       console.log(res)
-       setData(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      // axios.get(`${baseUrl}api/v1/recommend/active`)
+      // .then(res => {
+      //  console.log(res)
+      //  setData(res.data)
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
 
-      axios.get(`${baseUrl}api/v1/event/active`)
-      .then(res => {
-        console.log(res)
-        let rndNumber = Math.floor(Math.random() * res.data.data.length);
-        setViewByOthersData(res.data.data[rndNumber]);
-      })
-      .catch(err=> {
-        console.log(err)
-      })
+      // axios.get(`${baseUrl}api/v1/event/active`)
+      // .then(res => {
+      //   console.log(res)
+      //   let rndNumber = Math.floor(Math.random() * res.data.data.length);
+      //   setViewByOthersData(res.data.data[rndNumber]);
+      // })
+      // .catch(err=> {
+      //   console.log(err)
+      // })
 
-  },[baseUrl])
+  },[])
+
+  console.log("home")
 
   return (
     <>
@@ -51,9 +53,9 @@ export default function Home() {
           (item: eventData) => <RecommandMdList key={item.id} data={item} />
         ) 
       }
-      <ChunsikList 
+      {/* <ChunsikList 
         data={viewByOthersData}
-      />
+      /> */}
     </>
   )
 }
