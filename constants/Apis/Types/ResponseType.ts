@@ -4,21 +4,27 @@ export interface BaseRes<T = any> {
   message: string;
 }
 
-
 export interface eventData {
-  id: number,
-  name: string
+  id: number;
+  name: string;
+}
+
+export interface bannerInfo {
+  bannerImage: string;
+  eventId?: number;
+  recommendId?: number;
+  regTime: string;
 }
 
 export interface recommandData {
-  categoryName: string,
+  categoryName: string;
   products: {
-    id: number,
-    description: string,
-    name: string,
-    price: number,
-    size: string,
-    thumbnail: string,
-    season: string,
-  }
+    id: number;
+    description: string;
+    name: string;
+    price: number;
+    size: string;
+    thumbnail: string;
+    season: string;
+  };
 }
