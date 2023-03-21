@@ -1,6 +1,6 @@
-.cart-container {
+/* .cart-container {
   background-color: var(--color-gray-background);
-}
+} */
 
 #cart-header {
   background-color: var(--color-white);
@@ -9,7 +9,7 @@
   border-bottom: 1px solid rgba(202, 202, 202, 0.479);
 }
 
-#cart-header p {
+#cart-header .title {
   font-size: 30px;
   font-weight: 700;
   margin: 10px;
@@ -18,14 +18,14 @@
 #cart-header .cart-select {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 #cart-header .cart-select .select-all {
   display: flex;
   margin: 0px 0px 0px 8px;
-  width: 20%;
-  align-items: flex-start;
+  width: 25%;
+  align-items: center;
   justify-content: flex-start;
 }
 
@@ -35,17 +35,33 @@
   padding: 0px 5px;
 }
 
-.select-del {
-  font-size: 11px;
+.cart-select-btn {
+  /* width: -webkit-fill-available; */
+  white-space: nowrap;
+  margin-left: 8px;
+}
+.selectDel {
+  font-size: 14px;
   font-weight: 300;
+  margin-right: 7px;
+  display: flex;
+  color : rgba(44, 43, 43, 0.8);
+}
+.selectDel2 {
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: 7px;
+  display: flex;
+  color : var(--color-primary)
 }
 
-.select-del a {
+.selectDel a {
   padding: 0px 10px 0px 5px;
 }
 
-.select-del :nth-child(1) {
+.selectDel :nth-child(1) {
   border-right: 1px solid rgba(128, 128, 128, 0.381);
+  padding: 0 10px;
 }
 
 #cart-list {
@@ -63,6 +79,7 @@
   display: inline-flex;
   justify-content: flex-start;
   padding: 0px 0px 10px 13px;
+  align-items: center;
 }
 
 #cart-list .select-items span {
@@ -86,11 +103,20 @@
   border-radius: 10%;
 }
 
+.cart-product .itemLists{
+  width: 94%;
+}
+
 .cart-product .item-info {
+  width: 100%;
   display: flex;
   padding: 0px;
   margin: 0px 10px;
   justify-content: space-between;
+}
+
+.cart-product .item-info .itemNamePrice{
+  margin-left: 10px;
 }
 
 .cart-product .item-info .name {

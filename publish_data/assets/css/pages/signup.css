@@ -301,3 +301,17 @@ input[type="checkbox"]:checked {
 #email-input select option {
     font-size: 0.8rem;
 }
+
+.slide-in {
+    animation: slide-in 0.5s ease-in-out;
+    animation-duration: 3s;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(300);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

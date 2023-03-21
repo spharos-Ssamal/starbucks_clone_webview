@@ -1,94 +1,183 @@
-import * as React from 'react';
+import ShareModal from '@/components/modals/ShareModal';
+import Config from '@/configs/config.export';
+import { productDataType } from '@/Types/starbucksTypes';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+
+import rightArrow from '@/public/assets/images/contents/arrow_right.png';
+import RecommandMdList from '@/components/widgets/RecommandMdList';
+import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType';
+import EventMdList from '@/components/widgets/EventMdList';
+import ClickBuyModal from '@/components/modals/ClickBuyModal';
 
 export default function Product() {
+  
+  const [ productData, setProductData ] = useState<productDataType>();
+  const [ recommandData, setRecommandData] = useState<eventData>({} as eventData);
+  const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
 
-  // 1 Fetch the product data from the API
-  // axios.get('https://api.example.com/products/1')
+  const { query } = useRouter();
+  const { baseUrl } = Config();
 
-  // useState and useEffect hooks
+  const [ open, setOpen ] = useState(false);
+  const [ share, setShare ] = useState(false);
+
+  console.log('query',query)
+  
+  useEffect(() => {
+    axios.get(`${baseUrl}api/v1/product/read?productId=${query.productId}`)
+    .then(res => {
+      console.log(res.data.data)
+      setProductData(res.data.data.productDTO);
+    })
+    .catch(err=> {
+      console.log(err)
+    })
+  },[query.productId, baseUrl])
+
+  useEffect(() => {
+    axios.get(`${baseUrl}api/v1/recommend/active`)
+    .then(res => {
+      console.log(res)
+      let rndNumber = Math.floor(Math.random() * res.data.data.length);
+      setRecommandData(res.data.data[rndNumber]);
+    })
+    .catch(err=> {
+      console.log(err)
+    })
+    axios.get(`${baseUrl}api/v1/event/active`)
+    .then(res => {
+      console.log(res)
+      let rndNumber = Math.floor(Math.random() * res.data.data.length);
+      setViewByOthersData(res.data.data[rndNumber]);
+    })
+    .catch(err=> {
+      console.log(err)
+    })
+  },[baseUrl])
+
+
+  // function up() {
+  //   setQtyCnt(qtyCnt + 1);
+  // }
+  // function down() {
+  //   const minus = qtyCnt - 1;
+  //   qtyCnt > 0 ? minus : 0
+  // }
+
+  // const useScroll = () => {
+  //   const [ state, setState ] = useState({
+  //     x: 0,
+  //     y: 0
+  //   });
+  //   const onScroll = () => {
+  //     setState({y: window.scrollY, x:window.scrollX});
+  //     console.log(window.scrollY)
+  //   }
+  //   useEffect(() => {
+  //     window.addEventListener("scroll", onScroll);
+  //     return () => window.removeEventListener("scroll", onScroll);
+  //   }, [])  
+  //   return state;
+  // }
+
+
+  // const {y} = useScroll();
 
   return (
     <>
-      <section>
-        <div className="top_thumb_wide">
-          <img
-            src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg"
-            alt="Single_Prod"
+    {share && <ShareModal />}
+    {
+      productData &&
+      <>
+      <section id="product-top">
+        <div className="product-img">
+          <img 
+            src={productData.thumbnail}
+            alt={productData.description}
           />
-          <div className="single_prod_top">
-            <div className="single_prod_head">스타벅스 종이 필터 #2</div>
-            <div className="best">Best</div>
-            <div className="prod_icon_share">
-              <img src="./assets/images/icons/share.svg" width={25} />
-            </div>
+        </div>
+        <div className="product-info">
+          <div className="product-name">
             <div>
-              <p>
-                원두 그대로의 맛과 향을 추출할 수 있도록 고안된 스타벅스 종이필터
-                #2(2~3인용, 50매)
-              </p>
-              <h2>4,500원</h2>
+              <p>{productData.name}<span className="is-new">New</span></p>
+            </div>
+            <div className="share-icon" onClick={()=>setShare(!share)}>
+              <img src="@/public/assets/images/icons/user.svg" alt=""/>
             </div>
           </div>
-        </div>
-        <div className="middle">
-          <div className="middle_padding_top">
-            <h3>상품정보</h3>
+          <div className="description">
+            {productData.description}
           </div>
-          <div className="prod_imgs">
-            <img
-              src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg?type=f296_296"
-              width="100%"
-              height="100%"
-              alt="Single_Prod"
-            />
-            <img
-              src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg?type=f296_296"
-              width="100%"
-              height="100%"
-              alt="Single_Prod"
-            />
-          </div>
-          <div className="middle_padding_bt">
-            <button className="click_for_more">
-              <div className="more_text">상품정보 더보기</div>
-              <div className="bottom-chevron">
-                <img src="./assets/images/icons/left-chevron.svg" />
-              </div>
-            </button>
+          <div className="price">
+            {productData.price.toLocaleString()}원
           </div>
         </div>
-        <div className="bottom">
-          <div className="others">다른 고객이 함께 본 상품 - 미완</div>
+        <div className="notice">
         </div>
       </section>
-      <div className="expandForm">
-        <div className="drag_me">
-          <form>
-            <div className="small_graybox">
-              <p>스타벅스 종이 필터 #2</p>
-              <div className="one-line">
-                <div className="left_set">
-                  <div className="circle_qty">-</div>
-                  <div className="numeric">3</div>
-                  <div className="circle_qty">+</div>
-                </div>
-                <div className="right_set">
-                  <div className="numeric_price">4,500원</div>
-                </div>
+      <section id="product-detail">
+        <p>상품 정보</p>
+        <ClickBuyModal />
+        <img src="./assets/images/products/product-detail.png" alt="" />
+      </section>
+      <RecommandMdList 
+        data={recommandData}
+      />
+      <EventMdList 
+        title = "다른 고객이 함께 본 상품"
+        data={viewByOthersData}
+      />
+     
+      <section className="detail-info">
+        <div className="nav-button">
+          <button>
+            <div className="nav-container">
+              <div>
+                <p className="title">이용조건 및 배송안내</p>
               </div>
+              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
             </div>
-            <div className="total_price">
-              <p>합계</p>
-              <p className="price_larger">4,500</p>
-              <p className="price_larger">원</p>
-            </div>
-          </form>
+          </button>
         </div>
-      </div>
-      <div className="fixed-bottom">
-        <div className="drag_me" />
-        <div className="btn-action">구매하기</div>
-      </div>
+        <div className="nav-button">
+          <button>
+            <div className="nav-container">
+              <div>
+                <p className="title">상품제공정보고시</p>
+              </div>
+              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+            </div>
+          </button>
+        </div>
+        <div className="nav-button">
+          <button>
+            <div className="nav-container">
+              <div>
+                <p className="title">교환/반품 안내</p>
+              </div>
+              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+            </div>
+          </button>
+        </div>
+        <div className="nav-button">
+          <button>
+            <div className="nav-container">
+              <div>
+                <p className="title">취소/환불 안내</p>
+              </div>
+              <img src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+            </div>
+          </button>
+        </div>
+      </section>
+      <section id="purchase-button">
+        <div className="toggle-icon"></div>
+        <button onClick={()=>setOpen(!open)}>구매하기</button>
+      </section>
+    </>
+    }
     </>
   );
 }
