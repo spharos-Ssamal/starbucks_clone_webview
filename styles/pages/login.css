@@ -1,49 +1,49 @@
 
 .login-header {
-    padding: 0 15px;
-    margin-top: 10vw;
+    padding: 0 1rem;
+    margin-top: 5vw;
 }
 
 .login-header h1 {
-    font-size: 28px;
+    font-size: 1.7rem;
     margin: 0;
     padding: 0;
 }
 
 .greeting {
-    margin-top: 30px;
-    padding: 20px;
+    margin-top: 1rem;
+    padding: 1.5rem;
 }
 
 .greeting h2 {
-    font-size: 25px;
+    font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: -1px;
-    line-height: 30px;
+    line-height: 1.5rem;
     margin-bottom: 0px;
 }
 
 .greeting p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 #login-input {
-    padding: 20px;
+    padding: 1.5rem;
     margin-bottom: 0;
 }
 
 #login-input input {
     border: 0;
-    border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
-    font-size: 0.95rem;
+    border-bottom: 1.5px solid rgba(128, 128, 128, 0.15);
+    font-size: 0.8rem;
     font-weight: bold;
     width: 100%;
     outline: none;
-    padding: 2px;
-    height: 35px;
+    padding: 0rem;
+    height: 2rem;
     vertical-align: bottom;
     display: inline;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
     transition: 0.5s;
 
 }
@@ -59,7 +59,8 @@
 }
 
 #login-input input:focus {
-    border-bottom: 1.5px solid var(--color-light-green);
+    border-radius: 0px;
+    border-bottom: 1px solid var(--color-light-green);
     transition: 0.5s;
 }
 
@@ -83,8 +84,10 @@
 
 #login-service a {
     padding: 0 10px;
+    text-decoration: none;
     margin: 0;
     color: var(--color-soft-black);
     opacity: 0.9;
+    font-size: 0.8rem;
 }
 

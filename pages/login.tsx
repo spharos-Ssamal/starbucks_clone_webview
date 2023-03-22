@@ -1,7 +1,6 @@
 import { LoginReq } from '@/Types/UserRequest/Request';
 import { LoginRes } from '@/Types/UserRequest/Response';
-import { cookies } from 'next/headers';
-import { loginData } from '@/Types/starbucksTypes';
+import StButton from '@/components/ui/StButton';
 import Config from '@/configs/config.export';
 import { REQUEST_LOGIN } from '@/constants/Apis/URL';
 import { userIsLogin } from '@/state/user/atom/userIsLoginState';
@@ -9,11 +8,14 @@ import { userLoginState } from '@/state/user/atom/userLoginState';
 import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Router, useRouter } from 'next/router';
+import React, { ChangeEvent, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import Swal from 'sweetalert2';
 
-export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Function}) {
+export default function LoginModal() {
+
+  const router = useRouter();
   const BASE_URL = Config().baseUrl;
   const [loginData, setLoginData] = useRecoilState<LoginRes>(userLoginState);
   const setIsLogIn = useSetRecoilState<boolean>(userIsLogin);
@@ -68,7 +70,7 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
           icon: "success",
           text: "Welcome!",
         });
-        props.setIsModalOpen(false)
+        router.back();
       })
       .catch(err=> {
         console.log(err);
@@ -77,9 +79,9 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
     }
   };
 
-  console.log(loginData)
-  
-  if(!props.isModalOpen) return null;
+  const handleBack = () => {
+    router.back();
+  };
 
   return (
     <div className='modalWrap'>
@@ -90,7 +92,7 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <div onClick={()=>props.setIsModalOpen(false)}>
+        <div onClick={handleBack}>
           <img src="/assets/images/icons/left.png" className="back-button" />
         </div>
       </div>
@@ -134,8 +136,13 @@ export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Fu
           <Link href={"/"}>회원가입</Link>
         </div>
         <div className="submit-container">
-          <button type="submit">로그인하기</button>
+        <StButton 
+          type="submit"
+          buttonText="로그인하기"
+          textSize='0.9rem'
+        />
         </div>
+        
       </form>
       </div>
       

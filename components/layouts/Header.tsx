@@ -90,6 +90,10 @@ function Header() {
 
   console.log(pathname)
 
+  const handlePushPage = () => {
+    router.push('/login')
+  }
+
 
   // const handleSubFilter = (subCategoryName:String) => {
   //   router.push(`/listview?category=${query.category}&subCategory=${subCategoryName}`, undefined, { shallow: true })
@@ -116,7 +120,7 @@ function Header() {
       <div className="header-top">
        
           
-          <div className="menu-icon" onClick={()=>setIsModalOpen(true)}>
+          <div className="menu-icon" onClick={handlePushPage}>
           <Image
             src="/assets/images/icons/menu.svg"
             alt="menu"

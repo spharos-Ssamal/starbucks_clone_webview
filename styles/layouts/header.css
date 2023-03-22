@@ -21,10 +21,6 @@
   color: var(--color-black);
 }
 
-.header-top nav {
-  width: 30%;
-}
-
 .header-top img {
   width: 1rem;
   height: auto;
