@@ -1,17 +1,15 @@
-import ShareModal from '@/components/modals/ShareModal';
 import Config from '@/configs/config.export';
 import { productDataType } from '@/Types/starbucksTypes';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Image from 'next/image'
-
-import rightArrow from '@/public/assets/images/contents/arrow_right.png';
+import { getImageSize } from 'react-image-size';
 import RecommandMdList from '@/components/widgets/RecommandMdList';
-import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType';
+import { eventData } from '@/constants/Apis/Types/ResponseType';
 import EventMdList from '@/components/widgets/EventMdList';
-import ClickBuyModal from '@/components/modals/ClickBuyModal';
 import { productResponseDetailImages } from '@/Types/ProductRequest/Response';
+import { imageType } from '@/Types/image/imageType';
 
 export default function Product() {
   
@@ -19,6 +17,12 @@ export default function Product() {
   const [ productImages, setProductImages ]  = useState<productResponseDetailImages[]>([]);
   const [ recommandData, setRecommandData] = useState<eventData>({} as eventData);
   const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
+  const [importImgSize, setImportImgSize] = useState<imageType>(
+    {
+      width: 0,
+      height: 0
+    }
+  )
 
   const { query } = useRouter();
   const { baseUrl } = Config();
@@ -33,12 +37,30 @@ export default function Product() {
     .then(res => {
       console.log("productdata",res.data)
       setProductData(res.data.data.productInfo);
-      setProductImages(res.data.data.imageList)
+      console.log(getImageSize(res.data.data.productInfo.thumbnail))
+      getImageSize(res.data.data.productInfo.thumbnail).then((size) => {
+        console.log(size)
+        setImportImgSize({
+          width: size.width,
+          height: size.height
+        })
+      })
+      let images:productResponseDetailImages[] = []; 
+      res.data.data.imageList.map(async (item:productResponseDetailImages) => {
+        const { width, height } = await getImageSize(item.imageUrl);
+        images.push({
+          id: item.id,
+          imageUrl: item.imageUrl,
+          width: width,
+          height: height
+        })
+      })
+      setProductImages(images)
     })
     .catch(err=> {
       console.log(err)
     })
-  },[])
+  },[query.productId])
 
   useEffect(() => {
     axios.get(`${baseUrl}/api/v1/recommend/active`)
@@ -91,16 +113,16 @@ export default function Product() {
 
   return (
     <>
-    {share && <ShareModal />}
     {
       productData &&
       <>
-      {/* <ClickBuyModal /> */}
       <section id="product-top">
         <div className="product-img">
           <Image 
             src={productData.thumbnail}
             alt={productData.description}
+            width={importImgSize.width}
+            height={importImgSize.height}
           />
         </div>
         <div className="product-info">
@@ -109,7 +131,12 @@ export default function Product() {
               <p>{productData.name}<span className="is-new">New</span></p>
             </div>
             <div className="share-icon" onClick={()=>setShare(!share)}>
-              <Image src="@/public/assets/images/icons/user.svg" alt=""/>
+              <Image 
+                src="/public/assets/images/icons/user.svg" 
+                alt="share-icon"
+                width={20}
+                height={20}
+              />
             </div>
           </div>
           <div className="description">
@@ -125,9 +152,24 @@ export default function Product() {
       <section id="product-detail">
         <p>상품 정보</p>
         {
-          productImages && productImages.map( (item:productResponseDetailImages) => (
-            <Image key={item.id} src={item.imageUrl} alt=""/>
-          ))
+          productImages && productImages.map( (item:productResponseDetailImages) => {
+            
+            (getImageSize(item.imageUrl).then((size) => { 
+              console.log(size)
+
+            }))
+
+            return (
+              <Image 
+                key={item.id} 
+                src={item.imageUrl} 
+                width={item.width}
+                height={item.height}
+                alt=""
+            />
+            )
+
+          })
         }
       </section>
       <RecommandMdList 
@@ -145,7 +187,12 @@ export default function Product() {
               <div>
                 <p className="title">이용조건 및 배송안내</p>
               </div>
-              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image 
+                src="/assets/images/icons/contents/right-arrow.png" 
+                alt="right-arrow"
+                width={20}
+                height={20}
+              />
             </div>
           </button>
         </div>
@@ -155,7 +202,12 @@ export default function Product() {
               <div>
                 <p className="title">상품제공정보고시</p>
               </div>
-              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image 
+                src="/assets/images/icons/contents/right-arrow.png" 
+                alt="right-arrow"
+                width={20}
+                height={20}
+              />
             </div>
           </button>
         </div>
@@ -165,7 +217,12 @@ export default function Product() {
               <div>
                 <p className="title">교환/반품 안내</p>
               </div>
-              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image 
+                src="/assets/images/icons/contents/right-arrow.png" 
+                alt="right-arrow"
+                width={20}
+                height={20}
+              />
             </div>
           </button>
         </div>
@@ -175,7 +232,12 @@ export default function Product() {
               <div>
                 <p className="title">취소/환불 안내</p>
               </div>
-              <Image src="/assets/images/icons/contents/right-arrow.png" alt=""/>
+              <Image 
+                src="/assets/images/icons/contents/right-arrow.png" 
+                alt="right-arrow"
+                width={20}
+                height={20}
+              />
             </div>
           </button>
         </div>
