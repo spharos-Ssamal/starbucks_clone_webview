@@ -39,30 +39,25 @@ function Cart() {
     })
   },[])
 
-  // if(!isLogin) {
-  //   Swal.fire({
-  //     icon: 'error',
-  //     title: 'Oops...',
-  //     text: 'You must login first!',
-  //   })
-  //   return null;
-  // }
+  if(!isLogin) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'You must login first!',
+    })
+    return null;
+  }
 
   return(
     <>
-    {/* <CartHeader /> */}
-    {
-      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? 
-      <>
-        <Head>
-          <title>장바구니</title>
-        </Head>
-          <div>장바구니가 비어있습니다.</div></> :
-      <>
-      
     <Head>
       <title>장바구니</title>
     </Head>
+    {/* <CartHeader /> */}
+    {
+      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? <div>장바구니가 비어있습니다.</div> :
+      <>
+      
       <CartMenu />
       <CartList />
       <CartInfo />
