@@ -88,6 +88,8 @@ function Header() {
     }
   }
 
+  console.log(pathname)
+
 
   // const handleSubFilter = (subCategoryName:String) => {
   //   router.push(`/listview?category=${query.category}&subCategory=${subCategoryName}`, undefined, { shallow: true })
@@ -173,8 +175,10 @@ function Header() {
           </ul>
         </nav>
       </div>
-      
-        <div className="header-bottom">
+      {
+        pathname === '/product/[productId]' || pathname === '/cart' ?
+        null
+        : <div className="header-bottom">
         <nav>
           <ul>
             {
@@ -190,6 +194,7 @@ function Header() {
           </ul>
         </nav>
       </div>
+      }
       {/*
 
       { pathname === "/listview" ? 

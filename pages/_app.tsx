@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className='container'>
       <RecoilRoot >
       {
-        router.pathname === '/signup' || router.pathname === '/cart' ? null :  <Header/>
+        router.pathname === '/signup' ? null :  <Header/>
       }
       <Component {...pageProps} />
       </RecoilRoot>

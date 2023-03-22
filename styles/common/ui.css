@@ -42,3 +42,27 @@
   border: 1px solid var(--color-primary);
   border-radius: 3px;
 }
+
+.nodata-wrap {
+  width: 100%;
+  margin: auto;
+}
+
+.nodata-wrap .icon {
+  width: 20%;
+  margin: auto;
+}
+
+.nodata-wrap .cartIcon {
+  width: 80%;
+  margin: auto;
+  position: relative;
+  top: 80px;
+}
+
+.nodata-wrap .text {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-gray);
+  opacity: 0.6;
+}

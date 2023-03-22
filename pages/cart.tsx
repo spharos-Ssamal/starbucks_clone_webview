@@ -8,13 +8,12 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import styles from "./cart.module.css";
 import Config from "@/configs/config.export";
 import { cartListState } from "@/state/cart/atom/cartListState";
-import withAuth from "@/util/withAuth";
 import { useRouter } from "next/router";
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import Swal from "sweetalert2";
+import Nodata from "@/components/ui/Nodata";
 
 function Cart() {
 
@@ -53,11 +52,15 @@ function Cart() {
     <Head>
       <title>장바구니</title>
     </Head>
-    {/* <CartHeader /> */}
+    
     {
-      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? <div>장바구니가 비어있습니다.</div> :
+      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? 
+      <section id="cart-header" style={{paddingBottom: "50vh"}}>
+        <p className="title">장바구니</p>
+        <Nodata text="장바구니가 비었습니다." icon='cart'/> 
+      </section>
+      :
       <>
-      
       <CartMenu />
       <CartList />
       <CartInfo />
