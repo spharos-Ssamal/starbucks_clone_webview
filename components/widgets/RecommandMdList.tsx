@@ -1,8 +1,11 @@
-import Config from "@/configs/config.export";
-import { BaseRes, eventData, recommandData } from "@/constants/Apis/Types/ResponseType";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import RecommandProductCard from "../ui/RecommandProductCard";
+
+import axios from "axios";
+import Config from "@/configs/config.export";
+import { REQUEST_RECOMMEND_READ } from "@/constants/Apis/URL";
+import { BaseRes, eventData, recommandData } from "@/constants/Apis/Types/ResponseType";
+
 
 function RecommandMdList(props:{ data: eventData, title ?: string }) {
 
@@ -10,7 +13,7 @@ function RecommandMdList(props:{ data: eventData, title ?: string }) {
   const [ recommandData, setRecommandData ] = useState<BaseRes>({} as BaseRes)
 
   useEffect(()=>{
-    axios.get(`${baseUrl}/api/v1/recommend/get?recommendId=${props.data.id}`)
+    axios.get(`${baseUrl}/${REQUEST_RECOMMEND_READ}?recommendId=${props.data.id}`)
     .then(res => {
       setRecommandData(res.data)
       console.log(res.data)

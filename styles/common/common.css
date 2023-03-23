@@ -83,6 +83,11 @@ h1 {
   align-items: center;
 }
 
+.slide-in-login {
+  animation: showUp 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
 @keyframes showUp {
   0% {
       opacity: 0;
