@@ -1,7 +1,39 @@
+import React, { useEffect } from 'react'
 import Head from 'next/head'
-import React from 'react'
+
+import { useRecoilState } from 'recoil';
+import axios from 'axios'
+import Config from '@/configs/config.export';
+import { REQ_ADDRESS_DEFAULT } from '@/constants/Apis/URL';
+import AddressList from '@/components/page/address/addressList';
 
 export default function address() {
+  const baseUrl = Config().baseUrl;
+  //작업중단 후 컴포넌트 분할작업 ㄱ
+
+  useEffect(()=> {
+    axios.get(`${baseUrl}${REQ_ADDRESS_DEFAULT}`) // 파라미터 uuid 설정?
+    .then((res)=> {
+      console.log(res.data.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+  
+  interface addressDataType {
+    id: number,
+    alias: string,
+    recipient: string,
+    zipCode: number,
+    baseAddress: string,
+    detailAddress: string,
+    contactInfo1: string,
+    contactInfo2: string,
+    shippingMemo: string,
+    defaultAddress: boolean
+  }
+
   return (
     <div>
     <Head>
@@ -10,50 +42,8 @@ export default function address() {
       <section id="delivery-header">
         <p>배송지 관리</p>
       </section>
-      <section id="delivery-manage-list">
-        <div className="delivery-manage">
-          <div className="delivery-info">
-            <div className="delivery-name">
-              <div className="name">춘식이 (집)</div>
-              <div className="is-primary">기본</div>
-            </div>
-          </div>
-          <a href="">수정</a>
-        </div>
-        <p>(48058) 부산광역시 해운대구 센텀남대로 35(우동) 2층</p>
-        <p>010-1234-5678</p>
-        <p>부재시 문 앞에 놓아주세요.</p>
-      </section>
-      <section id="delivery-manage-list">
-        <div className="delivery-manage">
-          <div className="delivery-info">
-            <div className="delivery-name">
-              <div className="name">죠르디</div>
-            </div>
-          </div>
-          <a href="">수정</a>
-          <div>|</div>
-          <a href="">삭제</a>
-        </div>
-        <p>(48950) 부산광역시 중구 용두산길 35-7(광복동2가) 용두산공원</p>
-        <p>010-1234-5678</p>
-        <p>배송 전 연락 바랍니다.</p>
-      </section>
-      <section id="delivery-manage-list">
-        <div className="delivery-manage">
-          <div className="delivery-info">
-            <div className="delivery-name">
-              <div className="name">어피치(회사)</div>
-            </div>
-          </div>
-          <a href="">수정</a>
-          <div>|</div>
-          <a href="">삭제</a>
-        </div>
-        <p>(48058) 부산광역시 해운대구 센텀남대로 35(우동) 2층</p>
-        <p>010-1234-5678</p>
-        <p>부재시 문 앞에 놓아주세요.</p>
-      </section>
+
+        <AddressList />
       <section className="submit-container">
         <button type="submit">+ 새 배송지 추가</button>
       </section>  

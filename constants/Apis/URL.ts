@@ -9,3 +9,5 @@ export const REQUEST_PRODUCT_SEARCH = "/api/v1/product/search";
 export const REQUEST_PRODUCT_RECOMMEND = "/api/v1/product/recommend";
 export const REQUEST_PRODUCT_READ = "/api/v1/product/read";
 export const REQUEST_PRODUCT_EVENT = "/api/v1/product/read/event";
+
+export const REQ_ADDRESS_DEFAULT = "/api/v1/address/default";
