@@ -14,6 +14,8 @@ export interface bannerInfo {
   eventId?: number;
   recommendId?: number;
   regTime: string;
+  width: number;
+  height: number;
 }
 
 export interface recommandData {
@@ -26,5 +28,7 @@ export interface recommandData {
     size: string;
     thumbnail: string;
     season: string;
+    width: number;
+    height: number;
   };
 }

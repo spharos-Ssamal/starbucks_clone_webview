@@ -1,6 +1,9 @@
 import Config from "@/configs/config.export";
+import Image from 'next/image'
 import { bannerInfo } from "@/constants/Apis/Types/ResponseType";
 import axios from "axios";
+import { getImageSize } from 'react-image-size';
+
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
@@ -18,8 +21,18 @@ function MainBanner() {
     axios
       .get(`${baseUrl}/api/v1/banner`)
       .then((res) => {
-        setBannerData([...res.data.data]);
-        console.log(bannerData);
+        res.data.data.map(async (item:bannerInfo) => {
+          const { width, height } = await getImageSize(item.bannerImage);
+          console.log(width, height)
+          setBannerData((prevData) => [...prevData, {
+            bannerImage: item.bannerImage,
+            eventId: item.eventId,
+            recommendId: item.recommendId,
+            regTime: item.regTime,
+            width: width,
+            height: height
+          }])
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -37,16 +50,16 @@ function MainBanner() {
           autoplay={ {delay: 2000} }
           loop={true}
         >
-          {bannerData.map((bannerInfo: bannerInfo, idx: number) => {
+          {bannerData  &&  bannerData.map((bannerInfo: bannerInfo, idx: number) => {
             return (
               <SwiperSlide key={idx}>
                 <div className="event-banner__item">
                   <div className="event-banner__item__img">
-                    <img
+                    <Image
                       src={bannerInfo.bannerImage}
-                      width="100%"
-                      height="100%"
-                      alt=""
+                      width={bannerInfo.width}
+                      height={bannerInfo.height}
+                      alt={bannerInfo.bannerImage}
                     />
                   </div>
                 </div>
