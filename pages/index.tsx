@@ -1,11 +1,12 @@
-import ChunsikList from '@/components/widgets/ChunsikList'
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import axios from 'axios'
 import MainBanner from '@/components/widgets/MainBanner'
 import RecommandMdList from '@/components/widgets/RecommandMdList'
 import Config from '@/configs/config.export'
 import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType'
-import axios from 'axios'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { REQUEST_RECOMMEND_ACTIVE } from '@/constants/Apis/URL';
+import { REQUEST_EVENT_ACTIVE } from '@/constants/Apis/URL';
 
 
 export default function Home() {
@@ -16,18 +17,16 @@ export default function Home() {
 
   useEffect(()=>{
     console.log(baseUrl)
-    axios.get(`http://10.10.10.89:8081/api/v1/recommend/active`)
+    axios.get(`${baseUrl}/${REQUEST_RECOMMEND_ACTIVE}`)
     .then(res => {
-     console.log(res)
      setData(res.data)
     })
     .catch(err => {
       console.log(err)
     })
 
-    axios.get(`${baseUrl}/api/v1/event/active`)
+    axios.get(`${baseUrl}/${REQUEST_EVENT_ACTIVE}`)
     .then(res => {
-      console.log(res)
       let rndNumber = Math.floor(Math.random() * res.data.data.length);
       setViewByOthersData(res.data.data[rndNumber]);
     })
@@ -35,8 +34,6 @@ export default function Home() {
       console.log(err)
     })
   },[])
-
-  console.log("home")
 
   return (
     <>

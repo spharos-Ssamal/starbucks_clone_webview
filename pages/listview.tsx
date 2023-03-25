@@ -1,15 +1,17 @@
-import { productType } from '@/Types/header/filterType';
+import { useEffect, useState } from 'react'
 import axios from 'axios';
+import { productType } from '@/Types/header/filterType';
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import Config from "@/configs/config.export";
 
 export default function ProductListView() {
 
+  const { baseUrl } = Config();
   const { query } = useRouter();
-  const [productList, setProductList] = useState<productType[]>([])
+  const [ productList, setProductList ] = useState<productType[]>([])
 
   useEffect(()=>{
-    axios.get(`http://localhost:8081/product`)
+    axios.get(`${baseUrl}/product`)
     .then((res) => {
       console.log(res.data.find((product:productType) => product.bigCategory === query.category))
       console.log(res.data.filter((product:productType) => 

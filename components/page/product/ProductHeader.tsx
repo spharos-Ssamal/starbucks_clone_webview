@@ -21,7 +21,7 @@ export default function ProductHeader(props:{productData: productDataType, impor
             </div>
             <div className="share-icon">
               <Image 
-                src="/public/assets/images/icons/user.svg" 
+                src="/assets/images/icons/share.svg" 
                 alt="share-icon"
                 width={20}
                 height={20}

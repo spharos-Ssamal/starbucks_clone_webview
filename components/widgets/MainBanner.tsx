@@ -10,20 +10,20 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { REQUEST_BANNER } from "@/constants/Apis/URL";
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MainBanner() {
   const { baseUrl } = Config();
-  const [bannerData, setBannerData] = useState<bannerInfo[]>([]);
+  const [ bannerData, setBannerData ] = useState<bannerInfo[]>([]);
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/api/v1/banner`)
+      .get(`${baseUrl}/${REQUEST_BANNER}`)
       .then((res) => {
         res.data.data.map(async (item:bannerInfo) => {
           const { width, height } = await getImageSize(item.bannerImage);
-          console.log(width, height)
           setBannerData((prevData) => [...prevData, {
             bannerImage: item.bannerImage,
             eventId: item.eventId,

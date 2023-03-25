@@ -1,19 +1,20 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import axios from "axios";
 import { cartListType, cartType } from "@/Types/cart/cartListType";
+import Swal from "sweetalert2";
 import CartFooter from "@/components/page/cart/CartFooter";
 import CartHeader from "@/components/page/cart/CartHeader";
 import CartInfo from "@/components/page/cart/CartInfo";
 import CartList from "@/components/page/cart/CartList";
 import CartMenu from "@/components/page/cart/CartMenu";
-import axios from "axios";
-import Head from "next/head";
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 import { cartListState } from "@/state/cart/atom/cartListState";
-import { useRouter } from "next/router";
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
-import Swal from "sweetalert2";
 import Nodata from "@/components/ui/Nodata";
+import { REQUEST_CART_GET } from "@/constants/Apis/URL";
 
 function Cart() {
 
@@ -26,7 +27,7 @@ function Cart() {
   const cartData = useRecoilValue<cartType>(cartListState);
 
   useEffect(() => {
-    axios.get(`${baseUrl}api/v1/cart/get?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`)
+    axios.get(`${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`)
     .then((res) => {    
       console.log(res.data) 
       setCartList({
@@ -42,10 +43,11 @@ function Cart() {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'You must login first!',
-    })
+      text: '로그인 페이지로 이동합니다',
+    }).then(function() {
     router.push('/login')
     return null;
+    })
   }
 
   return(

@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Config from "@/configs/config.export";
 import { BaseRes, eventData, recommandData } from "@/constants/Apis/Types/ResponseType";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { REQUEST_EVENT_GET } from "@/constants/Apis/URL";
 import RecommandProductCard from "../ui/RecommandProductCard";
 
 function EventMdList(props:{ data: eventData, title ?: string }) {
@@ -10,7 +11,7 @@ function EventMdList(props:{ data: eventData, title ?: string }) {
   const [ recommandData, setRecommandData ] = useState<BaseRes>({} as BaseRes)
 
   useEffect(()=>{
-    axios.get(`${baseUrl}api/v1/event/get?eventId=${props.data.id}`)
+    axios.get(`${baseUrl}/${REQUEST_EVENT_GET}?eventId=${props.data.id}`)
     .then(res => {
       setRecommandData(res.data)
       console.log(res.data)

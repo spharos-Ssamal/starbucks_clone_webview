@@ -1,0 +1,16 @@
+.entering_Background {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-primary);
+}
+.starbucks_logo_intro img {
+  width: 20rem;
+  height: 20rem;
+  z-index: 10;
+}
+.circle_for_logo {
+  width: 70vw;
+  height: 35vh;
+  background-color: white;
+  z-index: 5;
+}
