@@ -16,7 +16,6 @@ function RecommandMdList(props:{ data: eventData, title ?: string }) {
     axios.get(`${baseUrl}/${REQUEST_RECOMMEND_READ}?recommendId=${props.data.id}`)
     .then(res => {
       setRecommandData(res.data)
-      console.log(res.data)
     })
     .catch(err => {
       console.log(err)

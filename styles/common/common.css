@@ -1,8 +1,7 @@
 body {
   margin: 0px;
   padding: 0px;
-  font-family: 'Noto Sans KR', sans-serif;
-
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 section {
@@ -20,9 +19,8 @@ header {
 }
 
 h1 {
-  color : black;
+  color: black;
 }
-
 
 .hide {
   opacity: 0;
@@ -33,7 +31,6 @@ h1 {
 }
 
 .first-section-sub-one {
-  margin-top: 138px !important;
 }
 
 .back-button {
@@ -42,7 +39,6 @@ h1 {
   padding: 10px 7px;
   opacity: 0.5;
 }
-
 
 #starbucks-logo {
   width: 80px;
@@ -90,13 +86,13 @@ h1 {
 }
 @keyframes showUp {
   0% {
-      opacity: 0;
-      transform: translateX(20px);
+    opacity: 0;
+    transform: translateX(20px);
   }
 
   100% {
-      opacity: 1;
-      transform: translateX(0px);
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 

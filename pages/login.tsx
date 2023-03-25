@@ -2,12 +2,14 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import LoginForm from '@/components/page/login/LoginForm';
 import LoginTop from '@/components/page/login/LoginTop';
+import { userIsLogin } from '@/state/user/atom/userIsLoginState';
 
 export default function LoginModal() {
 
   const router = useRouter();
   
   const handleBack = () => {
+    !userIsLogin
     router.back();
   };
 

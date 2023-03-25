@@ -1,3 +1,9 @@
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import { LoginReq } from '@/Types/UserRequest/Request';
 import { LoginRes } from '@/Types/UserRequest/Response';
 import { cookies } from 'next/headers';
@@ -6,12 +12,6 @@ import Config from '@/configs/config.export';
 import { REQUEST_LOGIN } from '@/constants/Apis/URL';
 import { userIsLogin } from '@/state/user/atom/userIsLoginState';
 import { userLoginState } from '@/state/user/atom/userLoginState';
-import axios from 'axios';
-import Head from 'next/head';
-import Link from 'next/link';
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import Swal from 'sweetalert2';
 
 export default function LoginModal(props:{isModalOpen:boolean, setIsModalOpen:Function}) {
   const BASE_URL = Config().baseUrl;

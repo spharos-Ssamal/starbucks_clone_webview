@@ -16,6 +16,7 @@ import { productDataType } from '@/Types/starbucksTypes';
 import PageDetailInfoCommon from '@/components/widgets/PageDetailInfoCommon';
 import ProductHeader from '@/components/page/product/ProductHeader';
 import ProductDetailList from '@/components/page/product/ProductDetailList';
+import { REQUEST_PRODUCT_READ } from '@/constants/Apis/URL';
 
 
 export default function Product() {
@@ -37,7 +38,7 @@ export default function Product() {
   console.log('query',query)
   
   useEffect(() => {
-    axios.get(`${baseUrl}/api/v1/product/read?productId=${query.productId}`)
+    axios.get(`${baseUrl}/${REQUEST_PRODUCT_READ}?productId=${query.productId}`)
     .then(res => {
       console.log("productdata",res.data)
       setProductData(res.data.data.productInfo);
