@@ -37,8 +37,6 @@ export default function Product() {
     height: 0,
   });
 
-  console.log("query", query);
-
   useEffect(() => {
     axios
       .get(`${baseUrl}/${REQUEST_PRODUCT_READ}?productId=${query.productId}`)
@@ -70,7 +68,7 @@ export default function Product() {
       .catch((err) => {
         console.log(err);
       });
-  }, [query.productId]);
+  }, [baseUrl, query.productId]);
 
   useEffect(() => {
     axios
