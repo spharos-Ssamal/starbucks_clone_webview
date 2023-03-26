@@ -1,39 +1,41 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import axios from 'axios'
-import MainBanner from '@/components/widgets/MainBanner'
-import RecommandMdList from '@/components/widgets/RecommandMdList'
-import Config from '@/configs/config.export'
-import { BaseRes, eventData } from '@/constants/Apis/Types/ResponseType'
-import { REQUEST_RECOMMEND_ACTIVE } from '@/constants/Apis/URL';
-import { REQUEST_EVENT_ACTIVE } from '@/constants/Apis/URL';
-
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import axios from "axios";
+import MainBanner from "@/components/widgets/MainBanner";
+import RecommandMdList from "@/components/widgets/RecommandMdList";
+import Config from "@/configs/config.export";
+import { BaseRes, eventData } from "@/constants/Apis/Types/ResponseType";
+import { REQUEST_RECOMMEND_ACTIVE } from "@/constants/Apis/URL";
+import { REQUEST_EVENT_ACTIVE } from "@/constants/Apis/URL";
 
 export default function Home() {
-  
   const baseUrl = Config().baseUrl;
-  const [ data, setData ] = useState<BaseRes>({} as BaseRes) 
-  const [ viewByOthersData, setViewByOthersData ] = useState<eventData>({} as eventData);
+  const [data, setData] = useState<BaseRes>({} as BaseRes);
+  const [viewByOthersData, setViewByOthersData] = useState<eventData>(
+    {} as eventData
+  );
 
-  useEffect(()=>{
-    console.log(baseUrl)
-    axios.get(`${baseUrl}/${REQUEST_RECOMMEND_ACTIVE}`)
-    .then(res => {
-     setData(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  useEffect(() => {
+    console.log(baseUrl);
+    axios
+      .get(`${baseUrl}/${REQUEST_RECOMMEND_ACTIVE}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    axios.get(`${baseUrl}/${REQUEST_EVENT_ACTIVE}`)
-    .then(res => {
-      let rndNumber = Math.floor(Math.random() * res.data.data.length);
-      setViewByOthersData(res.data.data[rndNumber]);
-    })
-    .catch(err=> {
-      console.log(err)
-    })
-  },[])
+    axios
+      .get(`${baseUrl}/${REQUEST_EVENT_ACTIVE}`)
+      .then((res) => {
+        let rndNumber = Math.floor(Math.random() * res.data.data.length);
+        setViewByOthersData(res.data.data[rndNumber]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -44,14 +46,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainBanner />
-      { 
-        data.data && data.data.map( 
-          (item: eventData) => <RecommandMdList key={item.id} data={item} />
-        ) 
-      }
-      {/* <ChunsikList 
-        data={viewByOthersData}
-      /> */}
+      {data.data &&
+        data.data.map((item: eventData) => (
+          <RecommandMdList key={item.id} data={item} />
+        ))}
     </>
-  )
+  );
 }

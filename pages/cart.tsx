@@ -6,7 +6,6 @@ import axios from "axios";
 import { cartListType, cartType } from "@/Types/cart/cartListType";
 import Swal from "sweetalert2";
 import CartFooter from "@/components/page/cart/CartFooter";
-import CartHeader from "@/components/page/cart/CartHeader";
 import CartInfo from "@/components/page/cart/CartInfo";
 import CartList from "@/components/page/cart/CartList";
 import CartMenu from "@/components/page/cart/CartMenu";

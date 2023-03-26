@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function CartHeader() {
   return (
@@ -8,14 +8,18 @@ export default function CartHeader() {
           <div className="menu-icon">
             <img src="assets/images/icons/left.png" alt="" />
           </div>
-          <h1><a href="">온라인 스토어</a></h1>
+          <h1>
+            <a href="">온라인 스토어</a>
+          </h1>
           <nav>
             <ul>
-              <li><img src="assets/images/icons/close.png" /></li>
+              <li>
+                <img src="assets/images/icons/close.png" />
+              </li>
             </ul>
           </nav>
         </div>
       </header>
     </div>
-  )
+  );
 }

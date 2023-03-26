@@ -1,53 +1,69 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Config from "@/configs/config.export";
 import { REQUEST_BANNER, REQUEST_EVENT_GET } from "@/constants/Apis/URL";
 import axios from "axios";
 import { ProductInfo } from "@/Types/ProductRequest/Request";
+import Product from "../ui/Product";
 
 interface EventBannerProp {
   id: number;
 }
 
-interface EventDetailInfo {
-  eventName : string;
-  products :ProductInfo;
+interface EventDetailRes {
+  detailImage: string;
+  eventProductRes: EventDetailInfo[];
 }
 
-export interface bannerDataType {
-  eventId: number;
-  regTime: string;
-  bannerImage: string;
-  recommendId: number;
+interface EventDetailInfo {
+  eventName: string;
+  products: ProductInfo;
 }
 
 export default function ActiveEventBanner(props: EventBannerProp) {
   const { baseUrl } = Config();
-  
-  const [activeEventData, setActiveEventData] = useState<EventDetailInfo[]>(
-    []
-  );
-  //console.log("banner", activeEventData);
+  const [detailImage, setDetailImage] = useState("");
+  const [activeEventData, setActiveEventData] = useState<EventDetailInfo[]>([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseUrl}/${REQUEST_EVENT_GET}?eventid=${props.id}`)
-  //     .then((res) => {
-  //       const response : EventDetailInfo = res.data.data;
-  //       setActiveEventData(res.data.data);
-  //       console.log("banner", res.data.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  const fetchEventDetail = useCallback(async () => {
+    axios
+      .get(`${baseUrl}/${REQUEST_EVENT_GET}`, {
+        params: { eventId: props.id },
+      })
+      .then((res) => {
+        const result: EventDetailRes = res.data.data;
+        setDetailImage(result.detailImage);
+        setActiveEventData(result.eventProductRes);
+        console.log(detailImage);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [baseUrl]);
+
+  useEffect(() => {
+    fetchEventDetail();
+  }, [fetchEventDetail]);
+
   return (
-  <>
-
-    <section id="event-info" className="first-section-sub-one">
-      <div className="event-info">
-        <img src="" width="100%" height="100%"/>
-      </div>
-    </section>
-  </>
+    <>
+      <section id="event-info" className="first-section-sub-one">
+        <div className="event-info">
+          <img src={detailImage} alt="" width="100%" height="100%" />
+        </div>
+        <section id="event-items" className="first-section-sub-one">
+          <div className="product-container">
+            {activeEventData &&
+              activeEventData.map((element) => (
+                <Product
+                  key={element.products.id}
+                  imageSrc={element.products.thumbnail}
+                  productTitle={element.products.name}
+                  productPrice={element.products.price.toString()}
+                />
+              ))}
+          </div>
+        </section>
+      </section>
+    </>
   );
 }

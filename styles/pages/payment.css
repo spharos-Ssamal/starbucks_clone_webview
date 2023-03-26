@@ -44,7 +44,6 @@
   border-radius: 30px / 30px;
   text-align: center;
   line-height: 23px;
-  font-size: ;
 }
 
 #pay-delivery .delivery-info {
@@ -153,11 +152,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.grey-wrap {
   font-weight: 600;
   font-size: 1rem;
 }
+
 .grey-arrow-down-wrap {
   width: 20px;
   position: relative;
@@ -213,9 +211,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-#mobile-gift > div p {
 }
 
 #mobile-gift > div > a > div {

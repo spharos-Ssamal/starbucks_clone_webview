@@ -1,3 +1,13 @@
+.header-container {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+
 .header-top {
   display: flex;
   justify-content: space-between;
@@ -7,7 +17,7 @@
 }
 
 .header-top .menu-icon {
-  width:35%;
+  width: 35%;
 }
 
 .header-top h1 {
@@ -31,7 +41,7 @@
   /* display: flex;
   justify-content: end;
   align-items: center; */
-  
+
   padding: 0px;
   margin: 0px;
 }
@@ -45,7 +55,6 @@
 .header-top nav ul li:last-child {
   margin-right: 0px;
 }
-
 
 .header-bottom nav ul {
   opacity: 0.8;
@@ -89,7 +98,6 @@
 .header-bottom nav ul li.active a {
   color: var(--color-black);
 }
-
 
 /* 서브 헤더 */
 .header-sub {
