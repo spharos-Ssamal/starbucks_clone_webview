@@ -33,12 +33,11 @@ export default function ActiveEventBanner(props: EventBannerProp) {
         const result: EventDetailRes = res.data.data;
         setDetailImage(result.detailImage);
         setActiveEventData(result.eventProductRes);
-        console.log(detailImage);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [baseUrl]);
+  }, [baseUrl, props.id]);
 
   useEffect(() => {
     fetchEventDetail();
@@ -46,11 +45,11 @@ export default function ActiveEventBanner(props: EventBannerProp) {
 
   return (
     <>
-      <section id="event-info" className="first-section-sub-one">
+      <div id="event-info" className="first-section-sub-one">
         <div className="event-info">
           <img src={detailImage} alt="" width="100%" height="100%" />
         </div>
-        <section id="event-items" className="first-section-sub-one">
+        <div id="event-items" className="first-section-sub-one">
           <div className="product-container">
             {activeEventData &&
               activeEventData.map((element) => (
@@ -62,8 +61,8 @@ export default function ActiveEventBanner(props: EventBannerProp) {
                 />
               ))}
           </div>
-        </section>
-      </section>
+        </div>
+      </div>
     </>
   );
 }

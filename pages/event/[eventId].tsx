@@ -4,6 +4,10 @@ import axios from "axios";
 import Config from "@/configs/config.export";
 import { REQUEST_EVENT_ACTIVE } from "@/constants/Apis/URL";
 import ActiveEventBanner from "@/components/layouts/ActiveEventBanner";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/swiper.min.css";
+import { useRouter } from "next/router";
 
 interface activeEventRes {
   id: number;
@@ -11,14 +15,11 @@ interface activeEventRes {
 }
 
 export default function Event() {
+  const router = useRouter();
+  const [eventId, setEventId] = useState(0);
+
   const { baseUrl } = Config();
   const [activeEvent, setActiveEvent] = useState<activeEventRes[]>([]);
-  const [eventId, setEventId] = useState<number>(0);
-
-  const onClickEventBanner = (value: number) => {
-    setEventId(value);
-    console.log(eventId);
-  };
 
   const fetchEventActive = useCallback(async () => {
     axios
@@ -27,13 +28,16 @@ export default function Event() {
         const result: activeEventRes[] = res.data.data;
         if (result.length != 0 && result != undefined) {
           setActiveEvent([...result]);
-          setEventId(result[0].id);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }, [baseUrl]);
+
+  useEffect(() => {
+    console.log(router.query);
+  }, []);
 
   useEffect(() => {
     fetchEventActive();
@@ -48,24 +52,30 @@ export default function Event() {
         <nav>
           <ul>
             {activeEvent &&
-              activeEvent.map((element) => (
+              activeEvent.map((element, idx) => (
                 <>
-                  <li
-                    key={element.id}
-                    onClick={() => onClickEventBanner(element.id)}
-                  >
-                    {element.name}
-                  </li>
+                  <li key={idx}>{element.name}</li>
                 </>
               ))}
           </ul>
         </nav>
       </div>
-      {eventId != 0 && (
-        <>
-          <ActiveEventBanner id={4} />
-        </>
-      )}
+      <div>
+        <Swiper
+          autoHeight={true}
+          modules={[Navigation]}
+          spaceBetween={0}
+          slidesPerView={1}
+          scrollbar={{ draggable: true }}
+        >
+          {activeEvent &&
+            activeEvent.map((element, idx) => (
+              <SwiperSlide key={idx}>
+                <ActiveEventBanner key={element.name} id={element.id} />
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
     </>
   );
 }
