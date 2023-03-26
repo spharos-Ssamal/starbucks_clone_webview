@@ -40,8 +40,12 @@ export default function SideMenuModal(props: Iprops) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <section className="contents-head">
-            <div className="close-icon" onClick={props.closeModal}>
-              <img src="assets/images/icons/close.png" alt="" />
+            <div>
+              <img
+                src="assets/images/icons/close.png"
+                alt=""
+                onClick={props.closeModal}
+              />
             </div>
             <div className="contents-msg">
               <div className="msg-title">Sign in to Online Store</div>
