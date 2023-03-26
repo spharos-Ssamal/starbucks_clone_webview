@@ -16,6 +16,16 @@ export default function SideMenuModal(props: Iprops) {
     router.push("/store");
   };
 
+  const handleOpenEventPage = () => {
+    props.closeModal();
+    router.push("/event");
+  };
+
+  const handleOpenBestPage = () => {
+    props.closeModal();
+    router.push("/best");
+  };
+
   return (
     <>
       {props.isModalOpen && (
@@ -136,39 +146,35 @@ export default function SideMenuModal(props: Iprops) {
           </section>
           <section id="nav-event-best">
             <div className="nav-button">
-              <Link href={""}>
-                <button>
-                  <div className="nav-container">
-                    <div>
-                      <span className="title">기획전</span>
-                      <br />
-                      <span>진행중인 기획전을 만나보세요.</span>
-                    </div>
-                    <img
-                      src="assets/images/icons/contents/right-arrow.png"
-                      alt=""
-                    />
+              <button onClick={handleOpenEventPage}>
+                <div className="nav-container">
+                  <div>
+                    <span className="title">기획전</span>
+                    <br />
+                    <span>진행중인 기획전을 만나보세요.</span>
                   </div>
-                </button>
-              </Link>
+                  <img
+                    src="assets/images/icons/contents/right-arrow.png"
+                    alt=""
+                  />
+                </div>
+              </button>
               <hr />
             </div>
             <div className="nav-button">
-              <Link href={""}>
-                <button>
-                  <div className="nav-container">
-                    <div>
-                      <span className="title">베스트</span>
-                      <br />
-                      <span>스타벅스의 베스트 상품을 만나보세요.</span>
-                    </div>
-                    <img
-                      src="assets/images/icons/contents/right-arrow.png"
-                      alt=""
-                    />
+              <button onClick={handleOpenBestPage}>
+                <div className="nav-container">
+                  <div>
+                    <span className="title">베스트</span>
+                    <br />
+                    <span>스타벅스의 베스트 상품을 만나보세요.</span>
                   </div>
-                </button>
-              </Link>
+                  <img
+                    src="assets/images/icons/contents/right-arrow.png"
+                    alt=""
+                  />
+                </div>
+              </button>
             </div>
           </section>
         </div>
