@@ -18,17 +18,20 @@ export interface bannerInfo {
   height: number;
 }
 
-export interface recommandData {
-  categoryName: string;
-  products: {
-    id: number;
-    description: string;
-    name: string;
-    price: number;
-    size: string;
-    thumbnail: string;
-    season: string;
-    width: number;
-    height: number;
-  };
+export interface productInfo {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  thumbnail: string;
+}
+
+export interface eventProductRes {
+  eventName: string;
+  products: productInfo;
+}
+
+export interface getEventRes {
+  detailImage: string;
+  eventProductRes: eventProductRes[];
 }
