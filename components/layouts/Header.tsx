@@ -47,6 +47,13 @@ function Header() {
   const [headerMenus, setHeaderMenus] = useState<headerMenu[]>(headerNavMenus);
 
   const [filterList, setFilterList] = useState<filterType[]>([]);
+  const exceptionList = [
+    "/product/[productId]",
+    "/cart",
+    "/search",
+    "/store",
+    "/address",
+  ];
 
   const handleFilter = (name: String) => {
     setFilterList([]);
@@ -81,6 +88,8 @@ function Header() {
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
+  console.log(pathname);
+  console.log(exceptionList.includes(pathname));
 
   return (
     <>
@@ -119,10 +128,7 @@ function Header() {
           </h1>
           <HeaderTopRightIcons />
         </div>
-        {pathname === "/product/[productId]" ||
-        pathname === "/cart" ||
-        pathname === "/search" ||
-        pathname === "/store" ? null : (
+        {exceptionList.includes(pathname, 0) ? null : (
           <div className="header-bottom">
             <nav>
               <ul>
