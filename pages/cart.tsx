@@ -14,11 +14,11 @@ import { cartListState } from "@/state/cart/atom/cartListState";
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import Nodata from "@/components/ui/Nodata";
 import { REQUEST_CART_GET } from "@/constants/Apis/URL";
+import { userLoginState } from "@/state/user/atom/userLoginState";
 
 function Cart() {
-
   const router = useRouter();
-  const isLogin = useRecoilValue(userIsLogin)
+  const isLogin = useRecoilValue(userLoginState);
 
   const baseUrl = Config().baseUrl;
 
@@ -26,52 +26,60 @@ function Cart() {
   const cartData = useRecoilValue<cartType>(cartListState);
 
   useEffect(() => {
-    axios.get(`${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`)
-    .then((res) => {    
-      console.log(res.data) 
-      setCartList({
-        cartListFreeze: res.data.data.filter((item:cartListType) => item.frozen === true),
-        cartList: res.data.data.filter((item:cartListType) => item.frozen === false)
+    axios
+      .get(
+        `${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setCartList({
+          cartListFreeze: res.data.data.filter(
+            (item: cartListType) => item.frozen === true
+          ),
+          cartList: res.data.data.filter(
+            (item: cartListType) => item.frozen === false
+          ),
+        });
       })
-    }).catch((err) => {
-      console.log(err)
-    })
-  },[])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  if(!isLogin) {
+  if (!isLogin.isLogin) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: '로그인 페이지로 이동합니다',
-    }).then(function() {
-    router.push('/login')
-    return null;
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "로그인 페이지로 이동합니다",
+    }).then(function () {
+      router.push("/login");
+      return null;
+    });
   }
 
-  return(
+  return (
     <>
-    <Head>
-      <title>장바구니</title>
-    </Head>
-    
-    {
-      cartData && cartData.cartList.length === 0 && cartData.cartListFreeze.length === 0 ? 
-      <section id="cart-header" style={{paddingBottom: "50vh"}}>
-        <p className="title">장바구니</p>
-        <Nodata text="장바구니가 비었습니다." icon='cart'/> 
-      </section>
-      :
-      <>
-      <CartMenu />
-      <CartList />
-      <CartInfo />
-      <CartFooter />
-      </>
-    }
-      
+      <Head>
+        <title>장바구니</title>
+      </Head>
+
+      {cartData &&
+      cartData.cartList.length === 0 &&
+      cartData.cartListFreeze.length === 0 ? (
+        <section id="cart-header" style={{ paddingBottom: "50vh" }}>
+          <p className="title">장바구니</p>
+          <Nodata text="장바구니가 비었습니다." icon="cart" />
+        </section>
+      ) : (
+        <>
+          <CartMenu />
+          <CartList />
+          <CartInfo />
+          <CartFooter />
+        </>
+      )}
     </>
   );
 }
 
-export default (Cart);
+export default Cart;

@@ -1,8 +1,7 @@
-
 import getConfigs from "./config.common";
 
-const baseUrl = 'http://10.10.10.89:8081';
-const mode = 'dev';
+const baseUrl = "http://starbucks.ssamal-dev.kro.kr";
+const mode = "dev";
 
 const configDev = getConfigs({
   baseUrl,

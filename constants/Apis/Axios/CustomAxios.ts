@@ -14,9 +14,8 @@ export const CustomAxios = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
-
 
 CustomAxios.interceptors.request.use((config) => {
   const token = localStorage.getItem("ACCESS_TOKEN");
@@ -44,13 +43,14 @@ CustomAxios.interceptors.response.use(
         await RequestReissueToken()
           .then(() => {
             if (originRequest !== undefined) {
-              const result = CustomAxios(originRequest);
+              const result = CustomAxios.request(originRequest);
               return Promise.resolve(result);
             }
           })
           .catch(() => {
             //TODO
             //자동 로그아웃 처리
+            localStorage.removeItem("ACCESS_TOKEN");
           });
       }
     } else if (
@@ -63,6 +63,7 @@ CustomAxios.interceptors.response.use(
       ) {
         //TODO
         //자동 로그아웃 처리
+        localStorage.removeItem("ACCESS_TOKEN");
       }
     }
 
