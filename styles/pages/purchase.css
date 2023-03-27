@@ -10,7 +10,7 @@
     font-size: 1rem;
 }
 
-.purchase-list-period-setting-info .arrow {
+.arrow {
     width: 0.8rem;
     height: 0.8rem;
     opacity: 0.5;
@@ -103,3 +103,76 @@
 .purchase-list-product {
     text-align: center;
 }
+
+#purchase-card {
+    background-color: var(--color-white);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.381);
+  }
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  .flex .bold {
+    font-weight: 700;
+  }
+
+  .flex .bold .opacity{
+    opacity: 0.5;
+    border-left : solid var(--color-gray-button);
+    padding: 0px 10px;
+    margin-left: 10px
+  }
+  
+  .flex .right {
+    opacity: 0.6;
+  }
+  .flex .arrow {
+    margin-left: 5px;
+  }
+
+  .card-product {
+    display: flex;
+    padding: 20px 13px;
+    margin: 0px 0px 10px 0px;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: 1px solid var(--color-gray-button);
+    border-radius: 10px;
+  }
+  
+  .card-product .product-img {
+    width: 35%;
+    padding: 0px;
+    border-radius: 10%;
+  }
+  
+  .card-product .item-info {
+    display: flex;
+    padding: 0px;
+    margin: 0px 10px;
+    justify-content: space-between;
+  }
+  .card-product .card-info {
+    line-height: 30px;
+  }
+  .card-product .item-info .card-title {
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 700;
+  }
+  .card-product .item-info .name {
+    margin: 0;
+  }
+  
+  .card-product .item-info .bold{
+    margin: 0;
+    font-weight: 700;
+  }
+  .card-product .item-info .opacity{
+    text-align: left;
+    margin: 0px 20px;
+    opacity: 0.5;
+  }
+  
+  
