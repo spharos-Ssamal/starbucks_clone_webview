@@ -3,7 +3,7 @@ import Config from "@/configs/config.export";
 import { REQUEST_BANNER, REQUEST_EVENT_GET } from "@/constants/Apis/URL";
 import axios from "axios";
 import { ProductInfo } from "@/Types/ProductRequest/Request";
-import Product from "../ui/Product";
+import ProductCard from "../ui/ProductCard";
 
 interface EventBannerProp {
   id: number;
@@ -53,8 +53,9 @@ export default function ActiveEventBanner(props: EventBannerProp) {
           <div className="product-container">
             {activeEventData &&
               activeEventData.map((element) => (
-                <Product
+                <ProductCard
                   key={element.products.id}
+                  productId={element.products.id}
                   imageSrc={element.products.thumbnail}
                   productTitle={element.products.name}
                   productPrice={element.products.price.toString()}

@@ -42,7 +42,7 @@ export default function SideMenuModal(props: Iprops) {
           <section className="contents-head">
             <div>
               <img
-                src="assets/images/icons/close.png"
+                src="/assets/images/icons/close.png"
                 alt=""
                 onClick={props.closeModal}
               />
@@ -61,7 +61,7 @@ export default function SideMenuModal(props: Iprops) {
                 <a> 전체상품보기 </a>
                 <span>
                   <img
-                    src="assets/images/icons/contents/right-arrow.png"
+                    src="/assets/images/icons/contents/right-arrow.png"
                     alt=""
                   />
                 </span>
@@ -72,7 +72,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-cake.jpg"
+                      src="/assets/images/products/category/category-cake.jpg"
                       alt="케이크"
                     />
                   </div>
@@ -85,7 +85,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-tumblr.jpg"
+                      src="/assets/images/products/category/category-tumblr.jpg"
                       alt="텀블러/보온병"
                     />
                   </div>
@@ -98,7 +98,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-cup.jpg"
+                      src="/assets/images/products/category/category-cup.jpg"
                       alt="머그컵"
                     />
                   </div>
@@ -111,7 +111,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-lifestyle.jpg"
+                      src="/assets/images/products/category/category-lifestyle.jpg"
                       alt="라이프스타일"
                     />
                   </div>
@@ -124,7 +124,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-tea.jpg"
+                      src="/assets/images/products/category/category-tea.jpg"
                       alt="티/커피용품"
                     />
                   </div>
@@ -137,7 +137,7 @@ export default function SideMenuModal(props: Iprops) {
                 <div className="category">
                   <div className="category-img">
                     <img
-                      src="assets/images/products/category/category-set.jpg"
+                      src="/assets/images/products/category/category-set.jpg"
                       alt="세트"
                     />
                   </div>
@@ -158,7 +158,7 @@ export default function SideMenuModal(props: Iprops) {
                     <span>진행중인 기획전을 만나보세요.</span>
                   </div>
                   <img
-                    src="assets/images/icons/contents/right-arrow.png"
+                    src="/assets/images/icons/contents/right-arrow.png"
                     alt=""
                   />
                 </div>
@@ -174,7 +174,7 @@ export default function SideMenuModal(props: Iprops) {
                     <span>스타벅스의 베스트 상품을 만나보세요.</span>
                   </div>
                   <img
-                    src="assets/images/icons/contents/right-arrow.png"
+                    src="/assets/images/icons/contents/right-arrow.png"
                     alt=""
                   />
                 </div>

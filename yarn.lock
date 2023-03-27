@@ -2066,7 +2066,7 @@ react-dom@18.2.0:
 
 react-image-size@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.npmjs.org/react-image-size/-/react-image-size-2.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/react-image-size/-/react-image-size-2.0.2.tgz#5f90e4b2659269eefebd139aa1882aef4f48250e"
   integrity sha512-j2ZhFsY5n8HAU43ZrhvDOkGBhAY0IJX2DjajmwF+TdXuZ/lGHuhmqj5/88o1M+yL8Un5oNSLjBRH5XikWiiHlA==
 
 react-is@^16.13.1, react-is@^16.7.0:

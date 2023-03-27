@@ -95,7 +95,7 @@ function Header() {
       />
       <header>
         <div className="header-top">
-          {pathname === "/store" ? (
+          {pathname === "/store" || pathname === "/product/[productId]" ? (
             <div className="menu-icon" onClick={() => router.back()}>
               <Image
                 src="/assets/images/icons/left.png"
