@@ -253,17 +253,103 @@
 }
 .pay-sb-card {
   margin-bottom: 0px;
-  padding: 0px 0px;
+  padding: 25px 25px;
   background-color: #f4f4f4;
   max-width: 100%;
+  text-align: center;
+  display: inline-flex;
+  overflow-x: scroll;
 }
+
 #pay-method .pay-choice .radio-pd14 {
   padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
 }
+.textRedAlert {
+  text-align: right;
+  color: crimson;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  position: relative;
+  top: -7px;
+}
+
+textRedAlert_iGotMoney {
+  display: hidden
+}
+
+.textRedAlert img {
+  position: relative;
+  top: 6px;
+}
+
+.eGiftCardWrap {
+  width: 60%;
+  margin-right: 10px;
+}
+.eGiftCard {
+  width: 52vw;
+  height: 30vw;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: aliceblue;
+  border: 1px solid var(--color-gray-background);
+  line-height: 30vw;
+}
+
+.eGiftCard2 {
+  width: 52vw;
+  height: 30vw;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(230, 236, 241);
+  border: 1px solid var(--color-gray-background);
+  line-height: 30vw;
+  margin-right: 50px;
+}
+
+.eGiftCard img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.eGiftCard2 img {
+  width: 10%;
+  height: auto;
+  display: block;
+  top: 11vw;
+  left: 11.5vh;
+  position: relative;
+  opacity: 0.6;
+  text-align: center;
+}
+.eGiftCard2 span {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin: 0;
+  position: relative;
+  top: -10px;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+.eGiftCardInfo p {
+  margin: 0;
+}
+.eGiftCardInfoTitle {
+  font-size: 0.8rem;
+}
+.eGiftCardPrice {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 #pay-method .pay-choice .radio-pd14-pd30 {
   padding: 10px 14px 30px;
 }
-
+.pay-choice {
+  overflow-x: hidden;
+}
 #pay-info {
   margin-bottom: 0px;
   padding: 0px 14px;

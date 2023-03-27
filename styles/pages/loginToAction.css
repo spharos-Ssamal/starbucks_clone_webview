@@ -1,0 +1,81 @@
+.loginToActionWrap {
+  margin-top: 80px;
+  padding: 20px 25px;
+}
+.toActionMsg {
+  margin-bottom: 15px;
+}
+.toActionMsg h2 {
+  margin: 0;
+}
+.toActionButton {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+}
+.mainThemeBgWhite {
+  height: 34px;
+  border: solid 1px var(--color-light-green);
+  background: transparent;
+  border-radius: 30px;
+  width: 25vw;
+  line-height: 30px;
+  color: var(--color-light-green);
+  font-size: 0.9rem;
+}
+
+.mainThemeBgTheme {
+  height: 34px;
+  border: solid 1px var(--color-light-green);
+  background: var(--color-light-green);
+  border-radius: 30px;
+  width: 20vw;
+  line-height: 30px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.toActionButton {
+  display: flex;
+  bottom: 0;
+}
+
+.toActionImg img {
+  bottom: 3px;
+  position: fixed;
+  width: 80%;
+  height: 55%;
+}
+
+.errorMsgWrap {
+  margin-top: 150px;
+  padding: 20px 35px;
+}
+
+.errormsg {
+  margin-bottom: 20px;
+}
+.errorTitle {
+  font-size: 1.5rem;
+  margin-bottom: 17px;
+}
+.errorSorry {
+  margin: 0;
+  opacity: 0.6;
+}
+.errorBoard {
+  width: 90%;
+  height: 4vh;
+  background-color: whitesmoke;
+  padding: 12px 15px;
+  line-height: 3.5vh;
+  opacity: 0.7;
+  margin-top: 35px;
+}
+
+.errorImg img {
+  width: 95%;
+  margin-left: 20px;
+  position: absolute;
+  bottom: 60px;
+}
