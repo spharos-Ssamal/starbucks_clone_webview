@@ -1,6 +1,6 @@
 #info-header {
   background-color: var(--color-white);
-  margin: 80px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 0px 20px 30px 20px;
 }
 
@@ -11,14 +11,21 @@
   font-weight: 700;
 }
 
+#info-header div img {
+  width: 20px;
+  height: auto;
+  opacity: 0.5;
+}
+
 #delivery-input {
   background-color: var(--color-white);
   margin: 0;
   padding: 0;
 }
 
-#delivery-input>div {
+#delivery-input > div {
   padding: 10px 20px;
+  margin-bottom: 70px;
 }
 
 #delivery-input input {
@@ -88,7 +95,7 @@
   padding: 10px 0px;
   border: none;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
-  width: 100%
+  width: 100%;
 }
 
 #delivery-input .delivery-memo p {
@@ -104,12 +111,11 @@
   justify-content: flex-start;
 }
 
-#delivery-input .save-delivery input{
+#delivery-input .save-delivery input {
   width: 20px;
   margin: 10px 5px;
   accent-color: var(--color-light-green);
 }
-
 
 #delivery-input .save-delivery span {
   font-size: 0.95rem;

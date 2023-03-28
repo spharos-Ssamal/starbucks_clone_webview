@@ -12,11 +12,14 @@
   border-radius: 10px;
 }
 
-.product-img {
+/*
+이름 겹쳐서 에러나므로 현재 주석처리
+*/
+/* .product-img {
   width: 25%;
   padding: 0px;
   border-radius: 10%;
-}
+} */
 
 .item-info {
   display: flex;

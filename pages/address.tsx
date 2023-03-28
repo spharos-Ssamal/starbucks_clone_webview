@@ -1,51 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 
-import { useRecoilState } from "recoil";
-import axios from "axios";
-import Config from "@/configs/config.export";
-import { REQUEST_ADDRESS_DEFAULT } from "@/constants/Apis/URL";
-import AddressList from "@/components/page/address/AddressList";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userLoginState } from "@/state/user/atom/userLoginState";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import { RequestGetAllAddress } from "@/Service/AddressService/AddressService";
+import AddressCard from "@/components/page/address/AddressCard";
+import AddressEditModal from "@/components/modals/AddressEditModal";
+import { AddressDataType } from "@/Types/address/AddressType";
 
 export default function Address() {
-  const baseUrl = Config().baseUrl;
+  const isLogin = useRecoilValue(userLoginState);
+  const router = useRouter();
+  const [addressList, setAddressList] = useState<AddressDataType[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    axios
-      .get(`${baseUrl}${REQUEST_ADDRESS_DEFAULT}`)
+  const modalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const fetchUserAddress = useCallback(async () => {
+    RequestGetAllAddress(isLogin.userId)
       .then((res) => {
-        console.log(res.data.data);
+        const addressList = res.data.addressList;
+        setAddressList([...addressList]);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isLogin.userId]);
 
-  interface addressDataType {
-    id: number;
-    alias: string;
-    recipient: string;
-    zipCode: number;
-    baseAddress: string;
-    detailAddress: string;
-    contactInfo1: string;
-    contactInfo2: string;
-    shippingMemo: string;
-    defaultAddress: boolean;
-  }
+  useEffect(() => {
+    if (isLogin.isLogin && isLogin.userId !== null) {
+      fetchUserAddress();
+    }
+  }, []);
 
   return (
     <div>
+      <AddressEditModal
+        isModify={false}
+        isModalOpen={isModalOpen}
+        closeModal={modalClose}
+        fetchUserAddress={fetchUserAddress}
+      />
       <Head>
         <title>배송지 관리</title>
       </Head>
       <section id="delivery-header">
         <p>배송지 관리</p>
       </section>
-
-      <AddressList />
+      {addressList &&
+        addressList.map((element, idx) => (
+          <AddressCard
+            Address={element}
+            key={idx}
+            fetchUserAddress={fetchUserAddress}
+          />
+        ))}
       <section className="submit-container">
-        <button type="submit">+ 새 배송지 추가</button>
+        <button onClick={() => setIsModalOpen(true)}>+ 새 배송지 추가</button>
       </section>
     </div>
   );

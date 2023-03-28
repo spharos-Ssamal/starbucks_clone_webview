@@ -1,14 +1,16 @@
-import React from 'react'
+import React from "react";
 
 export default function LoginTop() {
   return (
     <>
-      
       <div className="login-header">
         <h1>로그인</h1>
       </div>
       <div className="greeting">
-        <img id="starbucks-logo" src="./assets/images/starbucks-logo.png" />
+        <img
+          id="starbucks-logo"
+          src="/assets/images/starbucksIllustrate/starbucks-logo.png"
+        />
         <h2>
           안녕하세요.
           <br />
@@ -16,7 +18,6 @@ export default function LoginTop() {
         </h2>
         <p>회원 서비스 이용을 위해 로그인 해주세요.</p>
       </div>
-
     </>
-  )
+  );
 }

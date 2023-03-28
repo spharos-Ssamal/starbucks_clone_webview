@@ -1,49 +1,49 @@
-#delivery-manage-list {
+#shipping-address-info {
   padding: 20px 0px;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
   margin: 0px 20px;
 }
 
-.delivery-manage {
+.address-manage {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin: 0;
 }
 
-#delivery-manage-list :nth-child(n+3){
+#shipping-address-info :nth-child(n + 3) {
   font-size: 0.8rem;
-  color: var(--color-gray-text)
+  color: var(--color-gray-text);
 }
 
-#delivery-manage-list p{
+#shipping-address-info p {
   margin: 5px 0px;
   font-size: 0.9rem;
 }
 
-.delivery-manage a{
+.address-manage a {
   color: var(--color-gray-text);
   text-decoration-line: none;
   font-size: 0.8rem;
 }
 
-.delivery-manage .delivery-info {
+.address-manage .address-info {
   width: 80%;
   word-wrap: break-word;
 }
 
-.delivery-manage .delivery-info .delivery-name {
+.address-manage .address-info .address-name {
   display: inline-flex;
   align-items: center;
   text-align: center;
 }
 
-.delivery-manage .delivery-info .name {
+.address-manage .address-info .name {
   font-weight: 700;
   font-size: 0.9rem;
 }
 
-.delivery-manage .delivery-info .is-primary {
+.address-manage .address-info .is-primary {
   width: 25px;
   font-size: 4px;
   font-weight: 200;
