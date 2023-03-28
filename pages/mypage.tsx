@@ -67,7 +67,7 @@ export default function MyPage() {
             <div id="service">
               <h2>서비스</h2>
               <div className="menu" id="order-details">
-                <a href="/주문내역">
+                <a onClick={() => router.push("/purchaseList")}>
                   <div className="menu-info">
                     <img
                       className="icon"
