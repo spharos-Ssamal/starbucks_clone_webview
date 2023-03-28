@@ -34,5 +34,5 @@ export const REQUEST_CART_UPDATE = "api/v1/cart/update";
 export const REQUEST_ADDRESS_DEFAULT = "api/v1/address/default";
 export const REQUEST_ADDRESS_ADD = "api/v1/address/add";
 export const REQUEST_ADDRESS_EDIT = "api/v1/address/edit";
-export const REQUEST_ADDRESS_all = "api/v1/address/all";
+export const REQUEST_ADDRESS_ALL = "api/v1/address/all";
 export const REQUEST_ADDRESS_DELETE = "api/v1/address/delete";

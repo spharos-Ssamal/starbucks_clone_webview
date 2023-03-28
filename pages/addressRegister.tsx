@@ -1,10 +1,17 @@
-import Link from 'next/link'
+import { AddressDataType } from "@/Types/address/addressType";
+import Link from "next/link";
 
-export default function addressRegister() {
+interface Props {
+  isModify: boolean;
+  Address?: AddressDataType;
+}
+
+export default function AddressRegister(props: Props) {
+  const { isModify, Address } = props;
+
   return (
     <>
-
-<section id="info-header">
+      <section id="info-header">
         <div>배송지 정보</div>
       </section>
       <section id="delivery-input">
@@ -14,9 +21,7 @@ export default function addressRegister() {
           <div className="post-number">
             <input type="text" placeholder="우편번호 *" />
             <Link href="">
-              <div className="search-address">
-                주소검색
-              </div>
+              <div className="search-address">주소검색</div>
             </Link>
           </div>
           <input type="text" placeholder="기본주소 *" />
@@ -35,13 +40,18 @@ export default function addressRegister() {
             </select>
           </div>
           <div className="save-delivery">
-            <input type="checkbox" /><span>기본 배송지로 저장합니다.</span>
+            <input type="checkbox" />
+            <span>기본 배송지로 저장합니다.</span>
           </div>
         </div>
       </section>
       <section className="submit-container">
-        <button type="submit">등록하기</button>
+        {isModify ? (
+          <button type="submit">등록하기</button>
+        ) : (
+          <button type="submit">수정하기</button>
+        )}
       </section>
     </>
-  )
+  );
 }

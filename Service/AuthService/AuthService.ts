@@ -4,7 +4,7 @@ import {
   REQUEST_LOGIN,
   REQUEST_LOGOUT,
   REQUEST_REGISTER,
-  REQUEST_REISSUE_TOKEN,
+  REQUEST_REISSUE_JWT_TOKEN,
   REQUEST_VERIFY_EMAIL,
 } from "@/constants/Apis/URL";
 import {
@@ -23,7 +23,7 @@ export async function RequestLogout() {
 }
 
 export async function RequestReissueToken() {
-  return await CustomAxios.post(REQUEST_REISSUE_TOKEN)
+  return await CustomAxios.post(REQUEST_REISSUE_JWT_TOKEN)
     .then((res) => {
       const response: ReIssueTokenRes = res.data;
       const newAccessToken = response.data.accessToken;

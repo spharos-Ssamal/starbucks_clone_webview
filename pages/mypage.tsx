@@ -1,11 +1,13 @@
 import LoginToAction from "@/components/page/mypage/loginToAction";
 import Config from "@/configs/config.export";
 import { userLoginState } from "@/state/user/atom/userLoginState";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 
 export default function MyPage() {
   const { baseUrl } = Config();
   const isLogin = useRecoilValue(userLoginState);
+  const router = useRouter();
 
   return (
     <>
@@ -110,7 +112,7 @@ export default function MyPage() {
                 </a>
               </div>
               <div className="menu" id="shipping-destinations">
-                <a href="/배송지관리">
+                <a onClick={() => router.push("/address")}>
                   <div className="menu-info">
                     <img
                       className="icon"

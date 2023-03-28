@@ -53,7 +53,11 @@ function Header() {
     "/search",
     "/store",
     "/address",
+    "/addressRegister",
+    "/addressChange",
   ];
+
+  const backButtonList = ["/store", "/product/[productId]", "/address"];
 
   const handleFilter = (name: String) => {
     setFilterList([]);
@@ -104,7 +108,7 @@ function Header() {
       />
       <header>
         <div className="header-top">
-          {pathname === "/store" || pathname === "/product/[productId]" ? (
+          {backButtonList.includes(pathname, 0) ? (
             <div className="menu-icon" onClick={() => router.back()}>
               <Image
                 src="/assets/images/icons/left.png"

@@ -16,9 +16,10 @@
 .mainThemeBgWhite {
   height: 34px;
   border: solid 1px var(--color-light-green);
+  margin: 0 10px 0 0;
   background: transparent;
   border-radius: 30px;
-  width: 25vw;
+  width: 30vw;
   line-height: 30px;
   color: var(--color-light-green);
   font-size: 0.8rem;
