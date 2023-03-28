@@ -55,6 +55,7 @@ function Header() {
     "/address",
     "/addressRegister",
     "/addressChange",
+    "/purchaseList",
   ];
 
   const backButtonList = ["/store", "/product/[productId]", "/address"];
