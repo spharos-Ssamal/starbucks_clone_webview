@@ -9,7 +9,7 @@ import { getImageSize } from "react-image-size";
 import RecommandMdList from "@/components/widgets/RecommandMdList";
 import EventMdList from "@/components/widgets/EventMdList";
 
-import { productResponseDetailImages } from "@/Types/ProductRequest/Response";
+import { productResponseDetailImages } from "@/Types/Product/Response";
 import { eventData } from "@/constants/Apis/Types/ResponseType";
 import { imageType } from "@/Types/image/imageType";
 import { productDataType } from "@/Types/starbucksTypes";

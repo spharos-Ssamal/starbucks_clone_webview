@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { getImageSize } from "react-image-size";
 
-import { productResponseDetailImages } from "@/Types/ProductRequest/Response";
+import { productResponseDetailImages } from "@/Types/Product/Response";
 import Nodata from "@/components/ui/Nodata";
 
 export default function ProductDetailList(props: {

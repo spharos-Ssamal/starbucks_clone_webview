@@ -17,6 +17,10 @@ export const REQUEST_PRODUCT_SEARCH = "api/v1/product/search";
 export const REQUEST_PRODUCT_HASHTAG = "api/v1/product/search/hashtag";
 export const REQUEST_PRODUCT_READ = "api/v1/product/read";
 export const REQUEST_PRODUCT_ALL = "api/v1/product/get";
+export const REQUEST_CATEGORY_AGGREGATION_NAME =
+  "api/v1/product/category/aggregation/name";
+export const REQUEST_CATEGORY_AGGREGATION_HASH_TAG =
+  "api/v1/product/category/aggregation/hashtag";
 
 export const REQUEST_RECOMMEND_READ = "api/v1/recommend/get";
 export const REQUEST_RECOMMEND_ACTIVE = "api/v1/recommend/active";
@@ -36,3 +40,5 @@ export const REQUEST_ADDRESS_ADD = "api/v1/address/add";
 export const REQUEST_ADDRESS_EDIT = "api/v1/address/edit";
 export const REQUEST_ADDRESS_ALL = "api/v1/address/all";
 export const REQUEST_ADDRESS_DELETE = "api/v1/address/delete";
+
+export const REQUEST_SEASON_INFO = "api/v1/season/info";
