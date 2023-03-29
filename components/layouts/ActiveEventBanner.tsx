@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Config from "@/configs/config.export";
 import { REQUEST_BANNER, REQUEST_EVENT_GET } from "@/constants/Apis/URL";
 import axios from "axios";
-import { ProductInfo } from "@/Types/ProductRequest/Request";
+import { ProductInfo } from "@/Types/Product/Request";
 import ProductCard from "../ui/ProductCard";
 
 interface EventBannerProp {

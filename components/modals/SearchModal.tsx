@@ -5,6 +5,7 @@ import {
   RequestCategoryAggregationName,
 } from "@/Service/ProductService/ProductService";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 interface Props {
   isModalOpen: boolean;
@@ -13,10 +14,10 @@ interface Props {
 
 export function SearchModal(props: Props) {
   const [searchData, setSearchData] = useState<string>("");
+  const router = useRouter();
 
   const onChangeSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchData(e.target.value);
-    console.log(searchData);
   };
 
   const onClickSearchButton = () => {
@@ -26,24 +27,15 @@ export function SearchModal(props: Props) {
         text: "검색어를 입력해주세요",
       });
     } else {
+      props.closeModal();
       if (searchData.includes("#")) {
-        getCategoryAggregationByHashtag();
+        router.push(
+          `/searchResult/hashtag=${searchData.slice(1, searchData.length)}`
+        );
       } else {
-        getCategoryAggregationByName();
+        router.push(`/searchResult/name=${searchData}`);
       }
     }
-  };
-
-  const getCategoryAggregationByName = () => {
-    RequestCategoryAggregationName(searchData).then((res) => {
-      console.log(res);
-    });
-  };
-
-  const getCategoryAggregationByHashtag = () => {
-    RequestCategoryAggregationHashTag(searchData).then((res) => {
-      console.log(res);
-    });
   };
 
   return (

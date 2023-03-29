@@ -40,3 +40,5 @@ export const REQUEST_ADDRESS_ADD = "api/v1/address/add";
 export const REQUEST_ADDRESS_EDIT = "api/v1/address/edit";
 export const REQUEST_ADDRESS_ALL = "api/v1/address/all";
 export const REQUEST_ADDRESS_DELETE = "api/v1/address/delete";
+
+export const REQUEST_SEASON_INFO = "api/v1/season/info";
