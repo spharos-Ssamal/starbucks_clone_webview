@@ -1,63 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from "recoil";
 import { cartState } from "@/state/cart/atom/cartState";
-import { headerIcons } from '@/data/starbucksStaticDatas';
+import { SearchModal } from "../modals/SearchModal";
 
 export default function HeaderTopRightIcons() {
-
-  const cartCnt = useRecoilValue(cartState)
+  const cartCnt = useRecoilValue(cartState);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState<boolean>(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
 
   return (
     <div>
+      <SearchModal
+        isModalOpen={isSearchModalOpen}
+        closeModal={() => setIsSearchModalOpen(false)}
+      />
       <nav>
-          <ul>
-            {headerIcons.map((icon) => (
-              icon.name === 'mypage' ?
-                  <li 
-                    onClick={()=>setIsSignupModalOpen(true)}
-                    key={icon.id}
-                  >
-                    <Image
-                        src={icon.icon}
-                        alt={icon.name}
-                        width={20}
-                        height={20}
-                      />
-                  </li>
-                 
-                : 
-
-                icon.name === 'cart' ?
-
-                <li key={icon.id}>
-                  <Link href={icon.link}>
-                  <p className="cart-badge">{cartCnt}</p>
-                  <Image
-                      src={icon.icon}
-                      alt={icon.name}
-                      width={20}
-                      height={20}
-                    />
-                  </Link>
-                </li>
-              
-                :
-                  <li key={icon.id}>
-                  <Link href={icon.link}>
-                    <Image
-                      src={icon.icon}
-                      alt={icon.name}
-                      width={20}
-                      height={20}
-                    />
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </nav>
+        <ul>
+          <li onClick={() => setIsSearchModalOpen(true)}>
+            <Image
+              src="/assets/images/icons/search.svg"
+              width={20}
+              height={20}
+              alt={""}
+            />
+          </li>
+          <li>
+            <Link href="/cart">
+              <p className="cart-badge">{cartCnt}</p>
+              <Image
+                src="/assets/images/icons/shopping-cart.svg"
+                width={20}
+                height={20}
+                alt={""}
+              />
+            </Link>
+          </li>
+          <li onClick={() => setIsSignupModalOpen(true)}>
+            <Image
+              src="/assets/images/icons/user.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          </li>
+        </ul>
+      </nav>
     </div>
-  )
+  );
 }

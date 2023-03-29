@@ -19,7 +19,13 @@ const initialState = {
   logInfo: [],
 };
 
-export default function search() {
+export default function Search() {
+  const [searchData, setSearchData] = useState<string>("");
+
+  const onChangeSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchData(e.target.value);
+  };
+
   return (
     <>
       <Head>
@@ -28,16 +34,21 @@ export default function search() {
       <div className="search-top">
         <div className="search-bar">
           <form>
-            <input type="text" placeholder="검색어를 입력해 주세요." />
+            <input
+              type="text"
+              value={searchData}
+              onChange={onChangeSearchBar}
+              placeholder="검색어를 입력해 주세요."
+            />
             <div className="search-icons">
               <ul>
                 <div>
                   <li>
-                    <img src="assets/images/icons/search.svg" />
+                    <img src="/assets/images/icons/search.svg" />
                   </li>
                 </div>
                 <li>
-                  <img src="assets/images/icons/close.png" />
+                  <img src="/assets/images/icons/close.png" />
                 </li>
               </ul>
             </div>

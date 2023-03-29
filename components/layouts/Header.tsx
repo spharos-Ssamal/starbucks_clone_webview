@@ -26,6 +26,7 @@ import {
 } from "../../data/starbucksStaticDatas";
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
+import { SearchModal } from "../modals/SearchModal";
 
 function Header() {
   const baseUrl = Config().baseUrl;
@@ -107,6 +108,7 @@ function Header() {
         isModalOpen={isSideMenuOpen}
         closeModal={handleSideMenuClose}
       />
+
       <header>
         <div className="header-top">
           {backButtonList.includes(pathname, 0) ? (
