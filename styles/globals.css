@@ -1,7 +1,7 @@
 @import url(common/common.css);
 @import url(common/ui.css);
 @import url(common/color.css);
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;700;900&display=swap");
 
 @import url(layouts/header.css);
 @import url(layouts/product.css);
@@ -28,7 +28,9 @@
 @import url(pages/introPage.css);
 @import url(pages/restockAlert.css);
 @import url(pages/loginToAction.css);
+@import url(pages/purchaseDetail.css);
 
 @import url(modals/ShareModal.css);
 
 @import url(modules/swiper.css);
+@import url(pages/searchResult.css);
