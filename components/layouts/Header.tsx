@@ -107,9 +107,15 @@ function Header() {
     "/addressRegister",
     "/addressChange",
     "/purchaseList",
+    "/payment",
   ];
 
-  const backButtonList = ["/store", "/product/[productId]", "/address"];
+  const backButtonList = [
+    "/store",
+    "/product/[productId]",
+    "/address",
+    "/payment",
+  ];
 
   const handlePushPage = () => {
     router.push("/login");
@@ -118,9 +124,6 @@ function Header() {
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
-  console.log(pathname);
-  console.log(exceptionList.includes(pathname));
-  console.log(filterData)
 
   return (
     <>

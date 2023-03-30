@@ -7,6 +7,7 @@ import {
 } from "@/constants/enums/ErrorCode";
 import { RequestReissueToken } from "@/Service/AuthService/AuthService";
 import Config from "@/configs/config.export";
+import qs from "qs";
 
 const { baseUrl } = Config();
 export const CustomAxios = axios.create({
@@ -15,6 +16,11 @@ export const CustomAxios = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+  paramsSerializer: {
+    serialize: (params) => {
+      return qs.stringify(params, { arrayFormat: "repeat" });
+    },
+  },
 });
 
 CustomAxios.interceptors.request.use((config) => {

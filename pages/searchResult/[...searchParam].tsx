@@ -7,7 +7,7 @@ import { CategortAggregationRes } from "@/Types/Product/Response";
 import { SeasonInfo } from "@/Types/season/SeasonTypes";
 import ProductCard from "@/components/ui/ProductCard";
 import { useRouter } from "next/router";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function SearchResult() {
@@ -44,7 +44,6 @@ export default function SearchResult() {
   }, []);
 
   useEffect(() => {
-    console.log(router.query);
     if (router.query.searchParam === undefined) {
       Swal.fire({
         icon: "error",
@@ -55,14 +54,15 @@ export default function SearchResult() {
       const data = router.query.searchParam[0];
       setSearchValue(data.split("=")[1]);
       const searchType = data.split("=")[0];
-      if (searchType === "hashtag") {
-        getCategoryAggregationByHashtag(searchValue);
-      } else if (searchType === "name") {
-        getCategoryAggregationByName(searchValue);
+      if (searchValue !== "") {
+        if (searchType === "hashtag") {
+          getCategoryAggregationByHashtag(searchValue);
+        } else if (searchType === "name") {
+          getCategoryAggregationByName(searchValue);
+        }
       }
-      console.log(categoryAggregation);
     }
-  }, [router, router.query, searchValue]);
+  }, [router.query.searchParam]);
 
   return (
     <>

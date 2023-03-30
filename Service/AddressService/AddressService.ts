@@ -5,7 +5,16 @@ import {
   REQUEST_ADDRESS_ADD,
   REQUEST_ADDRESS_EDIT,
   REQUEST_ADDRESS_DELETE,
+  REQUEST_ADDRESS_DEFAULT,
 } from "@/constants/Apis/URL";
+
+export async function RequestGetDefaultAddress(userId: string) {
+  return await CustomAxios.get(REQUEST_ADDRESS_DEFAULT, {
+    params: {
+      userId: userId,
+    },
+  }).then((res) => res.data);
+}
 
 export async function RequestGetAllAddress(userId: string) {
   return await CustomAxios.get(REQUEST_ADDRESS_ALL, {
