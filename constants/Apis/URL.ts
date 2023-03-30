@@ -21,6 +21,7 @@ export const REQUEST_CATEGORY_AGGREGATION_NAME =
   "api/v1/product/category/aggregation/name";
 export const REQUEST_CATEGORY_AGGREGATION_HASH_TAG =
   "api/v1/product/category/aggregation/hashtag";
+export const REQUEST_PRODUCT_PREPURCHASE = "api/v1/product/prePurchase";
 
 export const REQUEST_RECOMMEND_READ = "api/v1/recommend/get";
 export const REQUEST_RECOMMEND_ACTIVE = "api/v1/recommend/active";

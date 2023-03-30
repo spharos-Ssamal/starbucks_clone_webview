@@ -3,7 +3,7 @@
 }
 
 #pay-title {
-  margin: 40px 0px 0px 0px;
+  margin: 65px 0px 0px 0px;
   padding: 30px 14px 10px 14px;
   background-color: var(--color-white);
 }
@@ -276,7 +276,7 @@
 }
 
 textRedAlert_iGotMoney {
-  display: hidden
+  display: hidden;
 }
 
 .textRedAlert img {

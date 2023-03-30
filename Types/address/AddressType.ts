@@ -23,6 +23,16 @@ export interface AddressInfo {
   defaultAddress: boolean;
 }
 
+export interface ShippingAddressInfo {
+  recipient: string;
+  alias: string;
+  zipCode?: number;
+  baseAddress: string;
+  detailAddress: string;
+  contactInfo1: string;
+  defaultAddress: boolean;
+}
+
 export interface AddAddressReq {
   userId: string;
   addressInfo: AddressInfo;

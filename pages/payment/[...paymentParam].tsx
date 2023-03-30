@@ -1,7 +1,88 @@
+import { RequestGetDefaultAddress } from "@/Service/AddressService/AddressService";
+import { getPrePurchaseProducts } from "@/Service/PurchaseService/PurchaseService";
+import {
+  AddressDataType,
+  ShippingAddressInfo,
+} from "@/Types/address/AddressType";
+import { PrePurchaseProductInfo } from "@/Types/payment/types";
+import { userLoginState } from "@/state/user/atom/userLoginState";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
-export default function payment() {
+export default function Payment() {
+  const router = useRouter();
+  const isLogin = useRecoilValue(userLoginState);
+  const [prePurchaseProducts, setPrePurchaseProducts] = useState<
+    PrePurchaseProductInfo[]
+  >([]);
+  const [amountOfPrice, setAmoutOfPrice] = useState(0);
+  const [shippingFee, setShippingFee] = useState(0);
+  const [discountFee, setDiscountFee] = useState(0);
+
+  const [shippingAddress, setShippingAddress] = useState<ShippingAddressInfo>({
+    recipient: "",
+    alias: "",
+    zipCode: -1,
+    baseAddress: "",
+    detailAddress: "",
+    contactInfo1: "",
+    defaultAddress: false,
+  });
+
+  const fetchPrePurchaseProductsInfo = (productId: number[], count: number) => {
+    getPrePurchaseProducts(productId).then((res) => {
+      const prePurchaseProductInfo: PrePurchaseProductInfo = res.data[0];
+      setPrePurchaseProducts([
+        {
+          name: prePurchaseProductInfo.name,
+          thumbnail: prePurchaseProductInfo.thumbnail,
+          count: count,
+          price: prePurchaseProductInfo.price,
+        },
+      ]);
+    });
+  };
+
+  useEffect(() => {
+    RequestGetDefaultAddress(isLogin.userId)
+      .then((res) => {
+        const defaultAddress: AddressDataType = res.data.result;
+        setShippingAddress({
+          recipient: defaultAddress.recipient,
+          alias: defaultAddress.alias,
+          zipCode: defaultAddress.zipCode,
+          baseAddress: defaultAddress.baseAddress,
+          detailAddress: defaultAddress.detailAddress,
+          contactInfo1: defaultAddress.contactInfo1,
+          defaultAddress: defaultAddress.defaultAddress,
+        });
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  }, [isLogin.userId]);
+
+  useEffect(() => {
+    if (router.query.paymentParam !== undefined) {
+      const paymentParam = router.query.paymentParam;
+      console.log(paymentParam);
+      const purchaseParam = paymentParam[0];
+      if (purchaseParam === "product") {
+        const productParam = paymentParam[1].split("&");
+        const productId = parseInt(productParam[0].split("=")[1]);
+        const productCount = parseInt(productParam[1].split("=")[1]);
+        console.log(productId + " " + productCount);
+        fetchPrePurchaseProductsInfo([productId], productCount);
+      } else if (purchaseParam === "cart") {
+        console.log("추후 개발하겠습니다.");
+      } else {
+        console.log("Error");
+      }
+    }
+  }, [router.query]);
+
   return (
     <>
       <section id="pay-title">
@@ -16,11 +97,18 @@ export default function payment() {
         </div>
         <div className="delivery-info">
           <div className="delivery-name">
-            <div className="name">춘식이 (집)</div>
-            <div className="is-primary">기본</div>
+            <div className="name">
+              {shippingAddress.recipient} ({shippingAddress.alias})
+            </div>
+            {shippingAddress.defaultAddress && (
+              <div className="is-primary">기본</div>
+            )}
           </div>
-          <p>(48058) 부산광역시 해운대구 센텀남대로 35(우동) 2층</p>
-          <p>010-1234-5678</p>
+          <p>
+            ({shippingAddress.zipCode}) {shippingAddress.baseAddress}{" "}
+            {shippingAddress.detailAddress}
+          </p>
+          <p>{shippingAddress.contactInfo1}</p>
         </div>
       </section>
       <section className="pay-products">
@@ -30,36 +118,25 @@ export default function payment() {
               <p>상품내역</p>
               <div className="grey-arrow-down-wrap">
                 <img
-                  src="./assets/images/icons/arrow-down-sign-to-navigate.png"
+                  src="/assets/images/icons/arrow-down-sign-to-navigate.png"
                   alt=""
                 />
               </div>
             </div>
           </summary>
-          <div className="product-summary">
-            <img
-              src="./assets/images/products/category/category-cup.jpg"
-              alt=""
-            />
-            <div>
-              <p className="p_subtitle">
-                23 체리블라썸 플라워 머그앤소서 237ml test test test test
-              </p>
-              <p className="p_opacity">주문수량: 1개</p>
-              <p className="p_bold">34,000원</p>
-            </div>
-          </div>
-        </div>
-        <div className="product-summary">
-          <img
-            src="./assets/images/products/category/category-cup.jpg"
-            alt=""
-          />
-          <div>
-            <p className="p_subtitle_margin">
-              23 리블라썸 플라워 머그앤소서 237ml
-            </p>
-          </div>
+          {prePurchaseProducts &&
+            prePurchaseProducts.map((element, idx) => (
+              <>
+                <div className="product-summary">
+                  <img src={element.thumbnail} alt="" />
+                  <div>
+                    <p className="p_subtitle">{element.name}</p>
+                    <p className="p_opacity">{element.count}</p>
+                    <p className="p_bold">{element.price * element.count}</p>
+                  </div>
+                </div>
+              </>
+            ))}
         </div>
       </section>
       <section id="coupon">
@@ -69,7 +146,7 @@ export default function payment() {
               <p>쿠폰 및 할인</p>
               <div className="grey-arrow-down-wrap">
                 <img
-                  src="./assets/images/icons/arrow-down-sign-to-navigate.png"
+                  src="/assets/images/icons/arrow-down-sign-to-navigate.png"
                   alt=""
                 />
               </div>
@@ -86,10 +163,7 @@ export default function payment() {
           <Link href="">
             <div>
               <p>사용하기</p>
-              <img
-                src="./assets/images/icons/arrow-point-to-right.png"
-                alt=""
-              />
+              <img src="/assets/images/icons/arrow-point-to-right.png" alt="" />
             </div>
           </Link>
         </div>
@@ -105,14 +179,14 @@ export default function payment() {
             </div>
             <div className="textRedAlert">
               잔액 부족
-              <img src="./assets/images/icons/alert.png" />
+              <img src="/assets/images/icons/alert.png" />
             </div>
           </div>
 
           <div className="pay-sb-card">
             <div className="eGiftCardWrap">
               <div className="eGiftCard">
-                <img src="./assets/images/banner/banner01.png" />
+                <img src="/assets/images/banner/banner01.png" />
               </div>
               <div className="eGiftCardInfo">
                 <p className="eGiftCardInfoTitle">고맙습니다 e-Gift</p>
@@ -125,7 +199,7 @@ export default function payment() {
 
             <div className="eGiftCardWrap">
               <div className="eGiftCard">
-                <img src="./assets/images/banner/banner01.png" />
+                <img src="/assets/images/banner/banner01.png" />
               </div>
               <div className="eGiftCardInfo">
                 <p className="eGiftCardInfoTitle">안녕하세요 e-Gift</p>
@@ -138,7 +212,7 @@ export default function payment() {
 
             <div className="eGiftCardWrap">
               <div className="eGiftCard2">
-                <img src="./assets/images/icons/add.png" />
+                <img src="/assets/images/icons/add.png" />
                 <span>더보기</span>
               </div>
             </div>

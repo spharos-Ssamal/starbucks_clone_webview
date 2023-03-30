@@ -7,7 +7,7 @@ import { CategortAggregationRes } from "@/Types/Product/Response";
 import { SeasonInfo } from "@/Types/season/SeasonTypes";
 import ProductCard from "@/components/ui/ProductCard";
 import { useRouter } from "next/router";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function SearchResult() {
@@ -62,7 +62,7 @@ export default function SearchResult() {
       }
       console.log(categoryAggregation);
     }
-  }, [router, router.query, searchValue]);
+  }, [router.query]);
 
   return (
     <>
