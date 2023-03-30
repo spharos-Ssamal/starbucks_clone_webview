@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { cartState } from "@/state/cart/atom/cartState";
 import { SearchModal } from "../modals/SearchModal";
+import { useRouter } from "next/router";
 
 export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState<boolean>(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <div>
@@ -37,7 +38,7 @@ export default function HeaderTopRightIcons() {
               />
             </Link>
           </li>
-          <li onClick={() => setIsSignupModalOpen(true)}>
+          <li onClick={() => router.push('/login')}>
             <Image
               src="/assets/images/icons/user.svg"
               alt=""
