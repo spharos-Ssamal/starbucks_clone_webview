@@ -44,7 +44,6 @@ export default function SearchResult() {
   }, []);
 
   useEffect(() => {
-    console.log(router.query);
     if (router.query.searchParam === undefined) {
       Swal.fire({
         icon: "error",
@@ -55,14 +54,15 @@ export default function SearchResult() {
       const data = router.query.searchParam[0];
       setSearchValue(data.split("=")[1]);
       const searchType = data.split("=")[0];
-      if (searchType === "hashtag") {
-        getCategoryAggregationByHashtag(searchValue);
-      } else if (searchType === "name") {
-        getCategoryAggregationByName(searchValue);
+      if (searchValue !== "") {
+        if (searchType === "hashtag") {
+          getCategoryAggregationByHashtag(searchValue);
+        } else if (searchType === "name") {
+          getCategoryAggregationByName(searchValue);
+        }
       }
-      console.log(categoryAggregation);
     }
-  }, [router.query]);
+  }, [router.query.searchParam]);
 
   return (
     <>

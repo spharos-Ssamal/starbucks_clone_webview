@@ -1,15 +1,25 @@
 import { RequestGetDefaultAddress } from "@/Service/AddressService/AddressService";
+import { RequestPaymentConfirm } from "@/Service/PaymentService/PaymentService";
 import { getPrePurchaseProducts } from "@/Service/PurchaseService/PurchaseService";
 import {
   AddressDataType,
   ShippingAddressInfo,
+  initShippingAddressInfo,
 } from "@/Types/address/AddressType";
-import { PrePurchaseProductInfo } from "@/Types/payment/types";
+import {
+  PaymentConfirmReq,
+  PaymentInfo,
+  PrePurchaseProductInfo,
+  ProductBePurchased,
+  initPaymentInfo,
+} from "@/Types/payment/types";
+import PaymentInfoComponent from "@/components/page/payment/PaymentInfoComponent";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 export default function Payment() {
   const router = useRouter();
@@ -17,25 +27,19 @@ export default function Payment() {
   const [prePurchaseProducts, setPrePurchaseProducts] = useState<
     PrePurchaseProductInfo[]
   >([]);
-  const [amountOfPrice, setAmoutOfPrice] = useState(0);
-  const [shippingFee, setShippingFee] = useState(0);
-  const [discountFee, setDiscountFee] = useState(0);
 
-  const [shippingAddress, setShippingAddress] = useState<ShippingAddressInfo>({
-    recipient: "",
-    alias: "",
-    zipCode: -1,
-    baseAddress: "",
-    detailAddress: "",
-    contactInfo1: "",
-    defaultAddress: false,
-  });
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>(initPaymentInfo);
+
+  const [shippingAddress, setShippingAddress] = useState<ShippingAddressInfo>(
+    initShippingAddressInfo
+  );
 
   const fetchPrePurchaseProductsInfo = (productId: number[], count: number) => {
     getPrePurchaseProducts(productId).then((res) => {
       const prePurchaseProductInfo: PrePurchaseProductInfo = res.data[0];
       setPrePurchaseProducts([
         {
+          id: prePurchaseProductInfo.id,
           name: prePurchaseProductInfo.name,
           thumbnail: prePurchaseProductInfo.thumbnail,
           count: count,
@@ -45,11 +49,48 @@ export default function Payment() {
     });
   };
 
+  const requestPaymentConfirm = () => {
+    const productsBePurchase: ProductBePurchased[] = prePurchaseProducts.map(
+      (element) => ({
+        id: element.id,
+        count: element.count,
+      })
+    );
+    const request: PaymentConfirmReq = {
+      userId: isLogin.userId,
+      purchasedList: productsBePurchase,
+      paymentMethod: "CREDIT_CARD",
+      addressId: shippingAddress.id,
+      shippingFee: 3000,
+      amountOfProductPrice: paymentInfo.amountOfProductPrice,
+      amountOfDiscount: paymentInfo.amountOfDiscountPrice,
+      amountOfTotalPrice: paymentInfo.amountOfTotalPrice,
+    };
+    RequestPaymentConfirm(request)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          icon: "success",
+          text: "주문이 완료되었습니다.",
+        });
+        router.push("/");
+      })
+      .catch((ex) => {
+        console.log(ex);
+        Swal.fire({
+          icon: "success",
+          text: "주문이 실패했습니다.",
+        });
+        router.push("/");
+      });
+  };
+
   useEffect(() => {
     RequestGetDefaultAddress(isLogin.userId)
       .then((res) => {
         const defaultAddress: AddressDataType = res.data.result;
         setShippingAddress({
+          id: defaultAddress.id,
           recipient: defaultAddress.recipient,
           alias: defaultAddress.alias,
           zipCode: defaultAddress.zipCode,
@@ -223,50 +264,17 @@ export default function Payment() {
           </div>
         </div>
       </section>
-      <section id="pay-info">
-        <div>
-          <p>결제 정보</p>
-        </div>
-        <div className="pay">
-          <div className="pay-price">
-            <p className="title">주문 금액</p>
-            <p className="title price">33,000원</p>
-          </div>
-          <div className="pay-price">
-            <p>상품 금액</p>
-            <p className="price">33,000원</p>
-          </div>
-          <div className="pay-price">
-            <p>배송비</p>
-            <p className="price">0원</p>
-          </div>
-        </div>
-        <div className="pay">
-          <div className="pay-price">
-            <p className="title">할인 금액</p>
-            <p className="title price">0원</p>
-          </div>
-          <div className="pay-price">
-            <p>상품 할인</p>
-            <p className="price">0원</p>
-          </div>
-        </div>
-        <div className="pay">
-          <div className="pay-price">
-            <p className="title">결제 금액</p>
-            <p className="title price">33,000원</p>
-          </div>
-          <div className="pay-price">
-            <p>모바일 상품권</p>
-            <p className="price">0원</p>
-          </div>
-        </div>
-      </section>
+      <PaymentInfoComponent
+        prePurchaseProducts={prePurchaseProducts}
+        discountFee={0}
+        paymentInfo={paymentInfo}
+        setPaymentInfo={setPaymentInfo}
+      />
       <section id="pay-info">
         <div className="pay">
           <div className="pay-price">
             <p className="title">최종 결제 금액</p>
-            <p className="title price">33,000원</p>
+            <p className="title price">{paymentInfo.amountOfTotalPrice}원</p>
           </div>
         </div>
         <div className="notice">
@@ -279,7 +287,9 @@ export default function Payment() {
       </section>
 
       <section className="submit-container">
-        <button type="submit">33,000원 결제하기</button>
+        <button type="submit" onClick={() => requestPaymentConfirm()}>
+          {paymentInfo.amountOfTotalPrice}원 결제하기
+        </button>
       </section>
     </>
   );

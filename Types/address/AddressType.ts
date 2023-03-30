@@ -22,8 +22,18 @@ export interface AddressInfo {
   shippingMemo: string;
   defaultAddress: boolean;
 }
-
+export const initShippingAddressInfo = {
+  id: -1,
+  recipient: "",
+  alias: "",
+  zipCode: -1,
+  baseAddress: "",
+  detailAddress: "",
+  contactInfo1: "",
+  defaultAddress: false,
+};
 export interface ShippingAddressInfo {
+  id?: number;
   recipient: string;
   alias: string;
   zipCode?: number;
