@@ -14,7 +14,7 @@ export default function PurchaseList() {
 
   useEffect(() => {
     if (isLogin.userId !== undefined) {
-      getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-03-28").then(
+      getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-03-30").then(
         (res) => {
           const result: PurchaseHistory[] = res.data.histories;
           setPurchaseHistory([...result]);

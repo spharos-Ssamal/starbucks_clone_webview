@@ -35,18 +35,22 @@ export default function Payment() {
   );
 
   const fetchPrePurchaseProductsInfo = (productId: number[], count: number) => {
-    getPrePurchaseProducts(productId).then((res) => {
-      const prePurchaseProductInfo: PrePurchaseProductInfo = res.data[0];
-      setPrePurchaseProducts([
-        {
-          id: prePurchaseProductInfo.id,
-          name: prePurchaseProductInfo.name,
-          thumbnail: prePurchaseProductInfo.thumbnail,
-          count: count,
-          price: prePurchaseProductInfo.price,
-        },
-      ]);
-    });
+    getPrePurchaseProducts(productId)
+      .then((res) => {
+        const prePurchaseProductInfo: PrePurchaseProductInfo = res.data[0];
+        setPrePurchaseProducts([
+          {
+            id: prePurchaseProductInfo.id,
+            name: prePurchaseProductInfo.name,
+            thumbnail: prePurchaseProductInfo.thumbnail,
+            count: count,
+            price: prePurchaseProductInfo.price,
+          },
+        ]);
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
   };
 
   const requestPaymentConfirm = () => {
@@ -56,6 +60,7 @@ export default function Payment() {
         count: element.count,
       })
     );
+
     const request: PaymentConfirmReq = {
       userId: isLogin.userId,
       purchasedList: productsBePurchase,
@@ -168,7 +173,7 @@ export default function Payment() {
           {prePurchaseProducts &&
             prePurchaseProducts.map((element, idx) => (
               <>
-                <div className="product-summary">
+                <div key={element.id + idx} className="product-summary">
                   <img src={element.thumbnail} alt="" />
                   <div>
                     <p className="p_subtitle">{element.name}</p>
