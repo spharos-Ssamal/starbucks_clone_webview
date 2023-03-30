@@ -64,3 +64,18 @@
   color: var(--color-gray);
   opacity: 0.6;
 }
+
+.right-pos {
+  position: absolute;
+  right: 0;
+}
+
+.right-pos img {
+  transform: rotate(180deg);
+}
+.back-button {
+  width: 20px;
+  height: auto;
+  padding: 10px 7px;
+  opacity: 0.5;
+}

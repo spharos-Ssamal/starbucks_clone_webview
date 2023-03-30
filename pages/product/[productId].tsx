@@ -17,6 +17,7 @@ import PageDetailInfoCommon from "@/components/widgets/PageDetailInfoCommon";
 import ProductHeader from "@/components/page/product/ProductHeader";
 import ProductDetailList from "@/components/page/product/ProductDetailList";
 import { REQUEST_PRODUCT_READ } from "@/constants/Apis/URL";
+import ProductOrderSection from "@/components/page/product/ProductOrderSection";
 
 export default function Product() {
   const { query } = useRouter();
@@ -113,10 +114,7 @@ export default function Product() {
             data={viewByOthersData}
           />
           <PageDetailInfoCommon />
-          <section id="purchase-button">
-            <div className="toggle-icon"></div>
-            <button>구매하기</button>
-          </section>
+          <ProductOrderSection />
         </>
       )}
     </>
