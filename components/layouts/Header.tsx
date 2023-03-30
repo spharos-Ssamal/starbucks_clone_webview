@@ -27,6 +27,9 @@ import {
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 import { SearchModal } from "../modals/SearchModal";
+import FilterMenuList from "../ui/FilterMenuList";
+import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
+import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
 
 function Header() {
   const baseUrl = Config().baseUrl;
@@ -46,13 +49,60 @@ function Header() {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<boolean>(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState<boolean>(false);
   const [headerMenus, setHeaderMenus] = useState<headerMenu[]>(headerNavMenus);
+  const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
+  const [subFilterMenuData, setSubFilterMenuData] = useState<MenuDataType[]>([]);
 
-  const [filterList, setFilterList] = useState<filterType[]>([]);
+  const [filterData, setFilterDatas] = useState<filterDataType[]>([]);
+
+  useEffect(() => {
+    if(filterData.length > 0) {
+      console.log("필터링데이터", filterData);
+      let queryUrl = "";
+      filterData.forEach((item) => {
+        queryUrl += `&${item.key}=${item.id}`;
+      });
+      router.push(`/store?category=${router.query.category}${queryUrl}`);
+    }
+    // console.log(menuList);
+  }, [filterData]);
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/v1/category/subCategories?categoryId=1`)
+    .then((res) => {
+      let myData:MenuDataType[] = []
+      res.data.data.subCategories.forEach((item:headerMenu) => {
+        myData.push({
+          id: item.id,
+          name: item.name,
+          key:'category'
+        })
+      })
+      setFilterMenuData(myData)
+
+    })
+  },[])
+
+  useEffect(()=> {
+    if(query.category && query.category !== '1') {
+      axios.get(`${baseUrl}/api/v1/category/subCategories?categoryId=${query.category}`)
+      .then((res) => {
+        let myData:MenuDataType[] = []
+        res.data.data.subCategories.forEach((item:headerMenu) => {
+          myData.push({
+            id: item.id,
+            name: item.name,
+            key:'subCategory'
+          })
+        })
+      setSubFilterMenuData(myData)
+    })
+    }
+
+  },[query])
+
   const exceptionList = [
     "/product/[productId]",
     "/cart",
-    "/search",
-    "/store",
     "/address",
     "/addressRegister",
     "/addressChange",
@@ -67,32 +117,6 @@ function Header() {
     "/payment",
   ];
 
-  const handleFilter = (name: String) => {
-    setFilterList([]);
-    router.push(`/listview?category=${name}`);
-  };
-
-  const handleSubFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    let checker = filterList.find(
-      (filter) => filter.value === event.target.value
-    );
-    if (checker?.checked === true && event.target.checked === false) {
-      let newList = filterList.filter(
-        (filter) => filter.value !== event.target.value
-      );
-      setFilterList(newList);
-    } else {
-      setFilterList([
-        ...filterList,
-        {
-          name: event.target.name,
-          value: event.target.value,
-          checked: event.target.checked,
-        },
-      ]);
-    }
-  };
-
   const handlePushPage = () => {
     router.push("/login");
   };
@@ -103,7 +127,7 @@ function Header() {
 
   return (
     <>
-      <LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      {/* <LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
       <SignupModal
         isSignupModalOpen={isSignupModalOpen}
         setIsSignupModalOpen={setIsSignupModalOpen}
@@ -139,21 +163,27 @@ function Header() {
           </h1>
           <HeaderTopRightIcons />
         </div>
-        {exceptionList.includes(pathname, 0) ? null : (
-          <div className="header-bottom">
-            <nav>
-              <ul>
-                {headerMenus.map((menu) => (
-                  <li
-                    key={menu.id}
-                    className={pathname === menu.link ? "active" : ""}
-                  >
-                    <Link href={menu.link}>{menu.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+        {
+          pathname === '/store' ? (
+            <>
+          <FilterMenuList
+            data={filterMenuData}
+            filterFile={filterData}
+            setFilter={setFilterDatas}
+          />
+          { subFilterMenuData.length > 0 && 
+            <FilterMenuList
+              data={subFilterMenuData}
+              filterFile={filterData}
+              setFilter={setFilterDatas}
+            />
+          }
+          </>
+          )
+        : exceptionList.includes(pathname, 0) ? null : (
+          <HeaderBottomMenuList 
+            data={headerMenus}
+          />
         )}
       </header>
     </>

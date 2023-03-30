@@ -22,22 +22,27 @@ function MainBanner() {
     axios
       .get(`${baseUrl}/${REQUEST_BANNER}`)
       .then((res) => {
-        res.data.data.map(async (item:bannerInfo) => {
-          const { width, height } = await getImageSize(item.bannerImage);
-          setBannerData((prevData) => [...prevData, {
-            bannerImage: item.bannerImage,
-            eventId: item.eventId,
-            recommendId: item.recommendId,
-            regTime: item.regTime,
-            width: width,
-            height: height
-          }])
-        })
+        console.log(res.data.data);
+        setBannerData(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  const getSize = (url: string) => {
+    let myImage = {
+      width: 0,
+      height: 0,
+    };
+    getImageSize(url).then((res) => {
+      console.log(res)
+      myImage.width = res.width;
+      myImage.height = res.height;
+    });
+    console.log(myImage)
+    return myImage;
+  };
 
   return (
     <section id="event-banner" className="first-section">
@@ -57,8 +62,10 @@ function MainBanner() {
                   <div className="event-banner__item__img">
                     <Image
                       src={bannerInfo.bannerImage}
-                      width={bannerInfo.width}
-                      height={bannerInfo.height}
+                      width={600}
+                      height={600}
+                      // width={getSize(bannerInfo.bannerImage).width}
+                      // height={getSize(bannerInfo.bannerImage).height}
                       alt={bannerInfo.bannerImage}
                     />
                   </div>
