@@ -50,12 +50,14 @@ function Header() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState<boolean>(false);
   const [headerMenus, setHeaderMenus] = useState<headerMenu[]>(headerNavMenus);
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
-  const [subFilterMenuData, setSubFilterMenuData] = useState<MenuDataType[]>([]);
+  const [subFilterMenuData, setSubFilterMenuData] = useState<MenuDataType[]>(
+    []
+  );
 
   const [filterData, setFilterDatas] = useState<filterDataType[]>([]);
 
   useEffect(() => {
-    if(filterData.length > 0) {
+    if (filterData.length > 0) {
       console.log("필터링데이터", filterData);
       let queryUrl = "";
       filterData.forEach((item) => {
@@ -67,38 +69,40 @@ function Header() {
   }, [filterData]);
 
   useEffect(() => {
-    axios.get(`${baseUrl}/api/v1/category/subCategories?categoryId=1`)
-    .then((res) => {
-      let myData:MenuDataType[] = []
-      res.data.data.subCategories.forEach((item:headerMenu) => {
-        myData.push({
-          id: item.id,
-          name: item.name,
-          key:'category'
-        })
-      })
-      setFilterMenuData(myData)
-
-    })
-  },[])
-
-  useEffect(()=> {
-    if(query.category && query.category !== '1') {
-      axios.get(`${baseUrl}/api/v1/category/subCategories?categoryId=${query.category}`)
+    axios
+      .get(`${baseUrl}/api/v1/category/subCategories?categoryId=1`)
       .then((res) => {
-        let myData:MenuDataType[] = []
-        res.data.data.subCategories.forEach((item:headerMenu) => {
+        let myData: MenuDataType[] = [];
+        res.data.data.subCategories.forEach((item: headerMenu) => {
           myData.push({
             id: item.id,
             name: item.name,
-            key:'subCategory'
-          })
-        })
-      setSubFilterMenuData(myData)
-    })
-    }
+            key: "category",
+          });
+        });
+        setFilterMenuData(myData);
+      });
+  }, []);
 
-  },[query])
+  useEffect(() => {
+    if (query.category && query.category !== "1") {
+      axios
+        .get(
+          `${baseUrl}/api/v1/category/subCategories?categoryId=${query.category}`
+        )
+        .then((res) => {
+          let myData: MenuDataType[] = [];
+          res.data.data.subCategories.forEach((item: headerMenu) => {
+            myData.push({
+              id: item.id,
+              name: item.name,
+              key: "subCategory",
+            });
+          });
+          setSubFilterMenuData(myData);
+        });
+    }
+  }, [query]);
 
   const exceptionList = [
     "/product/[productId]",
@@ -115,6 +119,8 @@ function Header() {
     "/product/[productId]",
     "/address",
     "/payment",
+    "/purchaseList",
+    "/cart",
   ];
 
   const handlePushPage = () => {
@@ -163,27 +169,23 @@ function Header() {
           </h1>
           <HeaderTopRightIcons />
         </div>
-        {
-          pathname === '/store' ? (
-            <>
-          <FilterMenuList
-            data={filterMenuData}
-            filterFile={filterData}
-            setFilter={setFilterDatas}
-          />
-          { subFilterMenuData.length > 0 && 
+        {pathname === "/store" ? (
+          <>
             <FilterMenuList
-              data={subFilterMenuData}
+              data={filterMenuData}
               filterFile={filterData}
               setFilter={setFilterDatas}
             />
-          }
+            {subFilterMenuData.length > 0 && (
+              <FilterMenuList
+                data={subFilterMenuData}
+                filterFile={filterData}
+                setFilter={setFilterDatas}
+              />
+            )}
           </>
-          )
-        : exceptionList.includes(pathname, 0) ? null : (
-          <HeaderBottomMenuList 
-            data={headerMenus}
-          />
+        ) : exceptionList.includes(pathname, 0) ? null : (
+          <HeaderBottomMenuList data={headerMenus} />
         )}
       </header>
     </>

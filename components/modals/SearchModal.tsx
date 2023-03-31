@@ -45,6 +45,7 @@ export function SearchModal(props: Props) {
           <div className="search-top">
             <div className="search-bar">
               <form>
+                <input hidden="hidden" />
                 <input
                   type="text"
                   value={searchData}

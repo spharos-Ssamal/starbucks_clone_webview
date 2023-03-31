@@ -39,7 +39,11 @@ export default function PaymentInfoComponent(props: Props) {
           <div className="pay-price">
             <p className="title">주문 금액</p>
             <p className="title price">
-              {paymentInfo.amountOfProductPrice + 3000}원
+              {paymentInfo.amountOfProductPrice > 0 &&
+              paymentInfo.amountOfProductPrice < 30000
+                ? paymentInfo.amountOfProductPrice + 3000
+                : paymentInfo.amountOfProductPrice}
+              원
             </p>
           </div>
           <div className="pay-price">
@@ -48,7 +52,13 @@ export default function PaymentInfoComponent(props: Props) {
           </div>
           <div className="pay-price">
             <p>배송비</p>
-            <p className="price">3000 원</p>
+            <p className="price">
+              {paymentInfo.amountOfProductPrice > 0 &&
+              paymentInfo.amountOfProductPrice < 30000
+                ? 3000
+                : 0}{" "}
+              원
+            </p>
           </div>
         </div>
         <div className="pay">
@@ -65,7 +75,14 @@ export default function PaymentInfoComponent(props: Props) {
           <div className="pay-price">
             <p className="title">결제 금액</p>
             <p className="title price">
-              {paymentInfo.amountOfProductPrice + 3000}원
+              {paymentInfo.amountOfProductPrice > 0 &&
+              paymentInfo.amountOfProductPrice < 30000
+                ? paymentInfo.amountOfProductPrice +
+                  3000 -
+                  paymentInfo.amountOfDiscountPrice
+                : paymentInfo.amountOfProductPrice -
+                  paymentInfo.amountOfDiscountPrice}
+              원
             </p>
           </div>
           <div className="pay-price">

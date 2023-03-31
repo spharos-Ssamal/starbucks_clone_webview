@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -11,7 +11,6 @@ import CartList from "@/components/page/cart/CartList";
 import CartMenu from "@/components/page/cart/CartMenu";
 import Config from "@/configs/config.export";
 import { cartListState } from "@/state/cart/atom/cartListState";
-import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import Nodata from "@/components/ui/Nodata";
 import { REQUEST_CART_GET } from "@/constants/Apis/URL";
 import { userLoginState } from "@/state/user/atom/userLoginState";
@@ -24,6 +23,7 @@ function Cart() {
 
   const setCartList = useSetRecoilState<cartType>(cartListState);
   const cartData = useRecoilValue<cartType>(cartListState);
+  const [amountOfPrice, setAmountOfPrice] = useState(0);
 
   useEffect(() => {
     axios
@@ -31,7 +31,6 @@ function Cart() {
         `${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
       )
       .then((res) => {
-        console.log(res.data);
         setCartList({
           cartListFreeze: res.data.data.filter(
             (item: cartListType) => item.frozen === true
@@ -74,8 +73,11 @@ function Cart() {
         <>
           <CartMenu />
           <CartList />
-          <CartInfo />
-          <CartFooter />
+          <CartInfo
+            amountOfPrice={amountOfPrice}
+            setAmountOfPrice={setAmountOfPrice}
+          />
+          <CartFooter amountOfPrice={amountOfPrice} />
         </>
       )}
     </>

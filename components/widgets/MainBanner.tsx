@@ -1,8 +1,8 @@
 import Config from "@/configs/config.export";
-import Image from 'next/image'
+import Image from "next/image";
 import { bannerInfo } from "@/constants/Apis/Types/ResponseType";
 import axios from "axios";
-import { getImageSize } from 'react-image-size';
+import { getImageSize } from "react-image-size";
 
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,13 +16,12 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MainBanner() {
   const { baseUrl } = Config();
-  const [ bannerData, setBannerData ] = useState<bannerInfo[]>([]);
+  const [bannerData, setBannerData] = useState<bannerInfo[]>([]);
 
   useEffect(() => {
     axios
       .get(`${baseUrl}/${REQUEST_BANNER}`)
       .then((res) => {
-        console.log(res.data.data);
         setBannerData(res.data.data);
       })
       .catch((err) => {
@@ -36,11 +35,11 @@ function MainBanner() {
       height: 0,
     };
     getImageSize(url).then((res) => {
-      console.log(res)
+      console.log(res);
       myImage.width = res.width;
       myImage.height = res.height;
     });
-    console.log(myImage)
+    console.log(myImage);
     return myImage;
   };
 
@@ -52,27 +51,28 @@ function MainBanner() {
           spaceBetween={0}
           slidesPerView={1}
           pagination={{ clickable: false }}
-          autoplay={ {delay: 2000} }
+          autoplay={{ delay: 2000 }}
           loop={true}
         >
-          {bannerData  &&  bannerData.map((bannerInfo: bannerInfo, idx: number) => {
-            return (
-              <SwiperSlide key={idx}>
-                <div className="event-banner__item">
-                  <div className="event-banner__item__img">
-                    <Image
-                      src={bannerInfo.bannerImage}
-                      width={600}
-                      height={600}
-                      // width={getSize(bannerInfo.bannerImage).width}
-                      // height={getSize(bannerInfo.bannerImage).height}
-                      alt={bannerInfo.bannerImage}
-                    />
+          {bannerData &&
+            bannerData.map((bannerInfo: bannerInfo, idx: number) => {
+              return (
+                <SwiperSlide key={idx}>
+                  <div className="event-banner__item">
+                    <div className="event-banner__item__img">
+                      <Image
+                        src={bannerInfo.bannerImage}
+                        width={600}
+                        height={600}
+                        // width={getSize(bannerInfo.bannerImage).width}
+                        // height={getSize(bannerInfo.bannerImage).height}
+                        alt={bannerInfo.bannerImage}
+                      />
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
       </div>
     </section>

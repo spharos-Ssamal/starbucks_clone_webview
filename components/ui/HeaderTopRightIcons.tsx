@@ -38,7 +38,7 @@ export default function HeaderTopRightIcons() {
               />
             </Link>
           </li>
-          <li onClick={() => router.push('/login')}>
+          <li onClick={() => router.push("/login")}>
             <Image
               src="/assets/images/icons/user.svg"
               alt=""
