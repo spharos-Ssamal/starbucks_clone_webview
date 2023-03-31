@@ -1,5 +1,9 @@
-import { cartListType } from "@/Types/cart/cartListType";
+import { RequestCartUpdate } from "@/Service/CartService/CartService";
+import { cartListType, cartType } from "@/Types/cart/cartListType";
+import { cartListState } from "@/state/cart/atom/cartListState";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import Swal from "sweetalert2";
 
 interface Props {
   isModalOpen: boolean;
@@ -9,6 +13,7 @@ interface Props {
 
 export default function EditCartItemModal(props: Props) {
   const [countOf, setCountOf] = useState(0);
+  const [cartData, setCartData] = useRecoilState<cartType>(cartListState);
 
   useEffect(() => {
     setCountOf(props.cartItemInfo.count);
@@ -17,6 +22,72 @@ export default function EditCartItemModal(props: Props) {
   const onClickCount = (count: number) => {
     if (count >= 1 && count <= 3) {
       setCountOf(count);
+    }
+  };
+
+  const updateProductItemCountRequest = () => {
+    RequestCartUpdate({
+      cartId: props.cartItemInfo.id,
+      count: countOf,
+    }).then((res) => {
+      const resultCartId = res.data;
+      props.setIsModalOpen(false);
+    });
+  };
+
+  const onClickConfirm = () => {
+    if (
+      cartData.cartList.findIndex((e) => e.id === props.cartItemInfo.id) !== -1
+    ) {
+      setCartData({
+        ...cartData,
+        cartList: cartData.cartList.map((element) => {
+          if (element.id === props.cartItemInfo.id) {
+            return {
+              id: element.id,
+              frozen: element.frozen,
+              count: countOf,
+              check: element.check,
+              product: element.product,
+            };
+          } else {
+            return element;
+          }
+        }),
+      });
+
+      Swal.fire({
+        icon: "success",
+        text: "데이터가 변경 되었습니다.",
+      });
+      updateProductItemCountRequest();
+    } else if (
+      cartData.cartListFreeze.findIndex(
+        (e) => e.id === props.cartItemInfo.id
+      ) !== -1
+    ) {
+      setCartData({
+        ...cartData,
+        cartListFreeze: cartData.cartListFreeze.map((element) => {
+          if (element.id === props.cartItemInfo.id) {
+            return {
+              id: element.id,
+              frozen: element.frozen,
+              count: countOf,
+              check: element.check,
+              product: element.product,
+            };
+          } else {
+            return element;
+          }
+        }),
+      });
+
+      Swal.fire({
+        icon: "success",
+        text: "데이터가 변경 되었습니다.",
+      });
+      props.setIsModalOpen(false);
     }
   };
 
@@ -83,7 +154,7 @@ export default function EditCartItemModal(props: Props) {
                 <button onClick={() => props.setIsModalOpen(false)}>
                   취소
                 </button>
-                <button>확인</button>
+                <button onClick={() => onClickConfirm()}>확인</button>
               </div>
             </div>
           </section>

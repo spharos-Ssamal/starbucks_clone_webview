@@ -78,7 +78,12 @@ export default function CartItem(props: { data: cartListType }) {
         </div>
         <div className="item-price">
           <p>주문 금액</p>
-          <p>{props.data.product.price.toLocaleString("ko-KR")}원</p>
+          <p>
+            {(props.data.product.price * props.data.count).toLocaleString(
+              "ko-KR"
+            )}
+            원
+          </p>
         </div>
         <div className="item-purchase">
           <a onClick={() => setIsEditModalOpen(true)}>주문 수정</a>

@@ -26,12 +26,12 @@ function Cart() {
   const cartData = useRecoilValue<cartType>(cartListState);
 
   useEffect(() => {
+    console.log("Update Recoil Status");
     axios
       .get(
         `${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
       )
       .then((res) => {
-        console.log(res.data);
         setCartList({
           cartListFreeze: res.data.data.filter(
             (item: cartListType) => item.frozen === true
