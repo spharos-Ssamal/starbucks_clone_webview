@@ -1,12 +1,20 @@
-import React from 'react'
+import React from "react";
 
-export default function CartFooter() {
+interface Prop {
+  amountOfPrice: number;
+}
+
+export default function CartFooter(prop: Prop) {
   return (
     <section className="submit-container">
       <div className="submit-box">
         <div className="cart-final">
-          <p>총 <span>1</span>건 / 20건</p>
-          <p className="price">36,000원</p>
+          <p>
+            총 <span>1</span>건 / 20건
+          </p>
+          <p className="price">
+            {prop.amountOfPrice.toLocaleString("KO-kr")}원
+          </p>
         </div>
         <div className="buttons">
           <button>선물하기</button>
@@ -14,5 +22,5 @@ export default function CartFooter() {
         </div>
       </div>
     </section>
-  )
+  );
 }

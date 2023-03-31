@@ -5,6 +5,7 @@ import {
   REQUEST_CART_CONFIRM,
   REQUEST_CART_DELETE,
   REQUEST_CART_UPDATE,
+  REQUEST_CART_AMOUNT,
 } from "@/constants/Apis/URL";
 
 export async function RequestCartGet(userId: string) {
@@ -21,16 +22,24 @@ export async function RequestCartInsert(req: CreateCartItem) {
   );
 }
 
+export async function RequestGetCartAmount(userId: string) {
+  return await CustomAxios.get(REQUEST_CART_AMOUNT, {
+    params: {
+      userId: userId,
+    },
+  }).then((res) => res.data);
+}
+
 export async function RequestCartConfirm(req: ConfirmPurchase) {
   return await CustomAxios.post(REQUEST_CART_CONFIRM, req).then(
     (res) => res.data
   );
 }
 
-export async function RequestCartDelete(req: DeleteCartItem) {
-  return await CustomAxios.put(REQUEST_CART_DELETE, req).then(
-    (res) => res.data
-  );
+export async function RequestCartDelete(cartId: number) {
+  return await CustomAxios.put(REQUEST_CART_DELETE, {
+    cartId: cartId,
+  }).then((res) => res.data);
 }
 
 export async function RequestCartUpdate(req: UpdateCartItem) {
