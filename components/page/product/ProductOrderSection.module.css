@@ -4,7 +4,7 @@
   z-index: 999;
   width: 100%;
   background: #fff;
-  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05);
   padding: 1rem 1rem;
   box-sizing: border-box;
 }
@@ -15,6 +15,78 @@
   z-index: 999;
   width: 100%;
   background: #fff;
-  padding: 1rem 1rem;
   box-sizing: border-box;
+}
+
+.productOrderSectionOpenBottomWrap {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.productOrderSectionOpenBottomWrap img {
+  width: 5vw;
+  opacity: 0.6;
+  padding: 0px 10px 1px 15px;
+}
+
+.greyWrap {
+  padding: 0px 1rem 1.5rem;
+}
+.greyboxWrap {
+  width: 100%;
+  padding: 1rem;
+  background-color: rgb(245, 245, 245);
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.greybox {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 2px;
+}
+
+.greybox .title {
+  opacity: 0.6;
+}
+
+.QtyCountWrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 18px 0px 0px 0px;
+}
+
+.QtyCount {
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.QtyCount img {
+  width: 6vw;
+  height: auto;
+}
+
+.priceBold {
+  font-weight: bold;
+}
+
+.bottomPriceWrap {
+  padding: 1rem 1rem 1.5rem;
+  display: flex;
+  justify-content: right;
+  font-weight: 600;
+}
+
+.rightBottomBoldPrice {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: right;
+  line-height: 17px;
+  padding-left: 10px;
 }
