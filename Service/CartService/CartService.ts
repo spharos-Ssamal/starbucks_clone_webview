@@ -1,6 +1,7 @@
 import { CustomAxios } from "@/constants/Apis/Axios/CustomAxios";
 import {
   REQUEST_CART_GET,
+  REQUEST_CART_GET_ALL,
   REQUEST_CART_INSERT,
   REQUEST_CART_CONFIRM,
   REQUEST_CART_DELETE,
@@ -9,9 +10,17 @@ import {
 } from "@/constants/Apis/URL";
 
 export async function RequestCartGet(userId: string) {
-  return await CustomAxios.get(REQUEST_CART_GET, {
+  return await CustomAxios.get(REQUEST_CART_GET_ALL, {
     params: {
       userId: userId,
+    },
+  }).then((res) => res.data);
+}
+
+export async function RequestGetCartItem(cartId: number) {
+  return await CustomAxios.get(REQUEST_CART_GET, {
+    params: {
+      cartId: cartId,
     },
   }).then((res) => res.data);
 }

@@ -16,7 +16,7 @@ export default function CartItem(props: { data: cartListType }) {
   const onClickPurchaseProduct = () => {
     const countOf = props.data.count;
     const productId = props.data.product.id;
-    router.push(`/payment/product/product=${productId}&count=${countOf}`);
+    router.push(`/payment/cart/cartId=${props.data.id}`);
   };
 
   const onClickDeleteCartItem = () => {
