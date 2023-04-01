@@ -29,3 +29,13 @@ export const OrderButton38widthColorReverse = styled(OrderButton35width)`
   border: 1px solid rgb(0, 155, 57);
   padding: 7px 0px;
 `;
+
+export const OrderButton48width = styled(OrderButton35width)`
+  width: 48%;
+`;
+
+export const OrderButton48widthColorReverse = styled(
+  OrderButton38widthColorReverse
+)`
+  width: 48%;
+`;
