@@ -120,6 +120,7 @@ function Header() {
     "/address",
     "/payment",
     "/purchaseList",
+    "/purchaseDetail/[historyId]",
     "/cart",
   ];
 

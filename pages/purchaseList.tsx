@@ -83,7 +83,7 @@ export default function PurchaseList() {
             key={element.historyId}
             historyId={element.historyId}
             date={element.date}
-            purchaseProductInfo={element.productInfoList[0]}
+            purchaseProductInfo={element.productInfoList}
           />
         ))}
     </div>
