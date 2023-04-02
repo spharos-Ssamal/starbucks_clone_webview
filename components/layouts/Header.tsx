@@ -118,7 +118,7 @@ function Header() {
     "/store",
     "/product/[productId]",
     "/address",
-    "/payment",
+    "/payment/[...paymentParam]",
     "/purchaseList",
     "/purchaseDetail/[historyId]",
     "/cart",

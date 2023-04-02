@@ -107,7 +107,7 @@ export default function Payment() {
       purchasedList: productsBePurchase,
       paymentMethod: "CREDIT_CARD",
       addressId: shippingAddress.id,
-      shippingFee: 3000,
+      shippingFee: paymentInfo.shippingFee,
       amountOfProductPrice: paymentInfo.amountOfProductPrice,
       amountOfDiscount: paymentInfo.amountOfDiscountPrice,
       amountOfTotalPrice: paymentInfo.amountOfTotalPrice,

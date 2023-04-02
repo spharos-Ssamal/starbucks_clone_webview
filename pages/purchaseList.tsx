@@ -80,7 +80,7 @@ export default function PurchaseList() {
       {purchaseHistory &&
         purchaseHistory.map((element, idx) => (
           <CardProduct
-            key={element.historyId}
+            key={element.historyId + idx}
             historyId={element.historyId}
             date={element.date}
             purchaseProductInfo={element.productInfoList}
