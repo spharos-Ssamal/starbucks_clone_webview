@@ -3,6 +3,7 @@ import { cartType } from "@/Types/cart/cartListType";
 import { cartListState } from "@/state/cart/atom/cartListState";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import Swal from "sweetalert2";
 
 export default function CartMenu() {
   const [cartList, setCartList] = useRecoilState<cartType>(cartListState);
@@ -43,6 +44,14 @@ export default function CartMenu() {
             ...cartList,
             cartList: cartListNow,
             cartListFreeze: cartListFreezeNow,
+          });
+        })
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "성공!",
+            text: "장바구니 상품을 삭제했습니다.",
+            timer: 2000,
           });
         })
         .catch((ex) => console.log(ex));
