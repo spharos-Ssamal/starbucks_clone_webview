@@ -32,6 +32,7 @@ export const REQUEST_PAY_CONFIRM = "api/v1/pay/confirm";
 
 export const REQUEST_CART_GET_ALL = "api/v1/cart/get";
 export const REQUEST_CART_GET = "api/v1/cart/user/item";
+export const REQUEST_CART_GET_ITEMS = "api/v1/cart/user/items";
 export const REQUEST_CART_AMOUNT = "api/v1/cart/amount";
 export const REQUEST_CART_INSERT = "api/v1/cart/insert";
 export const REQUEST_CART_DELETE = "api/v1/cart/delete";

@@ -24,6 +24,7 @@ import { REQUEST_CART_GET } from "@/constants/Apis/URL";
 import {
   RequestCartDelete,
   RequestGetCartItem,
+  RequestGetCartItems,
 } from "@/Service/CartService/CartService";
 import { cartListType } from "@/Types/cart/cartListType";
 
@@ -63,16 +64,33 @@ export default function Payment() {
   const fetchCartItemInfo = (cartId: number) => {
     RequestGetCartItem(cartId).then((res) => {
       const prePurchaseProductInfo: cartListType = res.data;
-      setPrePurchaseProducts([
-        {
-          id: prePurchaseProductInfo.product.id,
-          cartId: cartId,
-          name: prePurchaseProductInfo.product.name,
-          thumbnail: prePurchaseProductInfo.product.thumbnail,
-          count: prePurchaseProductInfo.count,
-          price: prePurchaseProductInfo.product.price,
-        },
-      ]);
+      const data: PrePurchaseProductInfo = {
+        id: prePurchaseProductInfo.product.id,
+        cartId: cartId,
+        name: prePurchaseProductInfo.product.name,
+        thumbnail: prePurchaseProductInfo.product.thumbnail,
+        count: prePurchaseProductInfo.count,
+        price: prePurchaseProductInfo.product.price,
+      };
+      setPrePurchaseProducts([data]);
+    });
+  };
+
+  const fetchCartItemsInfo = (cartId: string[]) => {
+    const cartIds = cartId.map((e) => parseInt(e));
+    RequestGetCartItems(cartIds).then((res) => {
+      const result: cartListType[] = res.data;
+      const results: PrePurchaseProductInfo[] = result.map((e) => {
+        return {
+          id: e.product.id,
+          cartId: e.cartId,
+          name: e.product.name,
+          thumbnail: e.product.thumbnail,
+          count: e.count,
+          price: e.product.price,
+        };
+      });
+      setPrePurchaseProducts([...results]);
     });
   };
 
@@ -142,20 +160,25 @@ export default function Payment() {
   useEffect(() => {
     if (router.query.paymentParam !== undefined) {
       const paymentParam = router.query.paymentParam;
-      console.log(paymentParam);
       const purchaseParam = paymentParam[0];
       if (purchaseParam === "product") {
         const productParam = paymentParam[1].split("&");
         const productId = parseInt(productParam[0].split("=")[1]);
         const productCount = parseInt(productParam[1].split("=")[1]);
-        console.log(productId + " " + productCount);
         fetchPrePurchaseProductsInfo([productId], productCount);
       } else if (purchaseParam === "cart") {
         setPurchaseType("cart");
         const cartItemParam = paymentParam[1].split("=");
-        const cartIdParam = cartItemParam[1];
-        console.log("cartId " + cartIdParam);
-        fetchCartItemInfo(parseInt(cartIdParam));
+        const cartParam = cartItemParam[0];
+        if (cartParam === "cartId") {
+          const cartIdParam = cartItemParam[1];
+          fetchCartItemInfo(parseInt(cartIdParam));
+        } else if (cartParam === "cartIds") {
+          const cartIdsParam = cartItemParam[1].split(",");
+          if (prePurchaseProducts.length == 0) {
+            fetchCartItemsInfo(cartIdsParam);
+          }
+        }
       } else {
         Swal.fire({
           icon: "error",

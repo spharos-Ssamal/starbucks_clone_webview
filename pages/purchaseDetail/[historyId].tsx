@@ -85,32 +85,26 @@ export default function PurchaseDetail() {
             </div>
             <div className="purchase-product">
               <div>
-                {historyInfo.productInfoList && (
-                  <div className="purchase-detail">
-                    <img
-                      src={historyInfo.productInfoList[0].thumbnail}
-                      alt=""
-                      className="product-img"
-                      onClick={() => {
-                        router.push(
-                          `/product/${historyInfo.productInfoList[0].productId}`
-                        );
-                      }}
-                    />
-                    <div className="purch-card-info">
-                      <p className="bold">선물수락</p>
-                      <p className="name">
-                        {historyInfo.productInfoList[0].productName}
-                      </p>
-                      <span className="bold">
-                        {historyInfo.productInfoList[0].price} 원
-                      </span>
-                      <span className="opacity">
-                        {historyInfo.productInfoList[0].count} 개
-                      </span>
+                {historyInfo.productInfoList.map((element) => (
+                  <>
+                    <div className="purchase-detail">
+                      <img
+                        src={element.thumbnail}
+                        alt=""
+                        className="product-img"
+                        onClick={() => {
+                          router.push(`/product/${element.productId}`);
+                        }}
+                      />
+                      <div className="purch-card-info">
+                        <p className="bold">선물수락</p>
+                        <p className="name">{element.productName}</p>
+                        <span className="bold">{element.price} 원</span>
+                        <span className="opacity">{element.count} 개</span>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  </>
+                ))}
               </div>
             </div>
           </section>

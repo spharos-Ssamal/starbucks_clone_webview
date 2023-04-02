@@ -24,6 +24,7 @@ function Cart() {
   const setCartList = useSetRecoilState<cartType>(cartListState);
   const cartData = useRecoilValue<cartType>(cartListState);
   const [amountOfPrice, setAmountOfPrice] = useState(0);
+  const [numOfProduct, setNumOfProduct] = useState(0);
 
   useEffect(() => {
     axios
@@ -76,8 +77,13 @@ function Cart() {
           <CartInfo
             amountOfPrice={amountOfPrice}
             setAmountOfPrice={setAmountOfPrice}
+            numOfProduct={numOfProduct}
+            setNumOfProduct={setNumOfProduct}
           />
-          <CartFooter amountOfPrice={amountOfPrice} />
+          <CartFooter
+            amountOfPrice={amountOfPrice}
+            numOfProduct={numOfProduct}
+          />
         </>
       )}
     </>

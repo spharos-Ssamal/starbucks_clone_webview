@@ -7,6 +7,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 interface Props {
   amountOfPrice: number;
   setAmountOfPrice: Dispatch<SetStateAction<number>>;
+  numOfProduct: number;
+  setNumOfProduct: Dispatch<SetStateAction<number>>;
 }
 
 export default function CartInfo(props: Props) {
@@ -19,11 +21,14 @@ export default function CartInfo(props: Props) {
 
   useEffect(() => {
     let shippingFeeCount = 0;
-    const cartListPrice = cartData.cartList.reduce(
+    const cartListNow = cartData.cartList.filter((e) => e.check);
+    const cartListFreezeNow = cartData.cartListFreeze.filter((e) => e.check);
+
+    const cartListPrice = cartListNow.reduce(
       (acc, cur) => acc + cur.product.price * cur.count,
       0
     );
-    const cartListFrozenPrice = cartData.cartListFreeze.reduce(
+    const cartListFrozenPrice = cartListFreezeNow.reduce(
       (acc, cur) => acc + cur.product.price * cur.count,
       0
     );
@@ -42,6 +47,7 @@ export default function CartInfo(props: Props) {
       cartListPrice + cartListFrozenPrice + shippingFeeCount
     );
     setCartState(cartData.cartList.length + cartData.cartListFreeze.length);
+    props.setNumOfProduct(cartListNow.length + cartListFreezeNow.length);
   }, [cartData]);
 
   return (

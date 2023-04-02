@@ -5,6 +5,7 @@ export interface cartType {
 
 export interface cartListType {
   id: number;
+  cartId: number;
   frozen: boolean;
   count: number;
   check: boolean;
