@@ -72,7 +72,7 @@ CustomAxios.interceptors.response.use(
         localStorage.removeItem("ACCESS_TOKEN");
       }
     }
-
-    return responseData;
+    console.log(responseData);
+    return Promise.reject(responseData);
   }
 );

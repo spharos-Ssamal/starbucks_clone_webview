@@ -58,14 +58,25 @@ export default function ProductOrderSection(props: Props) {
         userId: isLogin.userId,
         productId: props.productId,
         count: countOf,
-      }).then((res) => {
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "장바구니에 상품을 담았습니다.",
+      })
+        .then((res) => {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "장바구니에 상품을 담았습니다.",
+          });
+          setIsOpen(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.data === "ERROR-BR-004") {
+            Swal.fire({
+              icon: "error",
+              title: "Error!",
+              text: "장바구니에 상품이 가득 찼습니다.",
+            });
+          }
         });
-        setIsOpen(false);
-      });
     } else {
       Swal.fire({
         icon: "info",

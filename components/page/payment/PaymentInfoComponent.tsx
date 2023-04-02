@@ -25,6 +25,7 @@ export default function PaymentInfoComponent(props: Props) {
       ...paymentInfo,
       amountOfProductPrice: amountOfProductPrice,
       amountOfDiscountPrice: discountFee,
+      shippingFee: shippingFee,
       amountOfTotalPrice: amountOfProductPrice + shippingFee - discountFee,
     });
   }, [prePurchaseProducts]);
