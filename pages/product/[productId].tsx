@@ -114,7 +114,11 @@ export default function Product() {
             data={viewByOthersData}
           />
           <PageDetailInfoCommon />
-          <ProductOrderSection />
+          <ProductOrderSection
+            productName={productData.name}
+            productPrice={productData.price}
+            productId={productData.id}
+          />
         </>
       )}
     </>
