@@ -1,4 +1,4 @@
-import { getUsersPurchaseHistory } from "@/Service/PurchaseService/PurchaseService";
+import { getUsersPurchaseHistory } from "@/Service/HistoryService/HistoryService";
 import {
   PurchaseHistory,
   GetUsersPurchaseHistoryRes,
@@ -14,12 +14,14 @@ export default function PurchaseList() {
 
   useEffect(() => {
     if (isLogin.userId !== undefined) {
-      getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-03-31").then(
+      getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-05-01").then(
         (res) => {
           const result: PurchaseHistory[] = res.data.histories;
+          console.log(result);
           setPurchaseHistory([...result]);
         }
       );
+      console.log(purchaseHistory);
     }
   }, []);
 

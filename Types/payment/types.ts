@@ -1,5 +1,6 @@
 export interface PrePurchaseProductInfo {
   id: number;
+  cartId?: number;
   name: string;
   thumbnail: string;
   count: number;

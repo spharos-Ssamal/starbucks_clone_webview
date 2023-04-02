@@ -14,18 +14,18 @@ export default function PaymentInfoComponent(props: Props) {
     props;
 
   useEffect(() => {
+    const amountOfProductPrice = prePurchaseProducts.reduce(
+      (acc, curr) => acc + curr.price * curr.count,
+      0
+    );
+
+    const shippingFee = amountOfProductPrice > 30000 ? 0 : 3000;
+
     setPaymentInfo({
       ...paymentInfo,
-      amountOfProductPrice: prePurchaseProducts.reduce(
-        (acc, curr) => acc + curr.price * curr.count,
-        0
-      ),
+      amountOfProductPrice: amountOfProductPrice,
       amountOfDiscountPrice: discountFee,
-      amountOfTotalPrice:
-        prePurchaseProducts.reduce(
-          (acc, curr) => acc + curr.price * curr.count,
-          0
-        ) - discountFee,
+      amountOfTotalPrice: amountOfProductPrice + shippingFee - discountFee,
     });
   }, [prePurchaseProducts]);
 

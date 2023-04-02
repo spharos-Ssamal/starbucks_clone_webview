@@ -20,6 +20,13 @@ import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Swal from "sweetalert2";
+import { REQUEST_CART_GET } from "@/constants/Apis/URL";
+import {
+  RequestCartDelete,
+  RequestGetCartItem,
+  RequestGetCartItems,
+} from "@/Service/CartService/CartService";
+import { cartListType } from "@/Types/cart/cartListType";
 
 export default function Payment() {
   const router = useRouter();
@@ -27,7 +34,8 @@ export default function Payment() {
   const [prePurchaseProducts, setPrePurchaseProducts] = useState<
     PrePurchaseProductInfo[]
   >([]);
-
+  const [purchaseType, setPurchaseType] = useState("product");
+  const [paymentType, setPaymentType] = useState("STARBUCKS_CARD");
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>(initPaymentInfo);
 
   const [shippingAddress, setShippingAddress] = useState<ShippingAddressInfo>(
@@ -53,6 +61,39 @@ export default function Payment() {
       });
   };
 
+  const fetchCartItemInfo = (cartId: number) => {
+    RequestGetCartItem(cartId).then((res) => {
+      const prePurchaseProductInfo: cartListType = res.data;
+      const data: PrePurchaseProductInfo = {
+        id: prePurchaseProductInfo.product.id,
+        cartId: cartId,
+        name: prePurchaseProductInfo.product.name,
+        thumbnail: prePurchaseProductInfo.product.thumbnail,
+        count: prePurchaseProductInfo.count,
+        price: prePurchaseProductInfo.product.price,
+      };
+      setPrePurchaseProducts([data]);
+    });
+  };
+
+  const fetchCartItemsInfo = (cartId: string[]) => {
+    const cartIds = cartId.map((e) => parseInt(e));
+    RequestGetCartItems(cartIds).then((res) => {
+      const result: cartListType[] = res.data;
+      const results: PrePurchaseProductInfo[] = result.map((e) => {
+        return {
+          id: e.product.id,
+          cartId: e.id,
+          name: e.product.name,
+          thumbnail: e.product.thumbnail,
+          count: e.count,
+          price: e.product.price,
+        };
+      });
+      setPrePurchaseProducts([...results]);
+    });
+  };
+
   const requestPaymentConfirm = () => {
     const productsBePurchase: ProductBePurchased[] = prePurchaseProducts.map(
       (element) => ({
@@ -73,6 +114,12 @@ export default function Payment() {
     };
     RequestPaymentConfirm(request)
       .then((res) => {
+        if (purchaseType === "cart") {
+          prePurchaseProducts.map(
+            (element) => element.cartId && RequestCartDelete(element.cartId)
+          );
+        }
+
         console.log(res);
         Swal.fire({
           icon: "success",
@@ -83,7 +130,7 @@ export default function Payment() {
       .catch((ex) => {
         console.log(ex);
         Swal.fire({
-          icon: "success",
+          icon: "error",
           text: "주문이 실패했습니다.",
         });
         router.push("/");
@@ -113,18 +160,31 @@ export default function Payment() {
   useEffect(() => {
     if (router.query.paymentParam !== undefined) {
       const paymentParam = router.query.paymentParam;
-      console.log(paymentParam);
       const purchaseParam = paymentParam[0];
       if (purchaseParam === "product") {
         const productParam = paymentParam[1].split("&");
         const productId = parseInt(productParam[0].split("=")[1]);
         const productCount = parseInt(productParam[1].split("=")[1]);
-        console.log(productId + " " + productCount);
         fetchPrePurchaseProductsInfo([productId], productCount);
       } else if (purchaseParam === "cart") {
-        console.log("추후 개발하겠습니다.");
+        setPurchaseType("cart");
+        const cartItemParam = paymentParam[1].split("=");
+        const cartParam = cartItemParam[0];
+        if (cartParam === "cartId") {
+          const cartIdParam = cartItemParam[1];
+          fetchCartItemInfo(parseInt(cartIdParam));
+        } else if (cartParam === "cartIds") {
+          const cartIdsParam = cartItemParam[1].split(",");
+          if (prePurchaseProducts.length == 0) {
+            fetchCartItemsInfo(cartIdsParam);
+          }
+        }
       } else {
-        console.log("Error");
+        Swal.fire({
+          icon: "error",
+          text: "잘못 된 접근입니다.",
+        });
+        router.push("/");
       }
     }
   }, [router.query]);

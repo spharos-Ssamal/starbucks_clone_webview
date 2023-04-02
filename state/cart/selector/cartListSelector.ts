@@ -13,4 +13,4 @@ export const cartListSelector = selector({
   //   let data = cartList.cartList.find((item) => item.id === newValue.id);
   //   set(cartListState, {newValue})
   // }
-})
+});

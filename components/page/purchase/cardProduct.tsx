@@ -1,4 +1,5 @@
 import { PurchaseProductInfo } from "@/Types/purchase/types";
+import { useRouter } from "next/router";
 import { StringLiteral } from "typescript";
 
 interface Prop {
@@ -8,6 +9,7 @@ interface Prop {
 }
 
 export function CardProduct(prop: Prop) {
+  const router = useRouter();
   const { historyId, date, purchaseProductInfo } = prop;
 
   return (
@@ -17,8 +19,11 @@ export function CardProduct(prop: Prop) {
         <div className="right">
           주문 상세
           <img
+            onClick={() => {
+              router.push(`/purchaseDetail/${prop.historyId}`);
+            }}
             className="arrow"
-            src="./assets/images/icons/arrow-point-to-right.png"
+            src="/assets/images/icons/arrow-point-to-right.png"
           />
         </div>
       </div>

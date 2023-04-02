@@ -12,7 +12,7 @@ import CartMenu from "@/components/page/cart/CartMenu";
 import Config from "@/configs/config.export";
 import { cartListState } from "@/state/cart/atom/cartListState";
 import Nodata from "@/components/ui/Nodata";
-import { REQUEST_CART_GET } from "@/constants/Apis/URL";
+import { REQUEST_CART_GET_ALL } from "@/constants/Apis/URL";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 
 function Cart() {
@@ -24,11 +24,12 @@ function Cart() {
   const setCartList = useSetRecoilState<cartType>(cartListState);
   const cartData = useRecoilValue<cartType>(cartListState);
   const [amountOfPrice, setAmountOfPrice] = useState(0);
+  const [numOfProduct, setNumOfProduct] = useState(0);
 
   useEffect(() => {
     axios
       .get(
-        `${baseUrl}/${REQUEST_CART_GET}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
+        `${baseUrl}/${REQUEST_CART_GET_ALL}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
       )
       .then((res) => {
         setCartList({
@@ -76,8 +77,13 @@ function Cart() {
           <CartInfo
             amountOfPrice={amountOfPrice}
             setAmountOfPrice={setAmountOfPrice}
+            numOfProduct={numOfProduct}
+            setNumOfProduct={setNumOfProduct}
           />
-          <CartFooter amountOfPrice={amountOfPrice} />
+          <CartFooter
+            amountOfPrice={amountOfPrice}
+            numOfProduct={numOfProduct}
+          />
         </>
       )}
     </>
