@@ -83,7 +83,7 @@ export default function Payment() {
       const results: PrePurchaseProductInfo[] = result.map((e) => {
         return {
           id: e.product.id,
-          cartId: e.cartId,
+          cartId: e.id,
           name: e.product.name,
           thumbnail: e.product.thumbnail,
           count: e.count,

@@ -3,6 +3,7 @@ import { cartListState } from "@/state/cart/atom/cartListState";
 import { useRouter } from "next/router";
 import React from "react";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 interface Prop {
   amountOfPrice: number;
@@ -17,8 +18,15 @@ export default function CartFooter(prop: Prop) {
       .filter((e) => e.check)
       .map((e) => e.id)
       .concat(cartData.cartListFreeze.filter((e) => e.check).map((e) => e.id));
-    console.log(cartItemList);
-    router.push(`payment/cart/cartIds=${cartItemList}`);
+    if (cartItemList.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "error",
+        text: "구매 할 상품이 없습니다. ",
+      });
+    } else {
+      router.push(`payment/cart/cartIds=${cartItemList}`);
+    }
   };
 
   return (
