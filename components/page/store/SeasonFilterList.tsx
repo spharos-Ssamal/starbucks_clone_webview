@@ -2,10 +2,7 @@ import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default function SeasonFilterList(props: {
-  data: MenuDataType[];
-  setFilter: Dispatch<SetStateAction<filterDataType[]>>;
-}) {
+export default function SeasonFilterList(props: { data: MenuDataType[] }) {
   const router = useRouter();
   const [seasonIds, setSeasonIds] = useState<string[]>([]);
 

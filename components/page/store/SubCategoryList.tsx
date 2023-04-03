@@ -5,8 +5,6 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 export default function SubCategoryList(props: {
   category: number;
   data: MenuDataType[];
-  filterFile: filterDataType[];
-  setFilter: Dispatch<SetStateAction<filterDataType[]>>;
 }) {
   const router = useRouter();
   const [subCategoryId, setSubCategoryId] = useState("");

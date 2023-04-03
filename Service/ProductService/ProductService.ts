@@ -1,4 +1,3 @@
-import { SearchProductsReq } from "@/Types/Product/Request";
 import { CustomAxios } from "@/constants/Apis/Axios/CustomAxios";
 import {
   REQUEST_CATEGORY_AGGREGATION_NAME,

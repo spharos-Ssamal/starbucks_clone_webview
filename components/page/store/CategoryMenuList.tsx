@@ -5,8 +5,6 @@ import React, { Dispatch, SetStateAction, useEffect } from "react";
 export default function CategoryMenuList(props: {
   setCategory: Dispatch<SetStateAction<number>>;
   data: MenuDataType[];
-  filterFile: filterDataType[];
-  setFilter: Dispatch<SetStateAction<filterDataType[]>>;
 }) {
   const router = useRouter();
 

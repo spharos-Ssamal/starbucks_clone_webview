@@ -1,14 +1,128 @@
+import { RequestSubCategoryList } from "@/Service/CategoryService/CategoryService";
 import { RequestProduct } from "@/Service/ProductService/ProductService";
+import { getSeasonInfo } from "@/Service/SeasonService/SeasonService";
 import { ProductInfo } from "@/Types/Product/Request";
+import {
+  FilterParams,
+  MenuDataType,
+  filterDataType,
+} from "@/Types/filter/filterTypes";
+import { headerMenu } from "@/Types/starbucksTypes";
+import CategoryMenuList from "@/components/page/store/CategoryMenuList";
+import PriceFilterList from "@/components/page/store/PriceFilterList";
+import SeasonFilterList from "@/components/page/store/SeasonFilterList";
+import SizeFilterList from "@/components/page/store/SizeFilterList";
+import SubCategoryList from "@/components/page/store/SubCategoryList";
 import ProductCard from "@/components/ui/ProductCard";
+import Config from "@/configs/config.export";
 import { REQUEST_PRODUCT } from "@/constants/Apis/URL";
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 
 export default function Store() {
+  const baseUrl = Config().baseUrl;
   const router = useRouter();
+
+  const [pageNo, setPageNo] = useState<number>(0);
+  const [order, setOrder] = useState<string>("product.id,DESC");
+
+  const { pathname, query } = useRouter();
+  const [category, setCategory] = useState(1);
+  const [subCategory, setSubCategory] = useState(0);
+  const [filterParams, setFilterParams] = useState<FilterParams>();
+  const [priceRange, setPriceRange] = useState({
+    startValue: 0,
+    endValue: 0,
+  });
   const [products, setProducts] = useState<ProductInfo[]>([]);
+
+  const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
+  const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
+  const [subFilterMenuData, setSubFilterMenuData] = useState<MenuDataType[]>(
+    []
+  );
+  const [seasonMenuData, setSeasonMenuData] = useState<MenuDataType[]>([]);
+
+  const [filterData, setFilterDatas] = useState<filterDataType[]>([]);
+
+  const fetchSeasonData = () => {
+    getSeasonInfo()
+      .then((res) => {
+        setSeasonMenuData([...res.data.seasonInfo]);
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  };
+
+  // useEffect(() => {
+  //   if (filterData.length > 0) {
+  //     console.log("필터링데이터", filterData);
+  //     let queryUrl = "";
+  //     filterData.forEach((item) => {
+  //       queryUrl += `&${item.key}=${item.id}`;
+  //     });
+  //     router.push(`/store?category=${router.query.category}${queryUrl}`);
+  //   }
+  //   // console.log(menuList);
+  // }, [filterData]);
+
+  useEffect(() => {
+    fetchSeasonData();
+    setFilterMenuData([
+      {
+        id: 1,
+        name: "전체",
+        key: "category",
+      },
+    ]);
+    RequestSubCategoryList(1).then((res) => {
+      let myData: MenuDataType[] = [];
+      res.data.subCategories.forEach((item: headerMenu) => {
+        myData.push({
+          id: item.id,
+          name: item.name,
+          key: "category",
+        });
+      });
+      setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
+    });
+    setCategory(1);
+  }, []);
+
+  useEffect(() => {
+    if (
+      query.category &&
+      query.category !== "1" &&
+      typeof query.category === "string"
+    ) {
+      const subCategory: string = query.category;
+      RequestSubCategoryList(parseInt(query.category)).then((res) => {
+        console.log(res.data);
+        let myData: MenuDataType[] = [];
+        res.data.subCategories.forEach((item: headerMenu) => {
+          myData.push({
+            id: item.id,
+            name: item.name,
+            key: "subCategory",
+          });
+        });
+
+        if (res.data.sizeInfo !== undefined) {
+          console.log(res.data.sizeInfo);
+          setSizeFilterData([...res.data.sizeInfo]);
+        } else {
+          setSizeFilterData([]);
+        }
+        setSubFilterMenuData(myData);
+        setSubCategory(parseInt(subCategory));
+      });
+    } else if (query.category === "1") {
+      setSubFilterMenuData([]);
+    }
+  }, [query]);
 
   useEffect(() => {
     console.log(router.asPath);
@@ -22,6 +136,11 @@ export default function Store() {
     });
   }, [router.query]);
 
+  const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setOrder(value);
+  };
+
   return (
     <>
       <Head>
@@ -32,10 +151,18 @@ export default function Store() {
       </Head>
       <div
         style={{
-          margin: "160px 0 0 0",
+          margin: "50px 0 0 0",
         }}
-        className="searchResultContent"
       >
+        <CategoryMenuList setCategory={setCategory} data={filterMenuData} />
+        {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
+        <PriceFilterList setPriceRange={setPriceRange} />
+        {subFilterMenuData.length > 0 && (
+          <SubCategoryList category={category} data={subFilterMenuData} />
+        )}
+        <SeasonFilterList data={seasonMenuData} />
+      </div>
+      <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">
           <img src="/assets/images/icons/reload.png" />
           <button>
@@ -48,11 +175,10 @@ export default function Store() {
           </button>
         </div>
         <div className="content-order">
-          <select id="xyz">
-            <option>신상품순</option>
-            <option>추천순</option>
-            <option>낮은가격순</option>
-            <option>높은가격순</option>
+          <select id="xyz" onChange={handleOnChangeSelect}>
+            <option value={"product.id,DESC"}>신상품순</option>
+            <option value={"product.price,ASC"}>낮은가격순</option>
+            <option value={"product.price,DESC"}>높은가격순</option>
           </select>
         </div>
         <section className="searchResultProduct">
