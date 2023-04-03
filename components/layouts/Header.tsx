@@ -3,47 +3,35 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 // component
-import LoginModal from "../modals/LoginModal";
 import SignupModal from "../modals/SignupModal";
 import SideMenuModal from "../modals/SideMenuModal";
 // recoil
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { headerMenu } from "@/Types/starbucksTypes";
-import {
-  filterMenuType,
-  filterSubCategoryType,
-  filterType,
-  sizeType,
-  smallCategoryType,
-} from "@/Types/header/filterType";
 
 import axios from "axios";
 import Config from "@/configs/config.export";
-import {
-  headerNavMenus,
-  headerIcons,
-  categoryList,
-} from "../../data/starbucksStaticDatas";
+import { headerNavMenus } from "../../data/starbucksStaticDatas";
 import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
-import { SearchModal } from "../modals/SearchModal";
-import FilterMenuList from "../ui/FilterMenuList";
+
 import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
+import CategoryMenuList from "../page/store/CategoryMenuList";
+import SubCategoryList from "../page/store/SubCategoryList";
+import { getSeasonInfo } from "@/Service/SeasonService/SeasonService";
+import SeasonFilterList from "../page/store/SeasonFilterList";
 
 function Header() {
   const baseUrl = Config().baseUrl;
-  const setIsLogin = useSetRecoilState(userIsLogin);
-
-  // if(myStorage.getItem('accessToken')) {
-  //   setIsLogin(true)
-  // }
 
   const isLogin = useRecoilValue(userIsLogin);
 
   const router = useRouter();
   const { pathname, query } = useRouter();
   const productPath = pathname.split("/")[1];
+  const [category, setCategory] = useState(1);
+  const [subCategory, setSubCategory] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<boolean>(false);
@@ -53,8 +41,19 @@ function Header() {
   const [subFilterMenuData, setSubFilterMenuData] = useState<MenuDataType[]>(
     []
   );
+  const [seasonMenuData, setSeasonMenuData] = useState<MenuDataType[]>([]);
 
   const [filterData, setFilterDatas] = useState<filterDataType[]>([]);
+
+  const fetchSeasonData = () => {
+    getSeasonInfo()
+      .then((res) => {
+        setSeasonMenuData([...res.data.seasonInfo]);
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  };
 
   useEffect(() => {
     if (filterData.length > 0) {
@@ -69,6 +68,15 @@ function Header() {
   }, [filterData]);
 
   useEffect(() => {
+    fetchSeasonData();
+    setFilterMenuData([
+      {
+        id: 1,
+        name: "전체",
+        key: "category",
+      },
+    ]);
+
     axios
       .get(`${baseUrl}/api/v1/category/subCategories?categoryId=1`)
       .then((res) => {
@@ -80,12 +88,18 @@ function Header() {
             key: "category",
           });
         });
-        setFilterMenuData(myData);
+        setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
       });
+    setCategory(1);
   }, []);
 
   useEffect(() => {
-    if (query.category && query.category !== "1") {
+    if (
+      query.category &&
+      query.category !== "1" &&
+      typeof query.category === "string"
+    ) {
+      const subCategory: string = query.category;
       axios
         .get(
           `${baseUrl}/api/v1/category/subCategories?categoryId=${query.category}`
@@ -100,7 +114,10 @@ function Header() {
             });
           });
           setSubFilterMenuData(myData);
+          setSubCategory(parseInt(subCategory));
         });
+    } else if (query.category === "1") {
+      setSubFilterMenuData([]);
     }
   }, [query]);
 
@@ -172,18 +189,24 @@ function Header() {
         </div>
         {pathname === "/store" ? (
           <>
-            <FilterMenuList
+            <CategoryMenuList
+              setCategory={setCategory}
               data={filterMenuData}
               filterFile={filterData}
               setFilter={setFilterDatas}
             />
             {subFilterMenuData.length > 0 && (
-              <FilterMenuList
+              <SubCategoryList
+                category={category}
                 data={subFilterMenuData}
                 filterFile={filterData}
                 setFilter={setFilterDatas}
               />
             )}
+            <SeasonFilterList
+              data={seasonMenuData}
+              setFilter={setFilterDatas}
+            />
           </>
         ) : exceptionList.includes(pathname, 0) ? null : (
           <HeaderBottomMenuList data={headerMenus} />

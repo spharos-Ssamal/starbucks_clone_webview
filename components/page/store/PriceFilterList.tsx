@@ -2,9 +2,8 @@ import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 
-export default function FilterMenuList(props: {
+export default function PriceFilterList(props: {
   data: MenuDataType[];
-  filterFile: filterDataType[];
   setFilter: Dispatch<SetStateAction<filterDataType[]>>;
 }) {
   const router = useRouter();
@@ -13,12 +12,10 @@ export default function FilterMenuList(props: {
     console.log(item);
     if (item.key === "category") {
       router.push(`/store?category=${item.id}`);
-
       return;
     }
   };
 
-  
   return (
     <div className="header-sub">
       <nav>
@@ -28,7 +25,9 @@ export default function FilterMenuList(props: {
               <li
                 key={item.id}
                 onClick={() => handleAddQuery(item)}
-                className={item.id == Number(router.query.category) ? "active" : ""}
+                className={
+                  item.id == Number(router.query.price) ? "active" : ""
+                }
               >
                 <p>{item.name}</p>
               </li>
