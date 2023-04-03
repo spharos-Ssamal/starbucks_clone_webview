@@ -11,12 +11,23 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { REQUEST_BANNER } from "@/constants/Apis/URL";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MainBanner() {
+  const router = useRouter();
   const { baseUrl } = Config();
   const [bannerData, setBannerData] = useState<bannerInfo[]>([]);
+
+  const onClickBanner = (bannerInfo: bannerInfo) => {
+    console.log(bannerInfo);
+    if (bannerInfo.eventId !== null) {
+      router.push(`/event/${bannerInfo.eventId}`);
+    } else if (bannerInfo.recommendId !== null) {
+      router.push(`${bannerInfo.linkedUrl}`);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -57,7 +68,10 @@ function MainBanner() {
           {bannerData &&
             bannerData.map((bannerInfo: bannerInfo, idx: number) => {
               return (
-                <SwiperSlide key={idx}>
+                <SwiperSlide
+                  key={"banner " + bannerInfo.regTime + idx}
+                  onClick={() => onClickBanner(bannerInfo)}
+                >
                   <div className="event-banner__item">
                     <div className="event-banner__item__img">
                       <Image

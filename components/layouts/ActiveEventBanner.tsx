@@ -52,9 +52,16 @@ export default function ActiveEventBanner(props: EventBannerProp) {
         <div id="event-items" className="first-section-sub-one">
           <div className="product-container">
             {activeEventData &&
-              activeEventData.map((element) => (
+              activeEventData.map((element, idx) => (
                 <ProductCard
-                  key={element.products.id}
+                  key={
+                    "eventProduct " +
+                    element.eventName +
+                    " " +
+                    element.products.id +
+                    " " +
+                    idx
+                  }
                   productId={element.products.id}
                   imageSrc={element.products.thumbnail}
                   productTitle={element.products.name}

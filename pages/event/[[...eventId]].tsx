@@ -12,7 +12,7 @@ import axios from "axios";
 import Config from "@/configs/config.export";
 import { REQUEST_EVENT_ACTIVE } from "@/constants/Apis/URL";
 import ActiveEventBanner from "@/components/layouts/ActiveEventBanner";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper.min.css";
 import { useRouter } from "next/router";
@@ -65,17 +65,13 @@ export default function Event() {
       });
   }, [baseUrl]);
 
-  useEffect(() => {
-    fetchEventActive();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (router.query.eventId !== undefined) {
-      const param: string | string[] = router.query.eventId;
-      if (param.length !== 0) {
-        setEventId(parseInt(param[0]));
-      }
+  const parseQueryAndSetEventId = () => {
+    if (
+      router.query.eventId !== undefined &&
+      typeof router.query.eventId === "object"
+    ) {
+      const param = parseInt(router.query.eventId[0]);
+      setEventId(param);
     } else {
       if (activeEvent.length !== 0) {
         setEventId(activeEvent[0].id);
@@ -83,14 +79,23 @@ export default function Event() {
         setEventId(0);
       }
     }
-  }, [router.query.eventId, activeEvent]);
+  };
+
+  useEffect(() => {
+    fetchEventActive();
+  }, []);
+
+  useEffect(() => {
+    parseQueryAndSetEventId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query]);
 
   useEffect(() => {
     if (swiper) {
       swiper.slideTo(getSwiperIndexFromEventId(eventId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eventId]);
+  }, [eventId, activeEvent]);
 
   return (
     <>
@@ -104,7 +109,7 @@ export default function Event() {
               activeEvent.map((element) => (
                 <>
                   <li
-                    key={element.id}
+                    key={"event " + element.id}
                     className={eventId === element.id ? "active" : ""}
                     onClick={() => onClickEventButton(element.id)}
                   >
@@ -132,7 +137,7 @@ export default function Event() {
         >
           {activeEvent &&
             activeEvent.map((element, idx) => (
-              <SwiperSlide key={element.id}>
+              <SwiperSlide key={"eventBanner " + element.id}>
                 <ActiveEventBanner key={element.name} id={element.id} />
               </SwiperSlide>
             ))}
