@@ -13,6 +13,7 @@ export interface bannerInfo {
   bannerImage: string;
   eventId?: number;
   recommendId?: number;
+  linkedUrl: string;
   regTime: string;
   width: number;
   height: number;

@@ -12,6 +12,8 @@ const nextConfig = {
       "prod-starbucks-product-details.s3.ap-northeast-2.amazonaws.com",
       "cdn.lcnews.co.kr",
       "i.ibb.co",
+      "image.enuri.info",
+      "sitem.ssgcdn.com",
     ],
   },
 };

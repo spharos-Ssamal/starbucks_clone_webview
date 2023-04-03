@@ -46,6 +46,39 @@ export const headerIcons = [
   },
 ];
 
+export const PriceList = [
+  {
+    id: 1,
+    name: "1만원 미만",
+    startValue: 0,
+    endValue: 10000,
+  },
+  {
+    id: 2,
+    name: "2만원대",
+    startValue: 20000,
+    endValue: 30000,
+  },
+  {
+    id: 3,
+    name: "3만원대",
+    startValue: 30000,
+    endValue: 40000,
+  },
+  {
+    id: 4,
+    name: "4만원대",
+    startValue: 40000,
+    endValue: 50000,
+  },
+  {
+    id: 5,
+    name: "5만원 이상",
+    startValue: 50000,
+    endValue: 0,
+  },
+];
+
 export const categoryList = [
   {
     id: 1,

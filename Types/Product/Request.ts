@@ -10,9 +10,9 @@ export interface SearchProductsReq {
 }
 
 export interface ProductInfo {
-  id : number;
-  name : string;
-  price : number;
-  description : string;
-  thumbnail : string;
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  thumbnail: string;
 }

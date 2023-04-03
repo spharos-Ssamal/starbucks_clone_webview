@@ -1,7 +1,9 @@
+import { userLoginState } from "@/state/user/atom/userLoginState";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
+import { useRecoilValue } from "recoil";
 
 interface Iprops {
   isModalOpen: boolean;
@@ -10,10 +12,11 @@ interface Iprops {
 
 export default function SideMenuModal(props: Iprops) {
   const router = useRouter();
+  const isLogin = useRecoilValue(userLoginState);
 
   const handleStore = () => {
     props.closeModal();
-    router.push("/store");
+    router.push("/store?category=1");
   };
 
   const handleOpenEventPage = () => {
@@ -47,12 +50,19 @@ export default function SideMenuModal(props: Iprops) {
                 onClick={props.closeModal}
               />
             </div>
-            <div className="contents-msg">
-              <div className="msg-title">Sign in to Online Store</div>
-              <div>
-                <a href="">로그인</a> 후 이용해 보세요.
+            {isLogin.isLogin ? (
+              <div className="contents-msg">
+                <div className="msg-title">Welcome</div>
+                <div>온라인 스토어에 오신 걸 환영합니다.</div>
               </div>
-            </div>
+            ) : (
+              <div className="contents-msg">
+                <div className="msg-title">Sign in to Online Store</div>
+                <div>
+                  <a href="">로그인</a> 후 이용해 보세요.
+                </div>
+              </div>
+            )}
             <hr className="contents-line" />
           </section>
           <section id="category-items">
@@ -68,7 +78,14 @@ export default function SideMenuModal(props: Iprops) {
               </button>
             </div>
             <div className="contents-container">
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=2");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -81,7 +98,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=3");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -94,7 +118,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=4");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -107,7 +138,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=5");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -120,7 +158,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=6");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -133,7 +178,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=7");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
