@@ -78,7 +78,14 @@ export default function SideMenuModal(props: Iprops) {
               </button>
             </div>
             <div className="contents-container">
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=2");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -91,7 +98,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=3");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -104,7 +118,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=4");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -117,7 +138,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=5");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -130,7 +158,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=6");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
@@ -143,7 +178,14 @@ export default function SideMenuModal(props: Iprops) {
                   </div>
                 </div>
               </button>
-              <button type="button" className="category-button">
+              <button
+                type="button"
+                className="category-button"
+                onClick={() => {
+                  router.push("/store?category=7");
+                  props.closeModal();
+                }}
+              >
                 <div className="category">
                   <div className="category-img">
                     <img
