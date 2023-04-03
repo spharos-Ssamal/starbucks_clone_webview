@@ -36,7 +36,7 @@ export default function SubCategoryList(props: {
           {props.data &&
             props.data.map((item: MenuDataType, idx) => (
               <li
-                key={item.id + idx}
+                key={"subCategory " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
                 className={item.id == Number(subCategoryId) ? "active" : ""}
               >
