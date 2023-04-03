@@ -14,8 +14,8 @@ export default function SeasonFilterList(props: {
     // console.log(router.asPath);
     setSeasonIds([]);
 
-    if (router.query.seasonId !== undefined) {
-      const seasonIdParams = router.query.seasonId;
+    if (router.query.seasons !== undefined) {
+      const seasonIdParams = router.query.seasons;
       if (typeof seasonIdParams === "string") {
         setSeasonIds([seasonIdParams]);
       } else {
@@ -27,7 +27,7 @@ export default function SeasonFilterList(props: {
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "season") {
       if (!seasonIds.includes(`${item.id}`, 0)) {
-        router.push(`${router.asPath}&seasonId=${item.id}`);
+        router.push(`${router.asPath}&seasons=${item.id}`);
         return;
       } else {
         const changedSeasonIds = seasonIds.filter((e) => e !== `${item.id}`);
@@ -37,20 +37,19 @@ export default function SeasonFilterList(props: {
           queryParams = queryParams.concat(`category=${router.query.category}`);
         }
 
-        if (router.query.subCategory !== undefined) {
-          if (typeof router.query.subCategory === "string") {
+        if (router.query.subCategories !== undefined) {
+          if (typeof router.query.subCategories === "string") {
             queryParams = queryParams.concat(
-              `&subCategory=${router.query.subCategory}`
+              `&subCategories=${router.query.subCategories}`
             );
           } else {
-            router.query.subCategory.forEach((element) =>
-              queryParams.concat(`&subCategory=${element}`)
+            router.query.subCategories.forEach((element) =>
+              queryParams.concat(`&subCategories=${element}`)
             );
           }
         }
         changedSeasonIds.forEach(
-          (element) =>
-            (queryParams = queryParams.concat(`&seasonId=${element}`))
+          (element) => (queryParams = queryParams.concat(`&seasons=${element}`))
         );
         setSeasonIds(changedSeasonIds);
         router.push(queryParams);

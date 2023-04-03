@@ -12,19 +12,18 @@ export default function SubCategoryList(props: {
   const [subCategoryId, setSubCategoryId] = useState("");
 
   useEffect(() => {
-    console.log(router.query);
     if (
-      router.query.subCategory &&
-      typeof router.query.subCategory === "string"
+      router.query.subCategories &&
+      typeof router.query.subCategories === "string"
     ) {
-      const subCategory: string = router.query.subCategory;
-      setSubCategoryId(subCategory);
+      const subCategories: string = router.query.subCategories;
+      setSubCategoryId(subCategories);
     }
   }, [router.query]);
 
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "subCategory") {
-      router.push(`/store?category=${props.category}&subCategory=${item.id}`);
+      router.push(`/store?category=${props.category}&subCategories=${item.id}`);
       return;
     }
   };
@@ -36,7 +35,7 @@ export default function SubCategoryList(props: {
           {props.data &&
             props.data.map((item: MenuDataType, idx) => (
               <li
-                key={"subCategory " + item.id + idx}
+                key={"subCategories " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
                 className={item.id == Number(subCategoryId) ? "active" : ""}
               >

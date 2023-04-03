@@ -36,7 +36,9 @@ export default function ProductCard(props: Props) {
       </div>
       <div className="product-item-info">
         <p className="item-title">{props.productTitle}</p>
-        <p className="product-item-price">{props.productPrice}</p>
+        <p className="product-item-price">
+          {parseInt(props.productPrice).toLocaleString("KR-kn")} 원
+        </p>
       </div>
     </div>
   );

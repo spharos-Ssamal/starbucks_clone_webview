@@ -1,8 +1,26 @@
+import { RequestProduct } from "@/Service/ProductService/ProductService";
+import { ProductInfo } from "@/Types/Product/Request";
+import ProductCard from "@/components/ui/ProductCard";
+import { REQUEST_PRODUCT } from "@/constants/Apis/URL";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Store() {
   const router = useRouter();
+  const [products, setProducts] = useState<ProductInfo[]>([]);
+
+  useEffect(() => {
+    console.log(router.asPath);
+    let param = router.asPath + "&page=0&sort=product.id,DESC";
+    param = param.slice(7, param.length);
+    console.log(REQUEST_PRODUCT + param);
+
+    RequestProduct(param).then((res) => {
+      console.log(res.data.content);
+      setProducts([...res.data.content]);
+    });
+  }, [router.query]);
 
   return (
     <>
@@ -12,6 +30,46 @@ export default function Store() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div
+        style={{
+          margin: "160px 0 0 0",
+        }}
+        className="searchResultContent"
+      >
+        <div className="searchResult-filter" id="search-result-filter">
+          <img src="/assets/images/icons/reload.png" />
+          <button>
+            <p>체리블라썸</p>
+            <img className="close-icon" src="/assets/images/icons/close.png" />
+          </button>
+          <button>
+            <p>1만원대</p>
+            <img className="close-icon" src="/assets/images/icons/close.png" />
+          </button>
+        </div>
+        <div className="content-order">
+          <select id="xyz">
+            <option>신상품순</option>
+            <option>추천순</option>
+            <option>낮은가격순</option>
+            <option>높은가격순</option>
+          </select>
+        </div>
+        <section className="searchResultProduct">
+          <div className="product-container">
+            {products &&
+              products.map((element, idx) => (
+                <ProductCard
+                  key={"product " + element.id + idx}
+                  productId={element.id}
+                  imageSrc={element.thumbnail}
+                  productTitle={element.name}
+                  productPrice={`${element.price}`}
+                />
+              ))}
+          </div>
+        </section>
+      </div>
     </>
   );
 }
