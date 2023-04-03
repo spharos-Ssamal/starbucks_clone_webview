@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-import { storeState } from "../atom/storeState";
+import { storeFilterState } from "../atom/storeFilterState";
 
 export const priceSelector = selector({
   key: "priceSelector",
   get: ({ get }) => {
-    return get(storeState).priceValue;
+    return get(storeFilterState).priceValue;
   },
 });

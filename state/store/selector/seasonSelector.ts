@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-import { storeState } from "../atom/storeState";
+import { storeFilterState } from "../atom/storeFilterState";
 
 export const seasonSelector = selector({
   key: "seasonSelector",
   get: ({ get }) => {
-    return get(storeState).seasons;
+    return get(storeFilterState).seasons;
   },
 });

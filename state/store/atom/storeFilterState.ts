@@ -1,7 +1,7 @@
 import { FilterParams } from "@/Types/filter/filterTypes";
 import { atom } from "recoil";
 
-export const storeState = atom<FilterParams>({
+export const storeFilterState = atom<FilterParams>({
   key: "storeState",
   default: {
     category: 1,
@@ -9,8 +9,11 @@ export const storeState = atom<FilterParams>({
     seasons: [],
     productSize: [],
     priceValue: {
-      start: 0,
-      end: 0,
+      priceStart: -1,
+      priceEnd: -1,
     },
+    page: 0,
+    size: 6,
+    sort: "product.id,DESC",
   },
 });

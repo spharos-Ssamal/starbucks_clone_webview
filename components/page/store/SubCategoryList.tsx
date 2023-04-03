@@ -1,27 +1,24 @@
-import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
+import {
+  FilterParams,
+  MenuDataType,
+  filterDataType,
+} from "@/Types/filter/filterTypes";
+import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
-export default function SubCategoryList(props: {
-  category: number;
-  data: MenuDataType[];
-}) {
+export default function SubCategoryList(props: { data: MenuDataType[] }) {
   const router = useRouter();
-  const [subCategoryId, setSubCategoryId] = useState("");
-
-  useEffect(() => {
-    if (
-      router.query.subCategories &&
-      typeof router.query.subCategories === "string"
-    ) {
-      const subCategories: string = router.query.subCategories;
-      setSubCategoryId(subCategories);
-    }
-  }, [router.query]);
+  const [filterParams, setFilterParams] =
+    useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "subCategory") {
-      router.push(`/store?category=${props.category}&subCategories=${item.id}`);
+      setFilterParams({
+        ...filterParams,
+        subCategories: [item.id],
+      });
       return;
     }
   };
@@ -35,7 +32,11 @@ export default function SubCategoryList(props: {
               <li
                 key={"subCategories " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
-                className={item.id == Number(subCategoryId) ? "active" : ""}
+                className={
+                  filterParams.subCategories.includes(item.id, 0)
+                    ? "active"
+                    : ""
+                }
               >
                 <p>{item.name}</p>
               </li>

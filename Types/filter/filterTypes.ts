@@ -17,9 +17,12 @@ export interface FilterParams {
   seasons: number[];
   productSize: number[];
   priceValue: {
-    start: number;
-    end: number;
+    priceStart: number;
+    priceEnd: number;
   };
+  page: number;
+  size: number;
+  sort: string;
 }
 
 export interface filterDataType {

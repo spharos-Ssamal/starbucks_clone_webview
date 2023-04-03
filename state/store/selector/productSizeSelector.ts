@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-import { storeState } from "../atom/storeState";
+import { storeFilterState } from "../atom/storeFilterState";
 
 export const productSizeSelector = selector({
   key: "productSizeSelector",
   get: ({ get }) => {
-    return get(storeState).productSize;
+    return get(storeFilterState).productSize;
   },
 });

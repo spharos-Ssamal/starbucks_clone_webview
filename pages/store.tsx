@@ -16,26 +16,21 @@ import SubCategoryList from "@/components/page/store/SubCategoryList";
 import ProductCard from "@/components/ui/ProductCard";
 import Config from "@/configs/config.export";
 import { REQUEST_PRODUCT } from "@/constants/Apis/URL";
+import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 export default function Store() {
   const baseUrl = Config().baseUrl;
   const router = useRouter();
-
-  const [pageNo, setPageNo] = useState<number>(0);
-  const [order, setOrder] = useState<string>("product.id,DESC");
+  const [filterParams, setFilterParams] =
+    useRecoilState<FilterParams>(storeFilterState);
 
   const { pathname, query } = useRouter();
-  const [category, setCategory] = useState(1);
-  const [subCategory, setSubCategory] = useState(0);
-  const [filterParams, setFilterParams] = useState<FilterParams>();
-  const [priceRange, setPriceRange] = useState({
-    startValue: 0,
-    endValue: 0,
-  });
+
   const [products, setProducts] = useState<ProductInfo[]>([]);
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
@@ -44,8 +39,6 @@ export default function Store() {
     []
   );
   const [seasonMenuData, setSeasonMenuData] = useState<MenuDataType[]>([]);
-
-  const [filterData, setFilterDatas] = useState<filterDataType[]>([]);
 
   const fetchSeasonData = () => {
     getSeasonInfo()
@@ -57,17 +50,37 @@ export default function Store() {
       });
   };
 
-  // useEffect(() => {
-  //   if (filterData.length > 0) {
-  //     console.log("필터링데이터", filterData);
-  //     let queryUrl = "";
-  //     filterData.forEach((item) => {
-  //       queryUrl += `&${item.key}=${item.id}`;
-  //     });
-  //     router.push(`/store?category=${router.query.category}${queryUrl}`);
-  //   }
-  //   // console.log(menuList);
-  // }, [filterData]);
+  useEffect(() => {
+    let queryUrl = "/store?";
+    console.log(filterParams);
+    queryUrl += `category=${filterParams.category}`;
+    if (filterParams.subCategories.length > 0) {
+      filterParams.subCategories.forEach(
+        (e) => (queryUrl += `&subCategories=${e}`)
+      );
+    }
+
+    if (filterParams.seasons.length > 0) {
+      filterParams.seasons.forEach((e) => (queryUrl += `&seasons=${e}`));
+    }
+
+    if (filterParams.productSize.length > 0) {
+      filterParams.productSize.forEach(
+        (e) => (queryUrl += `&productSize=${e}`)
+      );
+    }
+
+    if (filterParams.priceValue.priceStart !== -1) {
+      queryUrl += `&priceStart=${filterParams.priceValue.priceStart}`;
+    }
+
+    if (filterParams.priceValue.priceEnd !== -1) {
+      queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
+    }
+
+    queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
+    router.push(queryUrl);
+  }, [filterParams]);
 
   useEffect(() => {
     fetchSeasonData();
@@ -89,17 +102,21 @@ export default function Store() {
       });
       setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
     });
-    setCategory(1);
+    setFilterParams({
+      ...filterParams,
+      category: 1,
+    });
   }, []);
 
   useEffect(() => {
     if (
-      query.category &&
-      query.category !== "1" &&
-      typeof query.category === "string"
+      router.query.category &&
+      router.query.category !== "1" &&
+      typeof router.query.category === "string"
     ) {
-      const subCategory: string = query.category;
-      RequestSubCategoryList(parseInt(query.category)).then((res) => {
+      console.log(router.query.category);
+      const subCategoryId = parseInt(router.query.category);
+      RequestSubCategoryList(subCategoryId).then((res) => {
         console.log(res.data);
         let myData: MenuDataType[] = [];
         res.data.subCategories.forEach((item: headerMenu) => {
@@ -111,34 +128,32 @@ export default function Store() {
         });
 
         if (res.data.sizeInfo !== undefined) {
-          console.log(res.data.sizeInfo);
           setSizeFilterData([...res.data.sizeInfo]);
         } else {
           setSizeFilterData([]);
         }
         setSubFilterMenuData(myData);
-        setSubCategory(parseInt(subCategory));
       });
-    } else if (query.category === "1") {
+    } else if (router.query.category === "1") {
       setSubFilterMenuData([]);
+      setSizeFilterData([]);
     }
-  }, [query]);
+  }, [router]);
 
   useEffect(() => {
-    console.log(router.asPath);
-    let param = router.asPath + "&page=0&sort=product.id,DESC";
-    param = param.slice(7, param.length);
-    console.log(REQUEST_PRODUCT + param);
+    const param = router.asPath.slice(7, router.asPath.length);
 
     RequestProduct(param).then((res) => {
-      console.log(res.data.content);
       setProducts([...res.data.content]);
     });
-  }, [router.query]);
+  }, [router.asPath]);
 
   const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setOrder(value);
+    setFilterParams({
+      ...filterParams,
+      sort: value,
+    });
   };
 
   return (
@@ -154,11 +169,11 @@ export default function Store() {
           margin: "50px 0 0 0",
         }}
       >
-        <CategoryMenuList setCategory={setCategory} data={filterMenuData} />
+        <CategoryMenuList data={filterMenuData} />
         {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
-        <PriceFilterList setPriceRange={setPriceRange} />
+        <PriceFilterList />
         {subFilterMenuData.length > 0 && (
-          <SubCategoryList category={category} data={subFilterMenuData} />
+          <SubCategoryList data={subFilterMenuData} />
         )}
         <SeasonFilterList data={seasonMenuData} />
       </div>

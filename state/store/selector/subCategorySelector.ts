@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-import { storeState } from "../atom/storeState";
+import { storeFilterState } from "../atom/storeFilterState";
 
 export const subCategorySelector = selector({
   key: "subCategorySelector",
   get: ({ get }) => {
-    return get(storeState).subCategories;
+    return get(storeFilterState).subCategories;
   },
 });

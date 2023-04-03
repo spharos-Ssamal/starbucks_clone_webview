@@ -1,9 +1,9 @@
 import { selector } from "recoil";
-import { storeState } from "../atom/storeState";
+import { storeFilterState } from "../atom/storeFilterState";
 
 export const categorySelector = selector({
   key: "categorySelector",
   get: ({ get }) => {
-    return get(storeState).category;
+    return get(storeFilterState).category;
   },
 });

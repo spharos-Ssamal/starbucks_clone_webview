@@ -7,14 +7,7 @@ import { PriceList } from "@/data/starbucksStaticDatas";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 
-export default function PriceFilterList(props: {
-  setPriceRange: Dispatch<
-    SetStateAction<{
-      startValue: number;
-      endValue: number;
-    }>
-  >;
-}) {
+export default function PriceFilterList() {
   const router = useRouter();
   const priceData = PriceList;
 

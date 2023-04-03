@@ -13,6 +13,7 @@ const nextConfig = {
       "cdn.lcnews.co.kr",
       "i.ibb.co",
       "image.enuri.info",
+      "sitem.ssgcdn.com",
     ],
   },
 };
