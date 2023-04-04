@@ -1,6 +1,7 @@
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { useRecoilValue } from "recoil";
@@ -54,9 +55,11 @@ export default function SideMenuModal(props: Iprops) {
           
             <section className="contents-head">
               <div>
-                <img
+                <Image
                   src="/assets/images/icons/close.png"
-                  alt=""
+                  alt="close-button"
+                  width={20}
+                  height={20}
                   onClick={props.closeModal}
                 />
               </div>
@@ -80,9 +83,11 @@ export default function SideMenuModal(props: Iprops) {
                 <button type="button" onClick={handleStore}>
                   <a> 전체상품보기 </a>
                   <span>
-                    <img
+                    <Image
                       src="/assets/images/icons/contents/right-arrow.png"
-                      alt=""
+                      alt="right-arrow"
+                      width={10}
+                      height={10}
                     />
                   </span>
                 </button>
@@ -118,9 +123,11 @@ export default function SideMenuModal(props: Iprops) {
                 >
                   <div className="category">
                     <div className="category-img">
-                      <img
+                      <Image
                         src="/assets/images/products/category/category-tumblr.jpg"
                         alt="텀블러/보온병"
+                        width={300}
+                        height={300}
                       />
                     </div>
                     <div className="category-name">

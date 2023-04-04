@@ -13,12 +13,13 @@ import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
+import SideMenuModal from "../modals/SideMenuModal";
 
 // css lazy loading
-import dynamic from "next/dynamic";
-const SideMenuModal = dynamic(() => import("../modals/SideMenuModal"), {
-  ssr: false,
-});
+// import dynamic from "next/dynamic";
+// const SideMenuModal = dynamic(() => import("../modals/SideMenuModal"), {
+//   ssr: false,
+// });
 
 function Header() {
   const isLogin = useRecoilValue(userIsLogin);

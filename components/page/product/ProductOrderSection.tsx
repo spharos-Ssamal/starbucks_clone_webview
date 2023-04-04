@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
 import myStyle from "./ProductOrderSection.module.css";
+import styled from "styled-components";
 import Sheet, { SheetRef } from "react-modal-sheet";
 import Separator from "@/components/ui/Separator";
 import {
@@ -13,6 +14,8 @@ import { RequestCartInsert } from "@/Service/CartService/CartService";
 import { useRecoilValue } from "recoil";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Swal from "sweetalert2";
+import Image from "next/image";
+import ButtonUi from "@/components/ui/ButtonUi";
 
 interface Props {
   productId: number;
@@ -22,6 +25,7 @@ interface Props {
 
 export default function ProductOrderSection(props: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [successModal, setSuccessModal] = useState<boolean>(false);
   const [countOf, setCountOf] = useState(1);
   const router = useRouter();
   const isLogin = useRecoilValue(userLoginState);
@@ -32,9 +36,31 @@ export default function ProductOrderSection(props: Props) {
   };
 
   const onClickCount = (count: number) => {
-    if (count >= 1 && count <= 3) {
-      setCountOf(count);
+   
+    if (count === 0) {
+      Swal.fire({
+        toast: true,
+        text: "최소 수량은 1개 입니다.",
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        color: "#067040",
+      });
+      return;
     }
+    else if ( count > 3) {
+      Swal.fire({
+        toast: true,
+        text: "최대 수량은 3개 입니다.",
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+    setCountOf(count);
   };
 
   const onClickPurchase = () => {
@@ -61,13 +87,19 @@ export default function ProductOrderSection(props: Props) {
       })
         .then((res) => {
           Swal.fire({
-            icon: "success",
-            title: "Success",
+            toast: true,
             text: "장바구니에 상품을 담았습니다.",
+            position: "top",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            color: "#067040",
+              
           });
+          setSuccessModal(true);
           setIsOpen(false);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.data === "ERROR-BR-004") {
             Swal.fire({
@@ -89,6 +121,10 @@ export default function ProductOrderSection(props: Props) {
 
   return (
     <>
+    <SuccessViewModal 
+      isModalOpen={successModal}
+      setIsModalOpen={setSuccessModal}
+    />
       <div
         className={
           isOpen ? myStyle.productOrderSectionOpen : myStyle.productOrderSection
@@ -97,11 +133,14 @@ export default function ProductOrderSection(props: Props) {
         {!isOpen ? <OrderToggleButton onClick={handleOpen} /> : null}
 
         {!isOpen ? (
-          <OrderButton onClick={handleOpen}>구매하기</OrderButton>
+          <ButtonUi type='button' text='구매하기' handler={handleOpen} size='large' colorType='primary'/>
         ) : (
           <div className={myStyle.productOrderSectionOpenBottomWrap}>
-            <img
+            <Image
               src="/assets/images/icons/shopping-cart.svg"
+              width={30}
+              height={30}
+              alt='cart'
               onClick={onClickCart}
             />
             <OrderButton38widthColorReverse>
@@ -120,6 +159,7 @@ export default function ProductOrderSection(props: Props) {
         style={{
           zIndex: 100,
         }}
+        
       >
         <Sheet.Container>
           <Sheet.Content>
@@ -138,15 +178,25 @@ export default function ProductOrderSection(props: Props) {
 
                     <div className={myStyle.QtyCountWrap}>
                       <div className={myStyle.QtyCount}>
-                        <img
-                          src="/assets/images/icons/minus.png"
-                          onClick={() => onClickCount(countOf - 1)}
-                        />
+                        <div className={countOf === 1 ? myStyle.disabled : ''}>
+                          <Image
+                            src="/assets/images/icons/minus.png"
+                            onClick={() => onClickCount(countOf - 1)}
+                            width={20}
+                            height={20}
+                            alt='-Button'
+                          />
+                        </div>
                         {countOf}
-                        <img
-                          src="/assets/images/icons/add.png"
-                          onClick={() => onClickCount(countOf + 1)}
-                        />
+                        <div>
+                        <Image
+                            src="/assets/images/icons/add.png"
+                            onClick={() => onClickCount(countOf + 1)}
+                            width={20}
+                            height={20}
+                            alt='+Button'
+                          />
+                        </div>
                       </div>
                       <div className={myStyle.priceBold}>
                         {(props.productPrice * countOf).toLocaleString("KR-kn")}
@@ -170,5 +220,45 @@ export default function ProductOrderSection(props: Props) {
         </Sheet.Container>
       </Sheet>
     </>
+  );
+}
+
+
+const SuccessViewModal = (props:{isModalOpen:boolean, setIsModalOpen:Dispatch<SetStateAction<boolean>>}) => {
+
+  if (!props.isModalOpen)  {return null;}
+
+  return (
+    <div className={myStyle.productSuccessWrap}>
+      <div className={myStyle.notiWrap}>
+        <div className={myStyle.noti}>
+          <p>장바구니에 추가 되었습니다.</p>
+          <Image
+            src="/assets/images/icons/close.png"
+            alt="close-button"
+            width={20}
+            height={20}
+            onClick={()=>props.setIsModalOpen(false)}
+          />
+        </div>
+        <div className={myStyle.buttonWrap}>
+          <ButtonUi 
+            type="button"
+            text="장바구니로 이동"
+            size="medium"
+            colorType="secondary"
+            link='/cart'
+          />
+          <ButtonUi 
+            type="button"
+            text="상품 더보기"
+            size="medium"
+            colorType="primary"
+            link='/store'
+          />
+
+        </div>
+      </div>
+    </div>
   );
 }
