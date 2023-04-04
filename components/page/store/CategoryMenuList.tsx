@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-export default function CategoryMenuList(props: { data: MenuDataType[] }) {
+export default function CategoryMenuList(props: {
+  data: MenuDataType[];
+  generateQueryParams: () => void;
+}) {
   const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
@@ -16,11 +19,18 @@ export default function CategoryMenuList(props: { data: MenuDataType[] }) {
     console.log(item);
     if (item.key === "category") {
       setFilterParams({
-        ...filterParams,
         category: item.id,
         subCategories: [],
+        seasons: [],
+        productSize: [],
+        priceValue: {
+          priceStart: -1,
+          priceEnd: -1,
+        },
+        page: 0,
+        size: 6,
+        sort: "product.id,DESC",
       });
-      return;
     }
   };
 

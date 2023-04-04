@@ -1,56 +1,29 @@
-import { MenuDataType, filterDataType } from "@/Types/filter/filterTypes";
-import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { FilterParams, MenuDataType } from "@/Types/filter/filterTypes";
+import { storeFilterState } from "@/state/store/atom/storeFilterState";
+import React from "react";
+import { useRecoilState } from "recoil";
 
-export default function SeasonFilterList(props: { data: MenuDataType[] }) {
-  const router = useRouter();
-  const [seasonIds, setSeasonIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    // console.log(router);
-    // console.log(router.asPath);
-    setSeasonIds([]);
-
-    if (router.query.seasons !== undefined) {
-      const seasonIdParams = router.query.seasons;
-      if (typeof seasonIdParams === "string") {
-        setSeasonIds([seasonIdParams]);
-      } else {
-        setSeasonIds([...seasonIdParams]);
-      }
-    }
-  }, [router.query]);
+export default function SeasonFilterList(props: {
+  data: MenuDataType[];
+  generateQueryParams: () => void;
+}) {
+  const [filterParams, setFilterParams] =
+    useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "season") {
-      if (!seasonIds.includes(`${item.id}`, 0)) {
-        router.push(`${router.asPath}&seasons=${item.id}`);
-        return;
+      if (filterParams.seasons.includes(item.id, 0)) {
+        setFilterParams({
+          ...filterParams,
+          seasons: filterParams.seasons.filter((e) => e != item.id),
+        });
       } else {
-        const changedSeasonIds = seasonIds.filter((e) => e !== `${item.id}`);
-
-        let queryParams: string = "/store?";
-        if (router.query.category !== undefined) {
-          queryParams = queryParams.concat(`category=${router.query.category}`);
-        }
-
-        if (router.query.subCategories !== undefined) {
-          if (typeof router.query.subCategories === "string") {
-            queryParams = queryParams.concat(
-              `&subCategories=${router.query.subCategories}`
-            );
-          } else {
-            router.query.subCategories.forEach((element) =>
-              queryParams.concat(`&subCategories=${element}`)
-            );
-          }
-        }
-        changedSeasonIds.forEach(
-          (element) => (queryParams = queryParams.concat(`&seasons=${element}`))
-        );
-        setSeasonIds(changedSeasonIds);
-        router.push(queryParams);
+        setFilterParams({
+          ...filterParams,
+          seasons: [...filterParams.seasons, item.id],
+        });
       }
+      props.generateQueryParams();
     }
   };
 
@@ -63,7 +36,9 @@ export default function SeasonFilterList(props: { data: MenuDataType[] }) {
               <li
                 key={"season " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
-                className={seasonIds.includes(`${item.id}`, 0) ? "active" : ""}
+                className={
+                  filterParams.seasons.includes(item.id, 0) ? "active" : ""
+                }
               >
                 <p>{item.name}</p>
               </li>
