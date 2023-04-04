@@ -40,18 +40,11 @@ function MainBanner() {
       });
   }, []);
 
-  const getSize = (url: string) => {
-    let myImage = {
-      width: 0,
-      height: 0,
-    };
-    getImageSize(url).then((res) => {
-      console.log(res);
-      myImage.width = res.width;
-      myImage.height = res.height;
-    });
-    console.log(myImage);
-    return myImage;
+  const getSize:any = async (url: string) => {
+    
+    const size = await getImageSize(url);
+    return size;
+
   };
 
   return (
@@ -76,10 +69,8 @@ function MainBanner() {
                     <div className="event-banner__item__img">
                       <Image
                         src={bannerInfo.bannerImage}
-                        width={600}
-                        height={600}
-                        // width={getSize(bannerInfo.bannerImage).width}
-                        // height={getSize(bannerInfo.bannerImage).height}
+                        width={getSize(bannerInfo.bannerImage).width === undefined ? 800 : getSize(bannerInfo.bannerImage).width }
+                        height={getSize(bannerInfo.bannerImage).height === undefined ? 800 : getSize(bannerInfo.bannerImage).height}
                         alt={bannerInfo.bannerImage}
                       />
                     </div>
