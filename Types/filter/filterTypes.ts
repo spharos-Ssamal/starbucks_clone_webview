@@ -17,6 +17,7 @@ export interface FilterParams {
   seasons: number[];
   productSize: number[];
   priceValue: {
+    id: number;
     priceStart: number;
     priceEnd: number;
   };

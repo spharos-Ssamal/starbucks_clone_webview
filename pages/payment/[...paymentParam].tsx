@@ -17,10 +17,9 @@ import PaymentInfoComponent from "@/components/page/payment/PaymentInfoComponent
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Swal from "sweetalert2";
-import { REQUEST_CART_GET } from "@/constants/Apis/URL";
 import {
   RequestCartDelete,
   RequestGetCartItem,
