@@ -8,32 +8,30 @@ export default function PriceFilterList(props: {
   generateQueryParams: () => void;
 }) {
   const priceData = PriceList;
-  const [id, setId] = useState(0);
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: PriceDataType) => {
     console.log(item);
-    if (id !== item.id) {
-      setId(item.id);
+    if (filterParams.priceValue.id !== item.id) {
       setFilterParams({
         ...filterParams,
         priceValue: {
+          id: item.id,
           priceStart: item.startValue,
           priceEnd: item.endValue,
         },
       });
     } else {
-      setId(0);
       setFilterParams({
         ...filterParams,
         priceValue: {
+          id: 0,
           priceStart: -1,
           priceEnd: -1,
         },
       });
     }
-    props.generateQueryParams();
   };
 
   return (
@@ -47,7 +45,7 @@ export default function PriceFilterList(props: {
             <li
               key={"price_data " + item.id}
               onClick={() => handleAddQuery(item)}
-              className={item.id == id ? "active" : ""}
+              className={filterParams.priceValue.id === item.id ? "active" : ""}
             >
               <p>{item.name}</p>
             </li>
