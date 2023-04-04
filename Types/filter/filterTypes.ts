@@ -21,9 +21,6 @@ export interface FilterParams {
     priceStart: number;
     priceEnd: number;
   };
-  page: number;
-  size: number;
-  sort: string;
 }
 
 export interface filterDataType {

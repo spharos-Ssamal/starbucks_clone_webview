@@ -12,7 +12,6 @@ export default function CategoryMenuList(props: {
   data: MenuDataType[];
   generateQueryParams: () => void;
 }) {
-  const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
   const handleAddQuery = (item: MenuDataType) => {
@@ -28,9 +27,6 @@ export default function CategoryMenuList(props: {
           priceStart: -1,
           priceEnd: -1,
         },
-        page: 0,
-        size: 6,
-        sort: "product.id,DESC",
       });
     }
   };

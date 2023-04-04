@@ -18,7 +18,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-
 export default function Store() {
   const router = useRouter();
   const [filterParams, setFilterParams] =
@@ -27,7 +26,9 @@ export default function Store() {
   const resetFilterParams = useResetRecoilState(storeFilterState);
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
+  const [pageNo, setPageNo] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [sortOption, setSortOption] = useState<string>("product.id,DESC");
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
   const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
@@ -71,12 +72,13 @@ export default function Store() {
 
     queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
 
-    queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
-    router.push(queryUrl);
+    queryUrl += `&page=0&size=6&sort=${sortOption}`;
+    return queryUrl;
   };
 
   useEffect(() => {
-    generateQueryParams();
+    const queryUrl = generateQueryParams();
+    router.push(queryUrl);
   }, [filterParams]);
 
   useEffect(() => {
@@ -113,6 +115,7 @@ export default function Store() {
       typeof router.query.category === "string"
     ) {
       console.log(router.query.category);
+
       const subCategoryId = parseInt(router.query.category);
 
       RequestSubCategoryList(subCategoryId).then((res) => {
@@ -142,34 +145,30 @@ export default function Store() {
 
   useEffect(() => {
     const param = router.asPath.slice(7, router.asPath.length);
-
+    console.log(router.asPath);
+    setHasMore(true);
     RequestProduct(param).then((res) => {
-      setProducts([...res.data.content]);
+      console.log(res.data);
+      if (pageNo === 0) {
+        setProducts([...res.data.content]);
+      } else {
+        setProducts([...products, ...res.data.content]);
+      }
+      if (res.data.last) {
+        setHasMore(false);
+      }
     });
   }, [router.asPath]);
 
   const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setFilterParams({
-      ...filterParams,
-      sort: value,
-    });
+    setSortOption(value);
   };
 
   const fetchData = () => {
-    // 기존 데이터에 페이지 1 추가해서 서버에 요청
     const param = router.asPath.slice(7, router.asPath.length);
-    // 여기에 페이지 값 증가된 값
-
-    RequestProduct(param).then((res) => {
-      setProducts([...products, ...res.data.content]);
-      // 마지막 페이지인경우에 아래의 코드를 실행
-      if (res.data.last) {
-        setHasMore(false);
-      }
-    });
-
-  }
+    setPageNo(pageNo + 1);
+  };
 
   return (
     <>
@@ -226,7 +225,6 @@ export default function Store() {
           </select>
         </div>
         <section className="searchResultProduct">
-          
           <InfiniteScroll
             dataLength={products.length}
             next={fetchData}
@@ -235,18 +233,18 @@ export default function Store() {
             loader={<h4>loading</h4>}
           >
             <div className="product-container">
-            {products &&
-              products.map((element, idx) => (
-                <ProductCard
-                  key={"product " + element.id + idx}
-                  productId={element.id}
-                  imageSrc={element.thumbnail}
-                  productTitle={element.name}
-                  productPrice={`${element.price}`}
-                />
-              ))}
-              </div>
-            </InfiniteScroll>
+              {products &&
+                products.map((element, idx) => (
+                  <ProductCard
+                    key={"product " + element.id + idx}
+                    productId={element.id}
+                    imageSrc={element.thumbnail}
+                    productTitle={element.name}
+                    productPrice={`${element.price}`}
+                  />
+                ))}
+            </div>
+          </InfiniteScroll>
         </section>
       </div>
     </>
