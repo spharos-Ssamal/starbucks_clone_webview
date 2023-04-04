@@ -2,11 +2,7 @@ import { RequestSubCategoryList } from "@/Service/CategoryService/CategoryServic
 import { RequestProduct } from "@/Service/ProductService/ProductService";
 import { getSeasonInfo } from "@/Service/SeasonService/SeasonService";
 import { ProductInfo } from "@/Types/Product/Request";
-import {
-  FilterParams,
-  MenuDataType,
-  filterDataType,
-} from "@/Types/filter/filterTypes";
+import { FilterParams, MenuDataType } from "@/Types/filter/filterTypes";
 import { headerMenu } from "@/Types/starbucksTypes";
 import CategoryMenuList from "@/components/page/store/CategoryMenuList";
 import PriceFilterList from "@/components/page/store/PriceFilterList";
@@ -14,22 +10,18 @@ import SeasonFilterList from "@/components/page/store/SeasonFilterList";
 import SizeFilterList from "@/components/page/store/SizeFilterList";
 import SubCategoryList from "@/components/page/store/SubCategoryList";
 import ProductCard from "@/components/ui/ProductCard";
-import Config from "@/configs/config.export";
-import { REQUEST_PRODUCT } from "@/constants/Apis/URL";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
 export default function Store() {
-  const baseUrl = Config().baseUrl;
   const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
-  const { pathname, query } = useRouter();
+  const resetFilterParams = useResetRecoilState(storeFilterState);
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
 
@@ -50,8 +42,9 @@ export default function Store() {
       });
   };
 
-  useEffect(() => {
+  const generateQueryParams = () => {
     let queryUrl = "/store?";
+    console.log("filterParams");
     console.log(filterParams);
     queryUrl += `category=${filterParams.category}`;
     if (filterParams.subCategories.length > 0) {
@@ -70,19 +63,20 @@ export default function Store() {
       );
     }
 
-    if (filterParams.priceValue.priceStart !== -1) {
-      queryUrl += `&priceStart=${filterParams.priceValue.priceStart}`;
-    }
+    queryUrl += `&priceStart=${filterParams.priceValue.priceStart}`;
 
-    if (filterParams.priceValue.priceEnd !== -1) {
-      queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
-    }
+    queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
 
     queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
     router.push(queryUrl);
+  };
+
+  useEffect(() => {
+    generateQueryParams();
   }, [filterParams]);
 
   useEffect(() => {
+    resetFilterParams();
     fetchSeasonData();
     setFilterMenuData([
       {
@@ -116,6 +110,7 @@ export default function Store() {
     ) {
       console.log(router.query.category);
       const subCategoryId = parseInt(router.query.category);
+
       RequestSubCategoryList(subCategoryId).then((res) => {
         console.log(res.data);
         let myData: MenuDataType[] = [];
@@ -138,6 +133,7 @@ export default function Store() {
       setSubFilterMenuData([]);
       setSizeFilterData([]);
     }
+    fetchSeasonData();
   }, [router]);
 
   useEffect(() => {
@@ -169,13 +165,27 @@ export default function Store() {
           margin: "50px 0 0 0",
         }}
       >
-        <CategoryMenuList data={filterMenuData} />
-        {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
-        <PriceFilterList />
-        {subFilterMenuData.length > 0 && (
-          <SubCategoryList data={subFilterMenuData} />
+        <CategoryMenuList
+          data={filterMenuData}
+          generateQueryParams={generateQueryParams}
+        />
+        {sizeFilterData.length > 0 && (
+          <SizeFilterList
+            data={sizeFilterData}
+            generateQueryParams={generateQueryParams}
+          />
         )}
-        <SeasonFilterList data={seasonMenuData} />
+        <PriceFilterList generateQueryParams={generateQueryParams} />
+        {subFilterMenuData.length > 0 && (
+          <SubCategoryList
+            data={subFilterMenuData}
+            generateQueryParams={generateQueryParams}
+          />
+        )}
+        <SeasonFilterList
+          data={seasonMenuData}
+          generateQueryParams={generateQueryParams}
+        />
       </div>
       <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">

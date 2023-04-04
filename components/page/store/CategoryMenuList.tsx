@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-export default function CategoryMenuList(props: { data: MenuDataType[] }) {
+export default function CategoryMenuList(props: {
+  data: MenuDataType[];
+  generateQueryParams: () => void;
+}) {
   const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
@@ -16,18 +19,26 @@ export default function CategoryMenuList(props: { data: MenuDataType[] }) {
     console.log(item);
     if (item.key === "category") {
       setFilterParams({
-        ...filterParams,
         category: item.id,
         subCategories: [],
+        seasons: [],
+        productSize: [],
+        priceValue: {
+          id: 0,
+          priceStart: -1,
+          priceEnd: -1,
+        },
+        page: 0,
+        size: 6,
+        sort: "product.id,DESC",
       });
-      return;
     }
   };
 
   return (
     <div className="header-sub">
       <div className="nav-title">
-        <p>메뉴</p>
+        <p>대분류</p>
       </div>
       <nav>
         <ul>
@@ -36,9 +47,7 @@ export default function CategoryMenuList(props: { data: MenuDataType[] }) {
               <li
                 key={"category " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
-                className={
-                  item.id == Number(router.query.category) ? "active" : ""
-                }
+                className={item.id == filterParams.category ? "active" : ""}
               >
                 <p>{item.name}</p>
               </li>
