@@ -11,6 +11,7 @@ import SizeFilterList from "@/components/page/store/SizeFilterList";
 import SubCategoryList from "@/components/page/store/SubCategoryList";
 import ProductCard from "@/components/ui/ProductCard";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
+import { useInView } from "react-intersection-observer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ export default function Store() {
   const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
+  const [ref, inView] = useInView();
 
   const resetFilterParams = useResetRecoilState(storeFilterState);
 
@@ -42,7 +44,7 @@ export default function Store() {
       });
   };
 
-  const generateQueryParams = () => {
+  useEffect(() => {
     let queryUrl = "/store?";
     console.log("filterParams");
     console.log(filterParams);
@@ -69,11 +71,18 @@ export default function Store() {
 
     queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
     router.push(queryUrl);
-  };
+  }, [filterParams]);
 
   useEffect(() => {
-    generateQueryParams();
-  }, [filterParams]);
+    if (!filterParams.isLastPage) {
+      if (inView) {
+        setFilterParams({
+          ...filterParams,
+          page: filterParams.page + 1,
+        });
+      }
+    }
+  }, [inView]);
 
   useEffect(() => {
     resetFilterParams();
@@ -103,44 +112,49 @@ export default function Store() {
   }, []);
 
   useEffect(() => {
-    if (
-      router.query.category &&
-      router.query.category !== "1" &&
-      typeof router.query.category === "string"
-    ) {
-      console.log(router.query.category);
-      const subCategoryId = parseInt(router.query.category);
+    if (router.query.category) {
+      if (
+        router.query.category !== "1" &&
+        typeof router.query.category === "string"
+      ) {
+        console.log(router.query.category);
+        const subCategoryId = parseInt(router.query.category);
 
-      RequestSubCategoryList(subCategoryId).then((res) => {
-        console.log(res.data);
-        let myData: MenuDataType[] = [];
-        res.data.subCategories.forEach((item: headerMenu) => {
-          myData.push({
-            id: item.id,
-            name: item.name,
-            key: "subCategory",
+        RequestSubCategoryList(subCategoryId).then((res) => {
+          console.log(res.data);
+          let myData: MenuDataType[] = [];
+          res.data.subCategories.forEach((item: headerMenu) => {
+            myData.push({
+              id: item.id,
+              name: item.name,
+              key: "subCategory",
+            });
           });
-        });
 
-        if (res.data.sizeInfo !== undefined) {
-          setSizeFilterData([...res.data.sizeInfo]);
-        } else {
-          setSizeFilterData([]);
-        }
-        setSubFilterMenuData(myData);
-      });
-    } else if (router.query.category === "1") {
-      setSubFilterMenuData([]);
-      setSizeFilterData([]);
+          if (res.data.sizeInfo !== undefined) {
+            setSizeFilterData([...res.data.sizeInfo]);
+          } else {
+            setSizeFilterData([]);
+          }
+          setSubFilterMenuData(myData);
+        });
+      } else if (router.query.category === "1") {
+        setSubFilterMenuData([]);
+        setSizeFilterData([]);
+      }
     }
-    fetchSeasonData();
   }, [router]);
 
   useEffect(() => {
     const param = router.asPath.slice(7, router.asPath.length);
 
     RequestProduct(param).then((res) => {
-      setProducts([...res.data.content]);
+      console.log(res.data);
+      setProducts([...products, ...res.data.content]);
+      setFilterParams({
+        ...filterParams,
+        isLastPage: res.data.last,
+      });
     });
   }, [router.asPath]);
 
@@ -165,27 +179,13 @@ export default function Store() {
           margin: "50px 0 0 0",
         }}
       >
-        <CategoryMenuList
-          data={filterMenuData}
-          generateQueryParams={generateQueryParams}
-        />
-        {sizeFilterData.length > 0 && (
-          <SizeFilterList
-            data={sizeFilterData}
-            generateQueryParams={generateQueryParams}
-          />
-        )}
-        <PriceFilterList generateQueryParams={generateQueryParams} />
+        <CategoryMenuList data={filterMenuData} />
+        {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
+        <PriceFilterList />
         {subFilterMenuData.length > 0 && (
-          <SubCategoryList
-            data={subFilterMenuData}
-            generateQueryParams={generateQueryParams}
-          />
+          <SubCategoryList data={subFilterMenuData} />
         )}
-        <SeasonFilterList
-          data={seasonMenuData}
-          generateQueryParams={generateQueryParams}
-        />
+        <SeasonFilterList data={seasonMenuData} />
       </div>
       <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">
@@ -218,6 +218,9 @@ export default function Store() {
                   productPrice={`${element.price}`}
                 />
               ))}
+          </div>
+          <div className="product-footer" ref={ref}>
+            Element {inView.toString()}
           </div>
         </section>
       </div>

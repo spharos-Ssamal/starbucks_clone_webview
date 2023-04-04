@@ -5,6 +5,13 @@
   padding-top: 15px;
 }
 
+.product-container .product-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+}
+
 .product-item {
   margin: 10px;
 }

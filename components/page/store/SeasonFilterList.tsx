@@ -3,10 +3,7 @@ import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React from "react";
 import { useRecoilState } from "recoil";
 
-export default function SeasonFilterList(props: {
-  data: MenuDataType[];
-  generateQueryParams: () => void;
-}) {
+export default function SeasonFilterList(props: { data: MenuDataType[] }) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
