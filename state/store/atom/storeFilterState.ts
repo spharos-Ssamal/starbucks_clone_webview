@@ -15,6 +15,7 @@ export const storeFilterState = atom<FilterParams>({
     },
     page: 0,
     size: 6,
+    isLastPage: false,
     sort: "product.id,DESC",
   },
 });

@@ -4,9 +4,7 @@ import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 
-export default function PriceFilterList(props: {
-  generateQueryParams: () => void;
-}) {
+export default function PriceFilterList() {
   const priceData = PriceList;
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);

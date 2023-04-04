@@ -23,6 +23,7 @@ export interface FilterParams {
   };
   page: number;
   size: number;
+  isLastPage: boolean;
   sort: string;
 }
 
