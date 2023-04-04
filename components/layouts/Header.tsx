@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 // component
 import SignupModal from "../modals/SignupModal";
-import SideMenuModal from "../modals/SideMenuModal";
-// recoil
+
 import { useRecoilValue } from "recoil";
 import { headerMenu } from "@/Types/starbucksTypes";
 
@@ -14,6 +13,12 @@ import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
+
+// css lazy loading
+import dynamic from "next/dynamic";
+const SideMenuModal = dynamic(() => import("../modals/SideMenuModal"), {
+  ssr: false,
+});
 
 function Header() {
   const isLogin = useRecoilValue(userIsLogin);
@@ -54,6 +59,8 @@ function Header() {
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
+
+  
 
   return (
     <>

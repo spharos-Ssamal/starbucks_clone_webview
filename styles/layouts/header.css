@@ -56,6 +56,10 @@
   margin-right: 0px;
 }
 
+.header-bottom {
+  box-shadow: 0 3px 5px 0 rgba(139, 139, 139, 0.08);
+
+}
 .header-bottom nav ul {
   opacity: 0.8;
   display: flex;
