@@ -1,13 +1,17 @@
 import { FilterParams, MenuDataType } from "@/Types/filter/filterTypes";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import React from "react";
+import React, { MutableRefObject } from "react";
 import { useRecoilState } from "recoil";
 
-export default function SizeFilterList(props: { data: MenuDataType[] }) {
+export default function SizeFilterList(props: {
+  data: MenuDataType[];
+  pageNo: MutableRefObject<number>;
+}) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: MenuDataType) => {
+    props.pageNo.current = 0;
     if (filterParams.productSize.includes(item.id, 0)) {
       setFilterParams({
         ...filterParams,

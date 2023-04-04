@@ -4,15 +4,25 @@ import {
   filterDataType,
 } from "@/Types/filter/filterTypes";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useRecoilState } from "recoil";
 
-export default function SubCategoryList(props: { data: MenuDataType[] }) {
+export default function SubCategoryList(props: {
+  data: MenuDataType[];
+  pageNo: MutableRefObject<number>;
+}) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "subCategory") {
+      props.pageNo.current = 0;
       if (filterParams.subCategories.includes(item.id, 0)) {
         setFilterParams({
           ...filterParams,

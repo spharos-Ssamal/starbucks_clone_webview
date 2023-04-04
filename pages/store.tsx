@@ -15,8 +15,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
+import {
+  ORDER_BY_PRODUCT_ID_DESC,
+  ORDER_BY_PRODUCT_PRICE_ASC,
+  ORDER_BY_PRODUCT_PRICE_DESC,
+} from "@/constants/enums/FilterOption";
 
 export default function Store() {
   const router = useRouter();
@@ -26,9 +31,14 @@ export default function Store() {
   const resetFilterParams = useResetRecoilState(storeFilterState);
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
-  const [pageNo, setPageNo] = useState<number>(0);
+
+  const pageNo = useRef(0);
+
+  // const [pageNo, setPageNo] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [sortOption, setSortOption] = useState<string>("product.id,DESC");
+  const [sortOption, setSortOption] = useState<string>(
+    ORDER_BY_PRODUCT_ID_DESC
+  );
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
   const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
@@ -47,10 +57,24 @@ export default function Store() {
       });
   };
 
-  useEffect(() => {
-    let queryUrl = "/store?";
-    console.log("filterParams");
-    console.log(filterParams);
+  const fecthProductData = (param: string) => {
+    RequestProduct(param).then((res) => {
+      console.log(res.data);
+      if (pageNo.current === 0) {
+        setProducts([...res.data.content]);
+      } else {
+        setProducts([...products, ...res.data.content]);
+      }
+      if (res.data.last) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+    });
+  };
+
+  const generateQueryParams = () => {
+    let queryUrl = "";
     queryUrl += `category=${filterParams.category}`;
     if (filterParams.subCategories.length > 0) {
       filterParams.subCategories.forEach(
@@ -72,14 +96,15 @@ export default function Store() {
 
     queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
 
-    queryUrl += `&page=0&size=6&sort=${sortOption}`;
+    queryUrl += `&page=${pageNo.current}&size=6&sort=${sortOption}`;
+    console.log(queryUrl);
     return queryUrl;
   };
 
   useEffect(() => {
     const queryUrl = generateQueryParams();
-    router.push(queryUrl);
-  }, [filterParams]);
+    router.push("/store?" + queryUrl);
+  }, [filterParams, sortOption]);
 
   useEffect(() => {
     resetFilterParams();
@@ -114,11 +139,9 @@ export default function Store() {
         router.query.category !== "1" &&
         typeof router.query.category === "string"
       ) {
-        console.log(router.query.category);
         const subCategoryId = parseInt(router.query.category);
 
         RequestSubCategoryList(subCategoryId).then((res) => {
-          console.log(res.data);
           let myData: MenuDataType[] = [];
           res.data.subCategories.forEach((item: headerMenu) => {
             myData.push({
@@ -145,28 +168,20 @@ export default function Store() {
   useEffect(() => {
     const param = router.asPath.slice(7, router.asPath.length);
     console.log(router.asPath);
-    setHasMore(true);
-    RequestProduct(param).then((res) => {
-      console.log(res.data);
-      if (pageNo === 0) {
-        setProducts([...res.data.content]);
-      } else {
-        setProducts([...products, ...res.data.content]);
-      }
-      if (res.data.last) {
-        setHasMore(false);
-      }
-    });
+    console.log(param);
+    fecthProductData(param);
   }, [router.asPath]);
 
   const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSortOption(value);
+    pageNo.current = 0;
   };
 
   const fetchData = () => {
-    const param = router.asPath.slice(7, router.asPath.length);
-    setPageNo(pageNo + 1);
+    pageNo.current = pageNo.current + 1;
+    const queryParam = generateQueryParams();
+    fecthProductData(queryParam);
   };
 
   return (
@@ -182,13 +197,19 @@ export default function Store() {
           margin: "50px 0 0 0",
         }}
       >
-        <CategoryMenuList data={filterMenuData} />
-        {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
-        <PriceFilterList />
-        {subFilterMenuData.length > 0 && (
-          <SubCategoryList data={subFilterMenuData} />
+        <CategoryMenuList
+          data={filterMenuData}
+          pageNo={pageNo}
+          setSortOption={setSortOption}
+        />
+        {sizeFilterData.length > 0 && (
+          <SizeFilterList data={sizeFilterData} pageNo={pageNo} />
         )}
-        <SeasonFilterList data={seasonMenuData} />
+        <PriceFilterList pageNo={pageNo} />
+        {subFilterMenuData.length > 0 && (
+          <SubCategoryList data={subFilterMenuData} pageNo={pageNo} />
+        )}
+        <SeasonFilterList data={seasonMenuData} pageNo={pageNo} />
       </div>
       <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">
@@ -204,9 +225,9 @@ export default function Store() {
         </div>
         <div className="content-order">
           <select id="xyz" onChange={handleOnChangeSelect}>
-            <option value={"product.id,DESC"}>신상품순</option>
-            <option value={"product.price,ASC"}>낮은가격순</option>
-            <option value={"product.price,DESC"}>높은가격순</option>
+            <option value={ORDER_BY_PRODUCT_ID_DESC}>신상품순</option>
+            <option value={ORDER_BY_PRODUCT_PRICE_ASC}>낮은가격순</option>
+            <option value={ORDER_BY_PRODUCT_PRICE_DESC}>높은가격순</option>
           </select>
         </div>
         <section className="searchResultProduct">
