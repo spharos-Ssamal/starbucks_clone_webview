@@ -72,7 +72,6 @@ CustomAxios.interceptors.response.use(
         localStorage.removeItem("ACCESS_TOKEN");
       }
     }
-    console.log(responseData);
     return Promise.reject(responseData);
   }
 );
