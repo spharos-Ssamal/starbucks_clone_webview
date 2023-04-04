@@ -22,6 +22,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Store() {
   const baseUrl = Config().baseUrl;
@@ -32,6 +33,7 @@ export default function Store() {
   const { pathname, query } = useRouter();
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
   const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
@@ -156,6 +158,21 @@ export default function Store() {
     });
   };
 
+  const fetchData = () => {
+    // 기존 데이터에 페이지 1 추가해서 서버에 요청
+    const param = router.asPath.slice(7, router.asPath.length);
+    // 여기에 페이지 값 증가된 값
+
+    RequestProduct(param).then((res) => {
+      setProducts([...products, ...res.data.content]);
+      // 마지막 페이지인경우에 아래의 코드를 실행
+      if (res.data.last) {
+        setHasMore(false);
+      }
+    });
+
+  }
+
   return (
     <>
       <Head>
@@ -197,7 +214,15 @@ export default function Store() {
           </select>
         </div>
         <section className="searchResultProduct">
-          <div className="product-container">
+          
+          <InfiniteScroll
+            dataLength={products.length}
+            next={fetchData}
+            style={{ display: "flex", flexDirection: "column-reverse" }}
+            hasMore={hasMore}
+            loader={<h4>loading</h4>}
+          >
+            <div className="product-container">
             {products &&
               products.map((element, idx) => (
                 <ProductCard
@@ -208,7 +233,8 @@ export default function Store() {
                   productPrice={`${element.price}`}
                 />
               ))}
-          </div>
+              </div>
+            </InfiniteScroll>
         </section>
       </div>
     </>
