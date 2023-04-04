@@ -11,7 +11,6 @@ import SizeFilterList from "@/components/page/store/SizeFilterList";
 import SubCategoryList from "@/components/page/store/SubCategoryList";
 import ProductCard from "@/components/ui/ProductCard";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import { useInView } from "react-intersection-observer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -21,7 +20,6 @@ export default function Store() {
   const router = useRouter();
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
-  const [ref, inView] = useInView();
 
   const resetFilterParams = useResetRecoilState(storeFilterState);
 
@@ -72,17 +70,6 @@ export default function Store() {
     queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
     router.push(queryUrl);
   }, [filterParams]);
-
-  useEffect(() => {
-    if (!filterParams.isLastPage) {
-      if (inView) {
-        setFilterParams({
-          ...filterParams,
-          page: filterParams.page + 1,
-        });
-      }
-    }
-  }, [inView]);
 
   useEffect(() => {
     resetFilterParams();
@@ -218,9 +205,6 @@ export default function Store() {
                   productPrice={`${element.price}`}
                 />
               ))}
-          </div>
-          <div className="product-footer" ref={ref}>
-            Element {inView.toString()}
           </div>
         </section>
       </div>
