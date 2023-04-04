@@ -13,6 +13,8 @@ import ProductCard from "@/components/ui/ProductCard";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 import { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
@@ -24,6 +26,9 @@ export default function Store() {
   const resetFilterParams = useResetRecoilState(storeFilterState);
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
+  const [pageNo, setPageNo] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [sortOption, setSortOption] = useState<string>("product.id,DESC");
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
   const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
@@ -67,7 +72,12 @@ export default function Store() {
 
     queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
 
-    queryUrl += `&page=${filterParams.page}&size=${filterParams.size}&sort=${filterParams.sort}`;
+    queryUrl += `&page=0&size=6&sort=${sortOption}`;
+    return queryUrl;
+  };
+
+  useEffect(() => {
+    const queryUrl = generateQueryParams();
     router.push(queryUrl);
   }, [filterParams]);
 
@@ -134,23 +144,29 @@ export default function Store() {
 
   useEffect(() => {
     const param = router.asPath.slice(7, router.asPath.length);
-
+    console.log(router.asPath);
+    setHasMore(true);
     RequestProduct(param).then((res) => {
       console.log(res.data);
-      setProducts([...products, ...res.data.content]);
-      setFilterParams({
-        ...filterParams,
-        isLastPage: res.data.last,
-      });
+      if (pageNo === 0) {
+        setProducts([...res.data.content]);
+      } else {
+        setProducts([...products, ...res.data.content]);
+      }
+      if (res.data.last) {
+        setHasMore(false);
+      }
     });
   }, [router.asPath]);
 
   const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setFilterParams({
-      ...filterParams,
-      sort: value,
-    });
+    setSortOption(value);
+  };
+
+  const fetchData = () => {
+    const param = router.asPath.slice(7, router.asPath.length);
+    setPageNo(pageNo + 1);
   };
 
   return (
@@ -194,18 +210,26 @@ export default function Store() {
           </select>
         </div>
         <section className="searchResultProduct">
-          <div className="product-container">
-            {products &&
-              products.map((element, idx) => (
-                <ProductCard
-                  key={"product " + element.id + idx}
-                  productId={element.id}
-                  imageSrc={element.thumbnail}
-                  productTitle={element.name}
-                  productPrice={`${element.price}`}
-                />
-              ))}
-          </div>
+          <InfiniteScroll
+            dataLength={products.length}
+            next={fetchData}
+            style={{ display: "flex", flexDirection: "column-reverse" }}
+            hasMore={hasMore}
+            loader={<h4>loading</h4>}
+          >
+            <div className="product-container">
+              {products &&
+                products.map((element, idx) => (
+                  <ProductCard
+                    key={"product " + element.id + idx}
+                    productId={element.id}
+                    imageSrc={element.thumbnail}
+                    productTitle={element.name}
+                    productPrice={`${element.price}`}
+                  />
+                ))}
+            </div>
+          </InfiniteScroll>
         </section>
       </div>
     </>

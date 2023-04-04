@@ -13,9 +13,5 @@ export const storeFilterState = atom<FilterParams>({
       priceStart: -1,
       priceEnd: -1,
     },
-    page: 0,
-    size: 6,
-    isLastPage: false,
-    sort: "product.id,DESC",
   },
 });

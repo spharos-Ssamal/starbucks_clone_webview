@@ -3,6 +3,7 @@ import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React from "react";
 import { useRecoilState } from "recoil";
 
+
 export default function CategoryMenuList(props: { data: MenuDataType[] }) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
@@ -19,10 +20,6 @@ export default function CategoryMenuList(props: { data: MenuDataType[] }) {
           priceStart: -1,
           priceEnd: -1,
         },
-        page: 0,
-        size: 6,
-        isLastPage: false,
-        sort: "product.id,DESC",
       });
     }
   };
