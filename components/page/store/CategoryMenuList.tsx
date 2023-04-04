@@ -1,17 +1,10 @@
-import {
-  FilterParams,
-  MenuDataType,
-  filterDataType,
-} from "@/Types/filter/filterTypes";
+import { FilterParams, MenuDataType } from "@/Types/filter/filterTypes";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
 
-export default function CategoryMenuList(props: {
-  data: MenuDataType[];
-  generateQueryParams: () => void;
-}) {
+
+export default function CategoryMenuList(props: { data: MenuDataType[] }) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
   const handleAddQuery = (item: MenuDataType) => {

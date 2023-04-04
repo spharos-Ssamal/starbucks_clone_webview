@@ -47,7 +47,7 @@ export default function Store() {
       });
   };
 
-  const generateQueryParams = () => {
+  useEffect(() => {
     let queryUrl = "/store?";
     console.log("filterParams");
     console.log(filterParams);
@@ -109,38 +109,37 @@ export default function Store() {
   }, []);
 
   useEffect(() => {
-    if (
-      router.query.category &&
-      router.query.category !== "1" &&
-      typeof router.query.category === "string"
-    ) {
-      console.log(router.query.category);
+    if (router.query.category) {
+      if (
+        router.query.category !== "1" &&
+        typeof router.query.category === "string"
+      ) {
+        console.log(router.query.category);
+        const subCategoryId = parseInt(router.query.category);
 
-      const subCategoryId = parseInt(router.query.category);
-
-      RequestSubCategoryList(subCategoryId).then((res) => {
-        console.log(res.data);
-        let myData: MenuDataType[] = [];
-        res.data.subCategories.forEach((item: headerMenu) => {
-          myData.push({
-            id: item.id,
-            name: item.name,
-            key: "subCategory",
+        RequestSubCategoryList(subCategoryId).then((res) => {
+          console.log(res.data);
+          let myData: MenuDataType[] = [];
+          res.data.subCategories.forEach((item: headerMenu) => {
+            myData.push({
+              id: item.id,
+              name: item.name,
+              key: "subCategory",
+            });
           });
-        });
 
-        if (res.data.sizeInfo !== undefined) {
-          setSizeFilterData([...res.data.sizeInfo]);
-        } else {
-          setSizeFilterData([]);
-        }
-        setSubFilterMenuData(myData);
-      });
-    } else if (router.query.category === "1") {
-      setSubFilterMenuData([]);
-      setSizeFilterData([]);
+          if (res.data.sizeInfo !== undefined) {
+            setSizeFilterData([...res.data.sizeInfo]);
+          } else {
+            setSizeFilterData([]);
+          }
+          setSubFilterMenuData(myData);
+        });
+      } else if (router.query.category === "1") {
+        setSubFilterMenuData([]);
+        setSizeFilterData([]);
+      }
     }
-    fetchSeasonData();
   }, [router]);
 
   useEffect(() => {
@@ -183,27 +182,13 @@ export default function Store() {
           margin: "50px 0 0 0",
         }}
       >
-        <CategoryMenuList
-          data={filterMenuData}
-          generateQueryParams={generateQueryParams}
-        />
-        {sizeFilterData.length > 0 && (
-          <SizeFilterList
-            data={sizeFilterData}
-            generateQueryParams={generateQueryParams}
-          />
-        )}
-        <PriceFilterList generateQueryParams={generateQueryParams} />
+        <CategoryMenuList data={filterMenuData} />
+        {sizeFilterData.length > 0 && <SizeFilterList data={sizeFilterData} />}
+        <PriceFilterList />
         {subFilterMenuData.length > 0 && (
-          <SubCategoryList
-            data={subFilterMenuData}
-            generateQueryParams={generateQueryParams}
-          />
+          <SubCategoryList data={subFilterMenuData} />
         )}
-        <SeasonFilterList
-          data={seasonMenuData}
-          generateQueryParams={generateQueryParams}
-        />
+        <SeasonFilterList data={seasonMenuData} />
       </div>
       <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">

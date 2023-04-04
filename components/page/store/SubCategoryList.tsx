@@ -7,10 +7,7 @@ import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
-export default function SubCategoryList(props: {
-  data: MenuDataType[];
-  generateQueryParams: () => void;
-}) {
+export default function SubCategoryList(props: { data: MenuDataType[] }) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
