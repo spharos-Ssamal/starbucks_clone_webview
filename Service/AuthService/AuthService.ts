@@ -13,6 +13,7 @@ import {
   VeriftyEmailReq,
 } from "@/Types/UserRequest/Request";
 import { ReIssueTokenRes } from "@/Types/UserRequest/Response";
+import Swal from "sweetalert2";
 
 export async function RequestLogin(req: LoginReq) {
   return await CustomAxios.post(REQUEST_LOGIN, req).then((res) => res.data);
@@ -29,10 +30,19 @@ export async function RequestReissueToken() {
       const newAccessToken = response.data.accessToken;
       localStorage.removeItem("ACCESS_TOKEN");
       localStorage.setItem("ACCESS_TOKEN", newAccessToken);
+      return Promise.resolve();
     })
     .catch((ex) => {
-      //TODO
-      //자동 로그아웃 처리
+      console.log(ex);
+      Swal.fire({
+        icon: "error",
+        title: "에러!",
+        text: "서버와의 연결이 끊어졌습니다.",
+      });
+      localStorage.removeItem("ACCESS_TOKEN");
+      localStorage.removeItem("userInfo");
+      location.reload();
+      return Promise.reject();
     });
 }
 

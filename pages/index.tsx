@@ -7,6 +7,10 @@ import Config from "@/configs/config.export";
 import { BaseRes, eventData } from "@/constants/Apis/Types/ResponseType";
 import { REQUEST_RECOMMEND_ACTIVE } from "@/constants/Apis/URL";
 import { REQUEST_EVENT_ACTIVE } from "@/constants/Apis/URL";
+import {
+  RequestEventActive,
+  RequestRecommendActive,
+} from "@/Service/ProductService/ProductService";
 
 export default function Home() {
   const baseUrl = Config().baseUrl;
@@ -16,25 +20,20 @@ export default function Home() {
   );
 
   useEffect(() => {
-    console.log(baseUrl);
-    axios
-      .get(`${baseUrl}/${REQUEST_RECOMMEND_ACTIVE}`)
+    RequestRecommendActive()
       .then((res) => {
-        setData(res.data);
+        console.log(res);
+        setData(res);
       })
       .catch((err) => {
+        console.log("Get the Fuck out");
         console.log(err);
       });
-
-    axios
-      .get(`${baseUrl}/${REQUEST_EVENT_ACTIVE}`)
-      .then((res) => {
-        let rndNumber = Math.floor(Math.random() * res.data.data.length);
-        setViewByOthersData(res.data.data[rndNumber]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    RequestEventActive().then((res) => {
+      console.log(res);
+      let rndNumber = Math.floor(Math.random() * res.length);
+      setViewByOthersData(res[rndNumber]);
+    });
   }, []);
 
   return (
