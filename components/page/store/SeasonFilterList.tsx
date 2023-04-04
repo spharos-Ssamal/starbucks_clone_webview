@@ -56,6 +56,9 @@ export default function SeasonFilterList(props: { data: MenuDataType[] }) {
 
   return (
     <div className="header-sub">
+      <div className="nav-title">
+        <p>메뉴</p>
+      </div>
       <nav>
         <ul>
           {props.data &&
