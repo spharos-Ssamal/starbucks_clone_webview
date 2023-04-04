@@ -38,7 +38,7 @@ export default function Best() {
           <div className="product-item">
             <img src="assets/images/best/cake/01.jpg" className="thumbnail" />
             <div className="product-item-info">
-              <p className="item-best">Best</p>
+              <p className="item-best hide">Best</p>
               <p className="item-title">부드러운 티라미수 롤케이크</p>
               <p className="product-item-price">19,900원</p>
             </div>
@@ -49,7 +49,7 @@ export default function Best() {
           <div className="product-item">
             <img src="assets/images/best/cake/02.jpg" className="thumbnail" />
             <div className="product-item-info">
-              <p className="item-best">Best</p>
+              <p className="item-best hide">Best</p>
               <p className="item-title">부드러운 티라미수 롤케이크</p>
               <p className="product-item-price">19,900원</p>
             </div>
@@ -60,7 +60,7 @@ export default function Best() {
           <div className="product-item">
             <img src="assets/images/best/cake/03.jpg" className="thumbnail" />
             <div className="product-item-info">
-              <p className="item-best">Best</p>
+              <p className="item-best hide">Best</p>
               <p className="item-title">부드러운 티라미수 롤케이크</p>
               <p className="product-item-price">19,900원</p>
             </div>
