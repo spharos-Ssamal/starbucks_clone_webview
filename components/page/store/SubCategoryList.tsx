@@ -33,7 +33,7 @@ export default function SubCategoryList(props: {
   return (
     <div className="header-sub">
       <div className="nav-title">
-        <p>메뉴</p>
+        <p>카테고리</p>
       </div>
       <nav>
         <ul>

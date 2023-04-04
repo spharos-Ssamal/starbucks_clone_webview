@@ -37,7 +37,7 @@ export default function PriceFilterList(props: {
   return (
     <div className="header-sub">
       <div className="nav-title">
-        <p>메뉴</p>
+        <p>가격</p>
       </div>
       <nav>
         <ul>

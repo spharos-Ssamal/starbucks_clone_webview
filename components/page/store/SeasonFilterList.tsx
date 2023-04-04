@@ -29,7 +29,7 @@ export default function SeasonFilterList(props: {
   return (
     <div className="header-sub">
       <div className="nav-title">
-        <p>메뉴</p>
+        <p>시즌</p>
       </div>
       <nav>
         <ul>

@@ -24,6 +24,7 @@ export default function CategoryMenuList(props: {
         seasons: [],
         productSize: [],
         priceValue: {
+          id: 0,
           priceStart: -1,
           priceEnd: -1,
         },
@@ -37,7 +38,7 @@ export default function CategoryMenuList(props: {
   return (
     <div className="header-sub">
       <div className="nav-title">
-        <p>메뉴</p>
+        <p>대분류</p>
       </div>
       <nav>
         <ul>

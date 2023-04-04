@@ -101,12 +101,11 @@
 
 /* 서브 헤더 */
 .header-sub {
-  
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width:100%;
+  width: 100%;
 }
 
 .header-sub:last-child {
@@ -114,9 +113,10 @@
 }
 
 .header-sub .nav-title {
-  width: 15%;
-  box-size: border-box;
-  padding: 0 1rem;
+  width: 25%;
+  box-sizing: border-box;
+  padding: 0 0.1rem;
+  margin: 0 0.5rem;
   font-size: 0.9rem;
   color: var(--color-gray-text);
 }
@@ -135,9 +135,6 @@
 }
 .header-sub nav {
   width: 85%;
-}
-
-.header-sub .filter-name {
 }
 
 .header-sub nav ul {
