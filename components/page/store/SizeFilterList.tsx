@@ -27,7 +27,6 @@ export default function SizeFilterList(props: {
         productSize: [...filterParams.productSize, item.id],
       });
     }
-    props.generateQueryParams();
   };
 
   return (

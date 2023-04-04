@@ -9,6 +9,7 @@ export const storeFilterState = atom<FilterParams>({
     seasons: [],
     productSize: [],
     priceValue: {
+      id: 0,
       priceStart: -1,
       priceEnd: -1,
     },

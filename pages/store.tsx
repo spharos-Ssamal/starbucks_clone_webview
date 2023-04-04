@@ -72,6 +72,10 @@ export default function Store() {
   };
 
   useEffect(() => {
+    generateQueryParams();
+  }, [filterParams]);
+
+  useEffect(() => {
     resetFilterParams();
     fetchSeasonData();
     setFilterMenuData([

@@ -46,9 +46,7 @@ export default function CategoryMenuList(props: {
               <li
                 key={"category " + item.id + idx}
                 onClick={() => handleAddQuery(item)}
-                className={
-                  item.id == Number(router.query.category) ? "active" : ""
-                }
+                className={item.id == filterParams.category ? "active" : ""}
               >
                 <p>{item.name}</p>
               </li>

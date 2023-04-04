@@ -23,7 +23,6 @@ export default function SeasonFilterList(props: {
           seasons: [...filterParams.seasons, item.id],
         });
       }
-      props.generateQueryParams();
     }
   };
 

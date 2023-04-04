@@ -27,7 +27,6 @@ export default function SubCategoryList(props: {
           subCategories: [...filterParams.subCategories, item.id],
         });
       }
-      props.generateQueryParams();
     }
   };
 

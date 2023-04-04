@@ -31,6 +31,7 @@ export default function EditCartItemModal(props: Props) {
       count: countOf,
     }).then((res) => {
       const resultCartId = res.data;
+
       props.setIsModalOpen(false);
     });
   };
@@ -39,6 +40,7 @@ export default function EditCartItemModal(props: Props) {
     if (
       cartData.cartList.findIndex((e) => e.id === props.cartItemInfo.id) !== -1
     ) {
+      updateProductItemCountRequest();
       setCartData({
         ...cartData,
         cartList: cartData.cartList.map((element) => {
@@ -60,12 +62,12 @@ export default function EditCartItemModal(props: Props) {
         icon: "success",
         text: "데이터가 변경 되었습니다.",
       });
-      updateProductItemCountRequest();
     } else if (
       cartData.cartListFreeze.findIndex(
         (e) => e.id === props.cartItemInfo.id
       ) !== -1
     ) {
+      updateProductItemCountRequest();
       setCartData({
         ...cartData,
         cartListFreeze: cartData.cartListFreeze.map((element) => {
