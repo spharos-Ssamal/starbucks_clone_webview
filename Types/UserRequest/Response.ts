@@ -7,6 +7,7 @@ export interface RegisterRes {
 
 export interface LoginRes {
   userId: string;
+  userName: string;
   accessToken: string;
   refreshToken: string;
 }
