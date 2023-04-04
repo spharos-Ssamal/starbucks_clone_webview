@@ -15,7 +15,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   ORDER_BY_PRODUCT_ID_DESC,
@@ -32,13 +32,12 @@ export default function Store() {
 
   const [products, setProducts] = useState<ProductInfo[]>([]);
 
-  const pageNo = useRef(0);
-
-  // const [pageNo, setPageNo] = useState<number>(0);
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [pageNo, setPageNo] = useState(0);
   const [sortOption, setSortOption] = useState<string>(
     ORDER_BY_PRODUCT_ID_DESC
   );
+
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [filterMenuData, setFilterMenuData] = useState<MenuDataType[]>([]);
   const [sizeFilterData, setSizeFilterData] = useState<MenuDataType[]>([]);
@@ -60,7 +59,7 @@ export default function Store() {
   const fecthProductData = (param: string) => {
     RequestProduct(param).then((res) => {
       console.log(res.data);
-      if (pageNo.current === 0) {
+      if (res.data.pageNo === 0) {
         setProducts([...res.data.content]);
       } else {
         setProducts([...products, ...res.data.content]);
@@ -96,15 +95,19 @@ export default function Store() {
 
     queryUrl += `&priceEnd=${filterParams.priceValue.priceEnd}`;
 
-    queryUrl += `&page=${pageNo.current}&size=6&sort=${sortOption}`;
-    console.log(queryUrl);
+    queryUrl += `&page=${pageNo}&size=6&sort=${sortOption}`;
     return queryUrl;
   };
 
   useEffect(() => {
     const queryUrl = generateQueryParams();
     router.push("/store?" + queryUrl);
-  }, [filterParams, sortOption]);
+  }, [filterParams]);
+
+  useEffect(() => {
+    const queryParam = generateQueryParams();
+    fecthProductData(queryParam);
+  }, [pageNo, sortOption]);
 
   useEffect(() => {
     resetFilterParams();
@@ -131,6 +134,7 @@ export default function Store() {
       ...filterParams,
       category: 1,
     });
+    console.log("useEffect1");
   }, []);
 
   useEffect(() => {
@@ -162,6 +166,8 @@ export default function Store() {
         setSubFilterMenuData([]);
         setSizeFilterData([]);
       }
+
+      console.log("useEffect2");
     }
   }, [router]);
 
@@ -169,19 +175,18 @@ export default function Store() {
     const param = router.asPath.slice(7, router.asPath.length);
     console.log(router.asPath);
     console.log(param);
+    setPageNo(0);
     fecthProductData(param);
   }, [router.asPath]);
 
   const handleOnChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSortOption(value);
-    pageNo.current = 0;
+    setPageNo(0);
   };
 
   const fetchData = () => {
-    pageNo.current = pageNo.current + 1;
-    const queryParam = generateQueryParams();
-    fecthProductData(queryParam);
+    setPageNo(pageNo + 1);
   };
 
   return (
@@ -199,17 +204,17 @@ export default function Store() {
       >
         <CategoryMenuList
           data={filterMenuData}
-          pageNo={pageNo}
+          setPageNo={setPageNo}
           setSortOption={setSortOption}
         />
         {sizeFilterData.length > 0 && (
-          <SizeFilterList data={sizeFilterData} pageNo={pageNo} />
+          <SizeFilterList data={sizeFilterData} setPageNo={setPageNo} />
         )}
-        <PriceFilterList pageNo={pageNo} />
+        <PriceFilterList setPageNo={setPageNo} />
         {subFilterMenuData.length > 0 && (
-          <SubCategoryList data={subFilterMenuData} pageNo={pageNo} />
+          <SubCategoryList data={subFilterMenuData} setPageNo={setPageNo} />
         )}
-        <SeasonFilterList data={seasonMenuData} pageNo={pageNo} />
+        <SeasonFilterList data={seasonMenuData} setPageNo={setPageNo} />
       </div>
       <div className="searchResultContent">
         <div className="searchResult-filter" id="search-result-filter">

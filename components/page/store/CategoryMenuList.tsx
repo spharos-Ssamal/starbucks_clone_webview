@@ -6,15 +6,16 @@ import { useRecoilState } from "recoil";
 
 export default function CategoryMenuList(props: {
   data: MenuDataType[];
-  pageNo: MutableRefObject<number>;
+  setPageNo: Dispatch<SetStateAction<number>>;
   setSortOption: Dispatch<SetStateAction<string>>;
 }) {
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "category") {
-      props.pageNo.current = 0;
+      props.setPageNo(0);
       props.setSortOption(ORDER_BY_PRODUCT_ID_DESC);
+
       setFilterParams({
         category: item.id,
         subCategories: [],

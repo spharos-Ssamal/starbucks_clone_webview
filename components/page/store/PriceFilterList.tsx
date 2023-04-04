@@ -1,18 +1,18 @@
 import { FilterParams, PriceDataType } from "@/Types/filter/filterTypes";
 import { PriceList } from "@/data/starbucksStaticDatas";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
-import React, { MutableRefObject, useState } from "react";
+import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 
 export default function PriceFilterList(props: {
-  pageNo: MutableRefObject<number>;
+  setPageNo: Dispatch<SetStateAction<number>>;
 }) {
   const priceData = PriceList;
   const [filterParams, setFilterParams] =
     useRecoilState<FilterParams>(storeFilterState);
 
   const handleAddQuery = (item: PriceDataType) => {
-    props.pageNo.current = 0;
+    props.setPageNo(0);
     if (filterParams.priceValue.id !== item.id) {
       setFilterParams({
         ...filterParams,
