@@ -6,6 +6,13 @@ import {
 } from "@/Service/ProductService/ProductService";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { searchParams } from "@/Types/filter/filterTypes";
+import { storeFilterState } from "@/state/store/atom/storeFilterState";
+import {
+  SEARCH_OPTION_PRODUCT_HASHTAG,
+  SEARCH_OPTION_PRODUCT_NAME,
+} from "@/constants/enums/SearchOption";
 
 interface Props {
   isModalOpen: boolean;
@@ -14,6 +21,8 @@ interface Props {
 
 export function SearchModal(props: Props) {
   const [searchData, setSearchData] = useState<string>("");
+  const [filterParams, setFilterParams] =
+    useRecoilState<searchParams>(storeFilterState);
   const router = useRouter();
 
   const onChangeSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,11 +38,40 @@ export function SearchModal(props: Props) {
     } else {
       props.closeModal();
       if (searchData.includes("#")) {
+        console.log("Fuck");
+        setFilterParams({
+          ...filterParams,
+          searchOption: SEARCH_OPTION_PRODUCT_HASHTAG,
+          searchName: searchData.slice(1, searchData.length),
+          category: 1,
+          subCategories: [],
+          seasons: [],
+          productSize: [],
+          priceValue: {
+            id: 0,
+            priceStart: -1,
+            priceEnd: -1,
+          },
+        });
         router.push(
-          `/searchResult/hashtag=${searchData.slice(1, searchData.length)}`
+          `/productSearch/hashtag=${searchData.slice(1, searchData.length)}`
         );
       } else {
-        router.push(`/searchResult/name=${searchData}`);
+        setFilterParams({
+          ...filterParams,
+          searchOption: SEARCH_OPTION_PRODUCT_NAME,
+          searchName: searchData,
+          category: 1,
+          subCategories: [],
+          seasons: [],
+          productSize: [],
+          priceValue: {
+            id: 0,
+            priceStart: -1,
+            priceEnd: -1,
+          },
+        });
+        router.push(`/productSearch/name=${searchData}`);
       }
     }
   };
@@ -45,7 +83,7 @@ export function SearchModal(props: Props) {
           <div className="search-top">
             <div className="search-bar">
               <form>
-                <input hidden="hidden" />
+                <input hidden />
                 <input
                   type="text"
                   value={searchData}

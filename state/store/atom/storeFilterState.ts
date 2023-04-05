@@ -1,9 +1,11 @@
-import { FilterParams } from "@/Types/filter/filterTypes";
+import { searchParams } from "@/Types/filter/filterTypes";
 import { atom } from "recoil";
 
-export const storeFilterState = atom<FilterParams>({
+export const storeFilterState = atom<searchParams>({
   key: "storeState",
   default: {
+    searchOption: "",
+    searchName: "",
     category: 1,
     subCategories: [],
     seasons: [],

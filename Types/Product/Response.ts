@@ -1,3 +1,5 @@
+import { ProductInfo } from "./Request";
+
 export interface productResponseDetailImages {
   id: number;
   imageUrl: string;
@@ -5,8 +7,16 @@ export interface productResponseDetailImages {
   height: number;
 }
 
-export interface CategortAggregationRes {
+export interface CategoryAggregationRes {
   categoryId: number;
   categoryName: string;
-  count: number;
+  count?: number;
+}
+
+export interface SearchProductRes {
+  content: ProductInfo[];
+  pageNo: number;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
 }

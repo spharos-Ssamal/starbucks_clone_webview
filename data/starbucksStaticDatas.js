@@ -55,24 +55,30 @@ export const PriceList = [
   },
   {
     id: 2,
+    name: "1만원대",
+    startValue: 10000,
+    endValue: 20000,
+  },
+  {
+    id: 3,
     name: "2만원대",
     startValue: 20000,
     endValue: 30000,
   },
   {
-    id: 3,
+    id: 4,
     name: "3만원대",
     startValue: 30000,
     endValue: 40000,
   },
   {
-    id: 4,
+    id: 5,
     name: "4만원대",
     startValue: 40000,
     endValue: 50000,
   },
   {
-    id: 5,
+    id: 6,
     name: "5만원 이상",
     startValue: 50000,
     endValue: 0,

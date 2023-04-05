@@ -41,6 +41,7 @@ function Header() {
     "/purchaseList",
     "/payment",
     "/store",
+    "/productSearch/[...searchParam]",
   ];
 
   const backButtonList = [
@@ -51,7 +52,10 @@ function Header() {
     "/purchaseList",
     "/purchaseDetail/[historyId]",
     "/cart",
+    "/productSearch/[...searchParam]",
   ];
+
+  const backMainList = [];
 
   const handlePushPage = () => {
     router.push("/login");
@@ -60,8 +64,6 @@ function Header() {
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
-
-  
 
   return (
     <>

@@ -13,8 +13,8 @@ export const REQUEST_BANNER = "api/v1/banner";
 export const REQUEST_EVENT_ACTIVE = "api/v1/event/active";
 export const REQUEST_EVENT_GET = "api/v1/event/get";
 
-export const REQUEST_PRODUCT_SEARCH = "api/v1/product/search";
-export const REQUEST_PRODUCT_HASHTAG = "api/v1/product/search/hashtag";
+export const REQUEST_PRODUCT_SEARCH = "api/v1/product/search?";
+export const REQUEST_PRODUCT_HASHTAG = "api/v1/product/search/hashtag?";
 export const REQUEST_PRODUCT_READ = "api/v1/product/read";
 export const REQUEST_PRODUCT = "api/v1/product/get?";
 export const REQUEST_CATEGORY_AGGREGATION_NAME =
