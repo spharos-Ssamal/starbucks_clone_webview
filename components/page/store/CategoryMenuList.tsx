@@ -1,4 +1,4 @@
-import { FilterParams, MenuDataType } from "@/Types/filter/filterTypes";
+import { searchParams, MenuDataType } from "@/Types/filter/filterTypes";
 import { ORDER_BY_PRODUCT_ID_DESC } from "@/constants/enums/FilterOption";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
@@ -10,13 +10,14 @@ export default function CategoryMenuList(props: {
   setSortOption: Dispatch<SetStateAction<string>>;
 }) {
   const [filterParams, setFilterParams] =
-    useRecoilState<FilterParams>(storeFilterState);
+    useRecoilState<searchParams>(storeFilterState);
   const handleAddQuery = (item: MenuDataType) => {
     if (item.key === "category") {
       props.setPageNo(0);
       props.setSortOption(ORDER_BY_PRODUCT_ID_DESC);
 
       setFilterParams({
+        ...filterParams,
         category: item.id,
         subCategories: [],
         seasons: [],

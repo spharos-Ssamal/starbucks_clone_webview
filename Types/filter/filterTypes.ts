@@ -11,7 +11,9 @@ export interface PriceDataType {
   endValue: number;
 }
 
-export interface FilterParams {
+export interface searchParams {
+  searchOption: string;
+  searchName: string;
   category: number;
   subCategories: number[];
   seasons: number[];

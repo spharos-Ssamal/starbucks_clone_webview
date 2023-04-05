@@ -3,6 +3,8 @@ import {
   REQUEST_CATEGORY_AGGREGATION_NAME,
   REQUEST_CATEGORY_AGGREGATION_HASH_TAG,
   REQUEST_PRODUCT,
+  REQUEST_PRODUCT_SEARCH,
+  REQUEST_PRODUCT_HASHTAG,
 } from "@/constants/Apis/URL";
 
 export async function RequestCategoryAggregationName(productName: string) {
@@ -23,4 +25,16 @@ export async function RequestCategoryAggregationHashTag(hashtag: string) {
 
 export async function RequestProduct(req: string) {
   return await CustomAxios.get(REQUEST_PRODUCT + req).then((res) => res.data);
+}
+
+export async function RequestProductUsingName(req: string) {
+  return await CustomAxios.get(REQUEST_PRODUCT_SEARCH + req).then(
+    (res) => res.data
+  );
+}
+
+export async function RequestProductUsingHashtag(req: string) {
+  return await CustomAxios.get(REQUEST_PRODUCT_HASHTAG + req).then(
+    (res) => res.data
+  );
 }

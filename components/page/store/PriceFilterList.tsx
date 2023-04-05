@@ -1,4 +1,4 @@
-import { FilterParams, PriceDataType } from "@/Types/filter/filterTypes";
+import { searchParams, PriceDataType } from "@/Types/filter/filterTypes";
 import { PriceList } from "@/data/starbucksStaticDatas";
 import { storeFilterState } from "@/state/store/atom/storeFilterState";
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
@@ -9,7 +9,7 @@ export default function PriceFilterList(props: {
 }) {
   const priceData = PriceList;
   const [filterParams, setFilterParams] =
-    useRecoilState<FilterParams>(storeFilterState);
+    useRecoilState<searchParams>(storeFilterState);
 
   const handleAddQuery = (item: PriceDataType) => {
     props.setPageNo(0);
