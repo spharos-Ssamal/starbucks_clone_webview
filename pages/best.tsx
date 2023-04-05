@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Config from "@/configs/config.export";
-import { REQUEST_PRODUCT_ALL } from "@/constants/Apis/URL";
 
 export default function Best() {
   const { baseUrl } = Config();

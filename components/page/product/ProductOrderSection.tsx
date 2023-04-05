@@ -36,7 +36,6 @@ export default function ProductOrderSection(props: Props) {
   };
 
   const onClickCount = (count: number) => {
-   
     if (count === 0) {
       Swal.fire({
         toast: true,
@@ -48,8 +47,7 @@ export default function ProductOrderSection(props: Props) {
         color: "#067040",
       });
       return;
-    }
-    else if ( count > 3) {
+    } else if (count > 3) {
       Swal.fire({
         toast: true,
         text: "최대 수량은 3개 입니다.",
@@ -94,12 +92,11 @@ export default function ProductOrderSection(props: Props) {
             timer: 2000,
             timerProgressBar: true,
             color: "#067040",
-              
           });
           setSuccessModal(true);
           setIsOpen(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           if (err.data === "ERROR-BR-004") {
             Swal.fire({
@@ -121,10 +118,10 @@ export default function ProductOrderSection(props: Props) {
 
   return (
     <>
-    <SuccessViewModal 
-      isModalOpen={successModal}
-      setIsModalOpen={setSuccessModal}
-    />
+      <SuccessViewModal
+        isModalOpen={successModal}
+        setIsModalOpen={setSuccessModal}
+      />
       <div
         className={
           isOpen ? myStyle.productOrderSectionOpen : myStyle.productOrderSection
@@ -133,14 +130,20 @@ export default function ProductOrderSection(props: Props) {
         {!isOpen ? <OrderToggleButton onClick={handleOpen} /> : null}
 
         {!isOpen ? (
-          <ButtonUi type='button' text='구매하기' handler={handleOpen} size='large' colorType='primary'/>
+          <ButtonUi
+            type="button"
+            text="구매하기"
+            handler={handleOpen}
+            size="large"
+            colorType="primary"
+          />
         ) : (
           <div className={myStyle.productOrderSectionOpenBottomWrap}>
             <Image
               src="/assets/images/icons/shopping-cart.svg"
               width={30}
               height={30}
-              alt='cart'
+              alt="cart"
               onClick={onClickCart}
             />
             <OrderButton38widthColorReverse>
@@ -159,7 +162,6 @@ export default function ProductOrderSection(props: Props) {
         style={{
           zIndex: 100,
         }}
-        
       >
         <Sheet.Container>
           <Sheet.Content>
@@ -178,23 +180,23 @@ export default function ProductOrderSection(props: Props) {
 
                     <div className={myStyle.QtyCountWrap}>
                       <div className={myStyle.QtyCount}>
-                        <div className={countOf === 1 ? myStyle.disabled : ''}>
+                        <div className={countOf === 1 ? myStyle.disabled : ""}>
                           <Image
                             src="/assets/images/icons/minus.png"
                             onClick={() => onClickCount(countOf - 1)}
                             width={20}
                             height={20}
-                            alt='-Button'
+                            alt="-Button"
                           />
                         </div>
                         {countOf}
                         <div>
-                        <Image
+                          <Image
                             src="/assets/images/icons/add.png"
                             onClick={() => onClickCount(countOf + 1)}
                             width={20}
                             height={20}
-                            alt='+Button'
+                            alt="+Button"
                           />
                         </div>
                       </div>
@@ -223,10 +225,13 @@ export default function ProductOrderSection(props: Props) {
   );
 }
 
-
-const SuccessViewModal = (props:{isModalOpen:boolean, setIsModalOpen:Dispatch<SetStateAction<boolean>>}) => {
-
-  if (!props.isModalOpen)  {return null;}
+const SuccessViewModal = (props: {
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
+  if (!props.isModalOpen) {
+    return null;
+  }
 
   return (
     <div className={myStyle.productSuccessWrap}>
@@ -238,27 +243,26 @@ const SuccessViewModal = (props:{isModalOpen:boolean, setIsModalOpen:Dispatch<Se
             alt="close-button"
             width={20}
             height={20}
-            onClick={()=>props.setIsModalOpen(false)}
+            onClick={() => props.setIsModalOpen(false)}
           />
         </div>
         <div className={myStyle.buttonWrap}>
-          <ButtonUi 
+          <ButtonUi
             type="button"
             text="장바구니로 이동"
             size="medium"
             colorType="secondary"
-            link='/cart'
+            link="/cart"
           />
-          <ButtonUi 
+          <ButtonUi
             type="button"
             text="상품 더보기"
             size="medium"
             colorType="primary"
-            link='/store'
+            link="/store"
           />
-
         </div>
       </div>
     </div>
   );
-}
+};

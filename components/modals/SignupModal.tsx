@@ -79,6 +79,7 @@ export default function SignupModal({
           buttonText="NEXT"
           textSize="1.1rem"
           handler={handleStepNext}
+          type={"button"}
         />
       </section>
     </div>

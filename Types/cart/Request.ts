@@ -1,18 +1,18 @@
-interface CreateCartItem {
+export interface CreateCartItem {
   userId: string;
   productId: number;
   count: number;
 }
 
-interface UpdateCartItem {
+export interface UpdateCartItem {
   cartId: number;
   count: number;
 }
 
-interface DeleteCartItem {
+export interface DeleteCartItem {
   cartId: number;
 }
 
-interface ConfirmPurchase {
+export interface ConfirmPurchase {
   cartItemids: number[];
 }

@@ -1,4 +1,4 @@
-import { AddressDataType } from "@/Types/address/addressType";
+import { AddressDataType } from "@/Types/address/AddressType";
 import Link from "next/link";
 
 interface Props {

@@ -14,6 +14,7 @@ import { cartListState } from "@/state/cart/atom/cartListState";
 import Nodata from "@/components/ui/Nodata";
 import { REQUEST_CART_GET_ALL } from "@/constants/Apis/URL";
 import { userLoginState } from "@/state/user/atom/userLoginState";
+import { RequestCartGet } from "@/Service/CartService/CartService";
 
 function Cart() {
   const router = useRouter();
@@ -27,35 +28,31 @@ function Cart() {
   const [numOfProduct, setNumOfProduct] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(
-        `${baseUrl}/${REQUEST_CART_GET_ALL}?userId=05a35a40-8d0b-49c6-9d39-fa93c010ee26`
-      )
-      .then((res) => {
-        setCartList({
-          cartListFreeze: res.data.data.filter(
-            (item: cartListType) => item.frozen === true
-          ),
-          cartList: res.data.data.filter(
-            (item: cartListType) => item.frozen === false
-          ),
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    if (!isLogin.isLogin) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "로그인 페이지로 이동합니다",
       });
-  }, []);
 
-  if (!isLogin.isLogin) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "로그인 페이지로 이동합니다",
-    }).then(function () {
       router.push("/login");
-      return null;
-    });
-  }
+    } else {
+      RequestCartGet(isLogin.userId)
+        .then((res) => {
+          setCartList({
+            cartListFreeze: res.data.filter(
+              (item: cartListType) => item.frozen === true
+            ),
+            cartList: res.data.filter(
+              (item: cartListType) => item.frozen === false
+            ),
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <>
