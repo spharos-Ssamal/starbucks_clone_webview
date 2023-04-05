@@ -28,15 +28,14 @@ export default function HeaderTopRightIcons() {
             />
           </li>
           <li>
-            <Link href="/cart">
-              <p className="cart-badge">{cartCnt}</p>
-              <Image
-                src="/assets/images/icons/shopping-cart.svg"
-                width={20}
-                height={20}
-                alt={""}
-              />
-            </Link>
+            <p className="cart-badge">{cartCnt}</p>
+            <Image
+              onClick={() => router.push("/cart")}
+              src="/assets/images/icons/shopping-cart.svg"
+              width={20}
+              height={20}
+              alt={""}
+            />
           </li>
           <li onClick={() => router.push("/login")}>
             <Image

@@ -1,3 +1,8 @@
+import {
+  ConfirmPurchase,
+  CreateCartItem,
+  UpdateCartItem,
+} from "@/Types/cart/Request";
 import { CustomAxios } from "@/constants/Apis/Axios/CustomAxios";
 import {
   REQUEST_CART_GET,

@@ -1,11 +1,7 @@
 import { RequestGetDefaultAddress } from "@/Service/AddressService/AddressService";
 import { RequestPaymentConfirm } from "@/Service/PaymentService/PaymentService";
 import { getPrePurchaseProducts } from "@/Service/PurchaseService/PurchaseService";
-import {
-  AddressDataType,
-  ShippingAddressInfo,
-  initShippingAddressInfo,
-} from "@/Types/address/AddressType";
+
 import {
   PaymentConfirmReq,
   PaymentInfo,
@@ -26,6 +22,11 @@ import {
   RequestGetCartItems,
 } from "@/Service/CartService/CartService";
 import { cartListType } from "@/Types/cart/cartListType";
+import {
+  AddressDataType,
+  ShippingAddressInfo,
+  initShippingAddressInfo,
+} from "@/Types/address/AddressType";
 
 export default function Payment() {
   const router = useRouter();
