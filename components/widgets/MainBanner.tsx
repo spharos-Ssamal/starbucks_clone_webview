@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { REQUEST_BANNER } from "@/constants/Apis/URL";
 import { useRouter } from "next/router";
+import { RequestBanner } from "@/Service/ProductService/ProductService";
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
@@ -30,21 +31,14 @@ function MainBanner() {
   };
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/${REQUEST_BANNER}`)
-      .then((res) => {
-        setBannerData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    RequestBanner()
+      .then((res) => setBannerData(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
-  const getSize:any = async (url: string) => {
-    
+  const getSize: any = async (url: string) => {
     const size = await getImageSize(url);
     return size;
-
   };
 
   return (
@@ -69,8 +63,16 @@ function MainBanner() {
                     <div className="event-banner__item__img">
                       <Image
                         src={bannerInfo.bannerImage}
-                        width={getSize(bannerInfo.bannerImage).width === undefined ? 800 : getSize(bannerInfo.bannerImage).width }
-                        height={getSize(bannerInfo.bannerImage).height === undefined ? 800 : getSize(bannerInfo.bannerImage).height}
+                        width={
+                          getSize(bannerInfo.bannerImage).width === undefined
+                            ? 800
+                            : getSize(bannerInfo.bannerImage).width
+                        }
+                        height={
+                          getSize(bannerInfo.bannerImage).height === undefined
+                            ? 800
+                            : getSize(bannerInfo.bannerImage).height
+                        }
                         alt={bannerInfo.bannerImage}
                       />
                     </div>

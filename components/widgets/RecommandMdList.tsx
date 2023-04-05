@@ -9,20 +9,18 @@ import {
   eventData,
   eventProductRes,
 } from "@/constants/Apis/Types/ResponseType";
+import { RequestRecommendProduct } from "@/Service/ProductService/ProductService";
 
 function RecommandMdList(props: { data: eventData; title?: string }) {
   const { baseUrl } = Config();
   const [recommandData, setRecommandData] = useState<BaseRes>({} as BaseRes);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/${REQUEST_RECOMMEND_READ}?recommendId=${props.data.id}`)
+    RequestRecommendProduct(props.data.id)
       .then((res) => {
-        setRecommandData(res.data);
+        setRecommandData(res);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, [props, baseUrl]);
 
   return (

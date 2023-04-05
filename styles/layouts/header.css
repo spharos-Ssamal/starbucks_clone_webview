@@ -58,7 +58,6 @@
 
 .header-bottom {
   box-shadow: 0 3px 5px 0 rgba(139, 139, 139, 0.08);
-
 }
 .header-bottom nav ul {
   opacity: 0.8;
@@ -67,6 +66,7 @@
   align-items: center;
   padding: 0px;
   margin: 0px;
+  font-size: 0.9rem;
 }
 
 .header-bottom nav ul li {

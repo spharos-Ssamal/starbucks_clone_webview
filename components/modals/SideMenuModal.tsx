@@ -1,6 +1,7 @@
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
