@@ -1,13 +1,29 @@
+import { RequestGetUserInfo } from "@/Service/UserService/UserService";
 import LoginToAction from "@/components/page/mypage/loginToAction";
 import Config from "@/configs/config.export";
 import { userLoginState } from "@/state/user/atom/userLoginState";
+import { UserInfoRes } from "@/state/user/type/UserInfo";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 export default function MyPage() {
   const { baseUrl } = Config();
   const isLogin = useRecoilValue(userLoginState);
+  const [userInfo, setUserInfo] = useState<UserInfoRes>();
   const router = useRouter();
+
+  useEffect(() => {
+    RequestGetUserInfo(isLogin.userId)
+      .then((res) => {
+        const result: UserInfoRes = res.data;
+        setUserInfo(result);
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  }, []);
 
   return (
     <>
@@ -15,10 +31,9 @@ export default function MyPage() {
         <>
           <section id="order-status">
             <div>
-              <h2>주문/배송 현황</h2>
-              <p>최근 3개월 동안 구매한 상품</p>
+              <h2>{userInfo?.userNickname} 님 환영합니다.</h2>
             </div>
-            <div className="order-status-container">
+            {/* <div className="order-status-container">
               <div className="status-item">
                 <p className="status-count" id="status-prepared-count">
                   0
@@ -61,7 +76,7 @@ export default function MyPage() {
                 </p>
                 <p>배송완료</p>
               </div>
-            </div>
+            </div> */}
           </section>
           <section className="management">
             <div id="service">
@@ -82,7 +97,15 @@ export default function MyPage() {
                 </a>
               </div>
               <div className="menu" id="giftbox">
-                <a href="/선물함">
+                <a
+                  onClick={() => {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "아직 개발되지 않았습니다.",
+                      text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                    });
+                  }}
+                >
                   <div className="menu-info">
                     <img
                       className="icon"
@@ -97,7 +120,15 @@ export default function MyPage() {
                 </a>
               </div>
               <div className="menu">
-                <a href="/쿠폰">
+                <a
+                  onClick={() => {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "아직 개발되지 않았습니다.",
+                      text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                    });
+                  }}
+                >
                   <div className="menu-info">
                     <img
                       className="icon"
@@ -127,7 +158,15 @@ export default function MyPage() {
                 </a>
               </div>
               <div className="menu" id="receiving-notification">
-                <a href="/입고알림내역">
+                <a
+                  onClick={() => {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "아직 개발되지 않았습니다.",
+                      text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                    });
+                  }}
+                >
                   <div className="menu-info">
                     <img
                       className="icon"
@@ -145,7 +184,15 @@ export default function MyPage() {
             <div id="policy">
               <h2>약관 및 정책</h2>
               <div className="menu" id="consent">
-                <a href="/이용동의">
+                <a
+                  onClick={() => {
+                    Swal.fire({
+                      icon: "warning",
+                      title: "아직 개발되지 않았습니다.",
+                      text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                    });
+                  }}
+                >
                   <div className="menu-info">
                     <img
                       className="icon"

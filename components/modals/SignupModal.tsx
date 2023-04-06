@@ -67,21 +67,30 @@ export default function SignupModal({
   if (!isSignupModalOpen) return null;
 
   return (
-    <div className="modalWrap">
-      <div>
-        <div onClick={() => setIsSignupModalOpen(false)}>
-          <img src="/assets/images/icons/left.png" className="back-button" />
-        </div>
-      </div>
-      {steps[stepId - 1][stepId]}
-      <section className="submit-container">
-        <StButton
-          buttonText="NEXT"
-          textSize="1.1rem"
-          handler={handleStepNext}
-          type={"button"}
-        />
-      </section>
-    </div>
+    <>
+      {isSignupModalOpen && (
+        <>
+          <div className="modalWrapOver">
+            <div>
+              <div onClick={() => setIsSignupModalOpen(false)}>
+                <img
+                  src="/assets/images/icons/left.png"
+                  className="back-button"
+                />
+              </div>
+            </div>
+            {steps[stepId - 1][stepId]}
+            <section className="submit-container">
+              <StButton
+                buttonText="NEXT"
+                textSize="1.1rem"
+                handler={handleStepNext}
+                type={"button"}
+              />
+            </section>
+          </div>
+        </>
+      )}
+    </>
   );
 }

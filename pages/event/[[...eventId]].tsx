@@ -102,7 +102,12 @@ export default function Event() {
       <Head>
         <title>기획전</title>
       </Head>
-      <div className="header-sub">
+      <div
+        className="header-sub"
+        style={{
+          margin: "90px 0 0 0",
+        }}
+      >
         <nav>
           <ul>
             {activeEvent &&

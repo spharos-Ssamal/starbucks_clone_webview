@@ -8,6 +8,7 @@ export const REQUEST_DUPLICATE_CHECK_ID = "api/v1/user/username/confirm";
 export const REQUEST_DUPLICATE_CHECK_NICKNAME =
   "api/v1/user/userNickname/confirm";
 export const REQUEST_CONFIRM_EMAIL = "api/v1/user/email/confirm";
+export const REQUEST_GET_USER_INFO = "api/v1/user/info";
 
 export const REQUEST_BANNER = "api/v1/banner";
 export const REQUEST_EVENT_ACTIVE = "api/v1/event/active";
