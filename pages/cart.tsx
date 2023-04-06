@@ -12,6 +12,7 @@ import { cartListState } from "@/state/cart/atom/cartListState";
 import Nodata from "@/components/ui/Nodata";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import { RequestCartGet } from "@/Service/CartService/CartService";
+import LoginToAction from "@/components/page/mypage/loginToAction";
 
 function Cart() {
   const router = useRouter();
@@ -22,16 +23,21 @@ function Cart() {
   const [amountOfPrice, setAmountOfPrice] = useState(0);
   const [numOfProduct, setNumOfProduct] = useState(0);
 
+  if (!isLogin.isLogin) {
+    Swal.fire({
+      text: "로그인이 필요한 서비스입니다!",
+      color: "#fff",
+      background: "#009b39",
+      toast: true,
+      showConfirmButton: false,
+      position: "bottom",
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  return (
+    <LoginToAction />
+  )}
   useEffect(() => {
-    if (!isLogin.isLogin) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "로그인 페이지로 이동합니다",
-      });
-
-      router.push("/login");
-    } else {
       RequestCartGet(isLogin.userId)
         .then((res) => {
           setCartList({
@@ -46,7 +52,6 @@ function Cart() {
         .catch((err) => {
           console.log(err);
         });
-    }
   }, []);
 
   return (

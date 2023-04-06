@@ -14,6 +14,21 @@ export default function MyPage() {
   const [userInfo, setUserInfo] = useState<UserInfoRes>();
   const router = useRouter();
 
+  if (!isLogin.isLogin) {
+    Swal.fire({
+      text: "로그인이 필요한 서비스입니다!",
+      color: "#fff",
+      background: "#009b39",
+      toast: true,
+      showConfirmButton: false,
+      position: "bottom",
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  return (
+    <LoginToAction />
+  )}
+
   useEffect(() => {
     RequestGetUserInfo(isLogin.userId)
       .then((res) => {
@@ -27,8 +42,7 @@ export default function MyPage() {
 
   return (
     <>
-      {isLogin.isLogin ? (
-        <>
+      
           <section id="order-status">
             <div>
               <h2>{userInfo?.userNickname} 님 환영합니다.</h2>
@@ -208,10 +222,7 @@ export default function MyPage() {
               </div>
             </div>
           </section>
-        </>
-      ) : (
-        <LoginToAction />
-      )}
+       
     </>
   );
 }

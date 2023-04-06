@@ -10,6 +10,7 @@ import { RequestLogout } from "@/Service/AuthService/AuthService";
 import Swal from "sweetalert2";
 import { UserAuthInfo } from "@/state/user/type/UserInfo";
 
+
 export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
   const [isLogin, setIsLogin] = useRecoilState<UserAuthInfo>(userLoginState);
@@ -61,8 +62,8 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          <li onClick={() => router.push("/cart")}>
-            <p className="cart-badge">{cartCnt}</p>
+          <li onClick={()=>router.push('/cart')}>
+            {isLogin.isLogin && <p className="cart-badge">{cartCnt}</p> }
             <Image
               src="/assets/images/icons/shopping-cart.svg"
               width={20}
