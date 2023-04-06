@@ -6,9 +6,7 @@ import { SearchModal } from "../modals/SearchModal";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { userLoginState } from "@/state/user/atom/userLoginState";
-import { RequestLogout } from "@/Service/AuthService/AuthService";
 import Swal from "sweetalert2";
-import { UserAuthInfo } from "@/state/user/type/UserInfo";
 
 
 export default function HeaderTopRightIcons() {
@@ -17,31 +15,22 @@ export default function HeaderTopRightIcons() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  const onClickLogout = () => {
+  const handleLogout = () => {
     Swal.fire({
-      icon: "question",
-      title: "로그아웃",
       text: "로그아웃 하시겠습니까?",
-      showCancelButton: true,
+      background: "#fff",
+      color: "#009b39",
+      showDenyButton: true,
+      denyButtonColor: "#000",
+      showCancelButton: false,
       confirmButtonColor: "#009b39",
-      confirmButtonText: "네",
-      cancelButtonText: "아니오",
-    }).then((res) => {
-      if (res.isConfirmed) {
-        RequestLogout().then((res) => {
-          Swal.fire({
-            icon: "success",
-            title: "로그아웃!",
-            text: "로그아웃 되었습니다.",
-          });
-          setIsLogin({ userId: "", isLogin: false });
-        });
-      } else {
-        Swal.fire({
-          icon: "info",
-          title: "^^",
-          text: "스타벅스와 좀 더 즐거운 시간을 보내봐요 *^^*",
-        });
+      confirmButtonText: `확인`,
+      denyButtonText: `취소`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // logout
+        router.push("/");
+
       }
     });
   };
@@ -62,8 +51,9 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          <li onClick={()=>router.push('/cart')}>
-            {isLogin.isLogin && <p className="cart-badge">{cartCnt}</p> }
+          <li>
+            {isLogin.isLogin && cartCnt > 0 ?  <p className="cart-badge">{cartCnt}</p> : ""}
+
             <Image
               src="/assets/images/icons/shopping-cart.svg"
               width={20}
@@ -71,29 +61,23 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          {isLogin.isLogin ? (
-            <>
-              <li onClick={onClickLogout}>
-                <Image
-                  src="/assets/images/icons/close.png"
-                  alt=""
-                  width={20}
-                  height={20}
-                />
-              </li>
-            </>
-          ) : (
-            <>
-              <li onClick={() => router.push("/login")}>
-                <Image
-                  src="/assets/images/icons/user.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                />
-              </li>
-            </>
-          )}
+          {
+            isLogin.isLogin ? ( <li onClick={handleLogout}>
+            <Image
+              src="/assets/images/icons/logout.svg"
+              alt=""
+              width={40}
+              height={40}
+            />
+          </li> ) : ( <li onClick={() => router.push("/login")}>
+            <Image
+              src="/assets/images/icons/user.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          </li>)
+          }
         </ul>
       </nav>
     </div>

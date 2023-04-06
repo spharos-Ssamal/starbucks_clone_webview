@@ -9,11 +9,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { headerMenu } from "@/Types/starbucksTypes";
 
 import { headerNavMenus } from "../../data/starbucksStaticDatas";
-import { userIsLogin } from "@/state/user/atom/userIsLoginState";
 import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
 import SideMenuModal from "../modals/SideMenuModal";
+import CongratulationAnimation from "../modals/CongratulationAnimation";
+import { userLoginState } from "@/state/user/atom/userLoginState";
 import { cartState } from "@/state/cart/atom/cartState";
 import { cartListState } from "@/state/cart/atom/cartListState";
 import { cartType } from "@/Types/cart/cartListType";
@@ -25,7 +26,7 @@ import { cartType } from "@/Types/cart/cartListType";
 // });
 
 function Header() {
-  const isLogin = useRecoilValue(userIsLogin);
+
   const [cartAmount, setCartState] = useRecoilState(cartState);
   const cartData = useRecoilValue<cartType>(cartListState);
 
@@ -78,7 +79,7 @@ function Header() {
         isModalOpen={isSideMenuOpen}
         closeModal={handleSideMenuClose}
       />
-
+      
       <header>
         <div className="header-top">
           {backButtonList.includes(pathname, 0) ? (

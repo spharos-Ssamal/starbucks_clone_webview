@@ -127,3 +127,8 @@ h1 {
   }
 }
 
+.error-message {
+  color: red;
+  font-size: 0.7rem;
+  margin-top: -1.7rem;
+}
