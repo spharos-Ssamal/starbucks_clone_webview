@@ -70,7 +70,6 @@ function Header() {
 
   return (
     <>
-      {/* <LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
       <SignupModal
         isSignupModalOpen={isSignupModalOpen}
         setIsSignupModalOpen={setIsSignupModalOpen}

@@ -17,11 +17,9 @@ export default function PurchaseList() {
       getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-05-01").then(
         (res) => {
           const result: PurchaseHistory[] = res.data.histories;
-          console.log(result);
           setPurchaseHistory([...result]);
         }
       );
-      console.log(purchaseHistory);
     }
   }, []);
 
@@ -78,9 +76,9 @@ export default function PurchaseList() {
       </section>
       <section className="purchase-list-product">주문 내역이 없습니다.</section>
       {purchaseHistory &&
-        purchaseHistory.map((element, idx) => (
+        purchaseHistory.map((element) => (
           <CardProduct
-            key={element.historyId + idx}
+            key={"PurchasedProduct " + element.historyId}
             historyId={element.historyId}
             date={element.date}
             purchaseProductInfo={element.productInfoList}

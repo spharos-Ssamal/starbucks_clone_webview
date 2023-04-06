@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 import { cartListType, cartType } from "@/Types/cart/cartListType";
 import Swal from "sweetalert2";
 import CartFooter from "@/components/page/cart/CartFooter";

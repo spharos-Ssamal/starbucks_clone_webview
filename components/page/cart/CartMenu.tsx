@@ -26,35 +26,48 @@ export default function CartMenu() {
   }, [cartList]);
 
   const deleteCartItem = (list: number[]) => {
-    let cartListNow = cartList.cartList;
-    let cartListFreezeNow = cartList.cartListFreeze;
+    Swal.fire({
+      title: "알림",
+      text: "정말 삭제하시겠습니까?",
+      icon: "question",
 
-    list.forEach(async (e) => {
-      await RequestCartDelete(e)
-        .then((res) => {
-          const deletedId: number = res.data;
-          console.log(deletedId);
-          cartListNow = cartListNow.filter((e) => e.id !== deletedId);
-          cartListFreezeNow = cartListFreezeNow.filter(
-            (e) => e.id !== deletedId
-          );
-        })
-        .then(() => {
-          setCartList({
-            ...cartList,
-            cartList: cartListNow,
-            cartListFreeze: cartListFreezeNow,
-          });
-        })
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "성공!",
-            text: "장바구니 상품을 삭제했습니다.",
-            timer: 2000,
-          });
-        })
-        .catch((ex) => console.log(ex));
+      showCancelButton: true,
+      confirmButtonColor: "#009b39",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        let cartListNow = cartList.cartList;
+        let cartListFreezeNow = cartList.cartListFreeze;
+
+        list.forEach(async (e) => {
+          await RequestCartDelete(e)
+            .then((res) => {
+              const deletedId: number = res.data;
+              console.log(deletedId);
+              cartListNow = cartListNow.filter((e) => e.id !== deletedId);
+              cartListFreezeNow = cartListFreezeNow.filter(
+                (e) => e.id !== deletedId
+              );
+            })
+            .then(() => {
+              setCartList({
+                ...cartList,
+                cartList: cartListNow,
+                cartListFreeze: cartListFreezeNow,
+              });
+            })
+            .then(() => {
+              Swal.fire({
+                icon: "success",
+                title: "성공!",
+                text: "장바구니 상품을 삭제했습니다.",
+                timer: 2000,
+              });
+            })
+            .catch((ex) => console.log(ex));
+        });
+      }
     });
   };
 

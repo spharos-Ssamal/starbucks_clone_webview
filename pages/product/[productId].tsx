@@ -1,29 +1,34 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
 import Config from "@/configs/config.export";
-import axios from "axios";
 import { getImageSize } from "react-image-size";
 
 import RecommandMdList from "@/components/widgets/RecommandMdList";
 import EventMdList from "@/components/widgets/EventMdList";
 
-import { productResponseDetailImages } from "@/Types/Product/Response";
+import {
+  GetProductDetailInfoRes,
+  productResponseDetailImages,
+} from "@/Types/Product/Response";
 import { eventData } from "@/constants/Apis/Types/ResponseType";
 import { imageType } from "@/Types/image/imageType";
-import { productDataType } from "@/Types/starbucksTypes";
 import PageDetailInfoCommon from "@/components/widgets/PageDetailInfoCommon";
 import ProductHeader from "@/components/page/product/ProductHeader";
 import ProductDetailList from "@/components/page/product/ProductDetailList";
-import { REQUEST_PRODUCT_READ } from "@/constants/Apis/URL";
 import ProductOrderSection from "@/components/page/product/ProductOrderSection";
+import {
+  RequestEventActive,
+  RequestGetProductDetailInfo,
+  RequestRecommendActive,
+} from "@/Service/ProductService/ProductService";
+import { ProductInfo } from "@/Types/Product/Request";
 
 export default function Product() {
   const { query } = useRouter();
   const { baseUrl } = Config();
 
-  const [productData, setProductData] = useState<productDataType>();
+  const [productData, setProductData] = useState<ProductInfo>();
   const [productImages, setProductImages] = useState<
     productResponseDetailImages[]
   >([]);
@@ -39,55 +44,52 @@ export default function Product() {
   });
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/${REQUEST_PRODUCT_READ}?productId=${query.productId}`)
-      .then((res) => {
-        console.log("productdata", res.data);
-        setProductData(res.data.data.productInfo);
-        console.log(getImageSize(res.data.data.productInfo.thumbnail));
-        getImageSize(res.data.data.productInfo.thumbnail).then((size) => {
-          console.log(size);
-          setImportImgSize({
-            width: size.width,
-            height: size.height,
-          });
-        });
-        let images: productResponseDetailImages[] = [];
-        res.data.data.imageList.map(
-          async (item: productResponseDetailImages) => {
-            const { width, height } = await getImageSize(item.imageUrl);
-            images.push({
-              id: item.id,
-              imageUrl: item.imageUrl,
-              width: width,
-              height: height,
+    if (typeof query.productId === "string") {
+      RequestGetProductDetailInfo(parseInt(query.productId))
+        .then((res) => {
+          const productInfoResult: GetProductDetailInfoRes = res.data;
+
+          setProductData(productInfoResult.productInfo);
+          getImageSize(productInfoResult.productInfo.thumbnail).then((size) => {
+            setImportImgSize({
+              width: size.width,
+              height: size.height,
             });
-          }
-        );
-        setProductImages(images);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          });
+          let images: productResponseDetailImages[] = [];
+          productInfoResult.imageList.forEach(
+            async (item: productResponseDetailImages) => {
+              const { width, height } = await getImageSize(item.imageUrl);
+              images.push({
+                id: item.id,
+                imageUrl: item.imageUrl,
+                width: width,
+                height: height,
+              });
+            }
+          );
+          setProductImages(images);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [baseUrl, query.productId]);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/api/v1/recommend/active`)
+    RequestRecommendActive()
       .then((res) => {
-        console.log(res);
-        let rndNumber = Math.floor(Math.random() * res.data.data.length);
-        setRecommandData(res.data.data[rndNumber]);
+        let rndNumber = Math.floor(Math.random() * res.data.length);
+        setRecommandData(res.data[rndNumber]);
       })
       .catch((err) => {
         console.log(err);
       });
-    axios
-      .get(`${baseUrl}/api/v1/event/active`)
+
+    RequestEventActive()
       .then((res) => {
-        console.log(res);
-        let rndNumber = Math.floor(Math.random() * res.data.data.length);
-        setViewByOthersData(res.data.data[rndNumber]);
+        let rndNumber = Math.floor(Math.random() * res.data.length);
+        setViewByOthersData(res.data[rndNumber]);
       })
       .catch((err) => {
         console.log(err);

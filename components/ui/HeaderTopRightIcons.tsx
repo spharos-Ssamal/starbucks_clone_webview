@@ -17,14 +17,31 @@ export default function HeaderTopRightIcons() {
   const router = useRouter();
 
   const onClickLogout = () => {
-    RequestLogout().then((res) => {
-      Swal.fire({
-        icon: "success",
-        title: "로그아웃!",
-        text: "로그아웃 되었습니다.",
-      });
-
-      setIsLogin({ userId: "", isLogin: false });
+    Swal.fire({
+      icon: "question",
+      title: "로그아웃",
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonColor: "#009b39",
+      confirmButtonText: "네",
+      cancelButtonText: "아니오",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        RequestLogout().then((res) => {
+          Swal.fire({
+            icon: "success",
+            title: "로그아웃!",
+            text: "로그아웃 되었습니다.",
+          });
+          setIsLogin({ userId: "", isLogin: false });
+        });
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "^^",
+          text: "스타벅스와 좀 더 즐거운 시간을 보내봐요 *^^*",
+        });
+      }
     });
   };
 

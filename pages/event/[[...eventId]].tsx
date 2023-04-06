@@ -1,21 +1,12 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-  LiHTMLAttributes,
-  DetailedHTMLProps,
-  LegacyRef,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
-import axios from "axios";
 import Config from "@/configs/config.export";
-import { REQUEST_EVENT_ACTIVE } from "@/constants/Apis/URL";
 import ActiveEventBanner from "@/components/layouts/ActiveEventBanner";
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper.min.css";
 import { useRouter } from "next/router";
+import { RequestEventActive } from "@/Service/EventService/EventService";
 
 interface activeEventRes {
   id: number;
@@ -52,10 +43,9 @@ export default function Event() {
   };
 
   const fetchEventActive = useCallback(async () => {
-    axios
-      .get(`${baseUrl}/${REQUEST_EVENT_ACTIVE}`)
+    RequestEventActive()
       .then((res) => {
-        const result: activeEventRes[] = res.data.data;
+        const result: activeEventRes[] = res.data;
         if (result.length != 0 && result != undefined) {
           setActiveEvent([...result]);
         }
@@ -143,7 +133,10 @@ export default function Event() {
           {activeEvent &&
             activeEvent.map((element, idx) => (
               <SwiperSlide key={"eventBanner " + element.id}>
-                <ActiveEventBanner key={element.name} id={element.id} />
+                <ActiveEventBanner
+                  key={"ActiveEventBanner " + element.name}
+                  id={element.id}
+                />
               </SwiperSlide>
             ))}
         </Swiper>

@@ -105,6 +105,23 @@
   font-size: 0.8rem;
 }
 
+#purchaseDetail-address-info {
+  margin-bottom: 0px;
+  padding: 30px 14px;
+  background-color: var(--color-white);
+  border-top: 10px solid var(--color-gray-background);
+}
+
+#purchaseDetail-address-info .address {
+  padding: 10px 0px;
+}
+
+#purchaseDetail-address-info .purchaseDetail-address-info-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
 #purchaseDetail-pay-info {
   margin-bottom: 0px;
   padding: 30px 14px;
