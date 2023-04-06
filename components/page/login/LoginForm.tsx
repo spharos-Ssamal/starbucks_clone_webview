@@ -1,4 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { useRecoilState } from "recoil";
+import router from "next/router";
 import Link from "next/link";
 
 import Config from "@/configs/config.export";
@@ -35,9 +37,7 @@ export default function LoginForm(props: { inputData: LoginReq; setInputData: Fu
     props.setInputData({ ...props.inputData, [name]: value });
   };
 
- 
 
-  
   return (
     <>
       <div>
@@ -58,9 +58,9 @@ export default function LoginForm(props: { inputData: LoginReq; setInputData: Fu
             <p className="error-message">{isError.password}</p>
         </div>
         <div id="login-service">
-          <Link href={"/"}>아이디 찾기</Link>
-          <Link href={"/"}>비밀번호 찾기</Link>
-          <Link href={"/"}>회원가입</Link>
+          <a>아이디 찾기</a>
+          <a>비밀번호 찾기</a>
+          <a onClick={() => props.setIsSignupModalOpen(true)}> 회원가입</a>
         </div>
       </div>
     </>

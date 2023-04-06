@@ -18,11 +18,9 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MainBanner() {
   const router = useRouter();
-  const { baseUrl } = Config();
   const [bannerData, setBannerData] = useState<bannerInfo[]>([]);
 
   const onClickBanner = (bannerInfo: bannerInfo) => {
-    console.log(bannerInfo);
     if (bannerInfo.eventId !== null) {
       router.push(`/event/${bannerInfo.eventId}`);
     } else if (bannerInfo.recommendId !== null) {

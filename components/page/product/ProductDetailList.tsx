@@ -14,10 +14,6 @@ export default function ProductDetailList(props: {
       <p>상품 정보</p>
       {props.productImages || props.productImages > 0 ? (
         props.productImages.map((item: productResponseDetailImages) => {
-          getImageSize(item.imageUrl).then((size) => {
-            console.log(size);
-          });
-
           return (
             <Image
               key={item.id}

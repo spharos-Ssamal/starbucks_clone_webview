@@ -1,9 +1,9 @@
-import router, { useRouter } from 'next/router';
-import Head from 'next/head';
-import LoginForm from '@/components/page/login/LoginForm';
-import LoginTop from '@/components/page/login/LoginTop';
-import NavigationButton from '@/components/ui/NavigationButton';
-import StButton from '@/components/ui/StButton';
+import router, { useRouter } from "next/router";
+import Head from "next/head";
+import LoginForm from "@/components/page/login/LoginForm";
+import LoginTop from "@/components/page/login/LoginTop";
+import NavigationButton from "@/components/ui/NavigationButton";
+import StButton from "@/components/ui/StButton";
 
 import { UserInfo } from "@/state/user/type/UserInfo";
 import { useRecoilState } from 'recoil';
@@ -34,7 +34,7 @@ export default function LoginModal() {
   });
 
   const handleSubmit = () => {
-    
+
     if (inputData.userEmail !== "" && inputData.password !== "") {
     
       RequestLogin({
@@ -86,7 +86,6 @@ export default function LoginModal() {
     }
   };
 
-
   return (
 
     <div className='modalWrap'>
@@ -110,6 +109,6 @@ export default function LoginModal() {
       <div className="submit-container">
         <StButton type='button' buttonText="로그인하기" textSize="0.9rem" handler={handleSubmit}/>
       </div>
-    </div>
+    </>
   );
 }

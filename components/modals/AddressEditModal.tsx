@@ -135,7 +135,7 @@ export default function AddressEditModal(props: Props) {
   return (
     <>
       {isModalOpen && (
-        <div className="modalWrap">
+        <div className="modalWrapOver">
           <section id="info-header">
             <div>
               <img
@@ -219,8 +219,6 @@ export default function AddressEditModal(props: Props) {
                   name="shippingMemo"
                   onChange={(e) => {
                     const { name, value } = e.target;
-                    console.log(name);
-                    console.log(value);
                     setAddressInfo({
                       ...addressInfo,
                       [name]: value,

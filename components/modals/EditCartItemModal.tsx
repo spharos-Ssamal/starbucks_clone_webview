@@ -40,56 +40,71 @@ export default function EditCartItemModal(props: Props) {
     if (
       cartData.cartList.findIndex((e) => e.id === props.cartItemInfo.id) !== -1
     ) {
-      updateProductItemCountRequest();
-      setCartData({
-        ...cartData,
-        cartList: cartData.cartList.map((element) => {
-          if (element.id === props.cartItemInfo.id) {
-            return {
-              id: element.id,
-              frozen: element.frozen,
-              count: countOf,
-              check: element.check,
-              product: element.product,
-            };
-          } else {
-            return element;
-          }
-        }),
-      });
-
       Swal.fire({
-        icon: "success",
-        text: "데이터가 변경 되었습니다.",
-      });
-    } else if (
-      cartData.cartListFreeze.findIndex(
-        (e) => e.id === props.cartItemInfo.id
-      ) !== -1
-    ) {
-      updateProductItemCountRequest();
-      setCartData({
-        ...cartData,
-        cartListFreeze: cartData.cartListFreeze.map((element) => {
-          if (element.id === props.cartItemInfo.id) {
-            return {
-              id: element.id,
-              frozen: element.frozen,
-              count: countOf,
-              check: element.check,
-              product: element.product,
-            };
-          } else {
-            return element;
-          }
-        }),
-      });
+        title: "알림",
+        text: "정말 변경하시겠습니까?",
+        icon: "question",
 
-      Swal.fire({
-        icon: "success",
-        text: "데이터가 변경 되었습니다.",
+        showCancelButton: true,
+        confirmButtonColor: "#009b39",
+        confirmButtonText: "승인",
+        cancelButtonText: "취소",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          updateProductItemCountRequest();
+          setCartData({
+            ...cartData,
+            cartList: cartData.cartList.map((element) => {
+              if (element.id === props.cartItemInfo.id) {
+                return {
+                  id: element.id,
+                  frozen: element.frozen,
+                  count: countOf,
+                  check: element.check,
+                  product: element.product,
+                };
+              } else {
+                return element;
+              }
+            }),
+          });
+
+          Swal.fire({
+            icon: "success",
+            title: "success!",
+            text: "상품 갯수가 변경 되었습니다.",
+          });
+        } else if (
+          cartData.cartListFreeze.findIndex(
+            (e) => e.id === props.cartItemInfo.id
+          ) !== -1
+        ) {
+          updateProductItemCountRequest();
+          setCartData({
+            ...cartData,
+            cartListFreeze: cartData.cartListFreeze.map((element) => {
+              if (element.id === props.cartItemInfo.id) {
+                return {
+                  id: element.id,
+                  frozen: element.frozen,
+                  count: countOf,
+                  check: element.check,
+                  product: element.product,
+                };
+              } else {
+                return element;
+              }
+            }),
+          });
+
+          Swal.fire({
+            icon: "success",
+            title: "success!",
+            text: "삼품 갯수가 변경 되었습니다.",
+          });
+          props.setIsModalOpen(false);
+        }
       });
-      props.setIsModalOpen(false);
     }
   };
 

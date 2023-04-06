@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import Config from "@/configs/config.export";
-import { REQUEST_BANNER, REQUEST_EVENT_GET } from "@/constants/Apis/URL";
-import axios from "axios";
 import { ProductInfo } from "@/Types/Product/Request";
 import ProductCard from "../ui/ProductCard";
+import { RequestEvent } from "@/Service/EventService/EventService";
 
 interface EventBannerProp {
   id: number;
@@ -25,12 +24,9 @@ export default function ActiveEventBanner(props: EventBannerProp) {
   const [activeEventData, setActiveEventData] = useState<EventDetailInfo[]>([]);
 
   const fetchEventDetail = useCallback(async () => {
-    axios
-      .get(`${baseUrl}/${REQUEST_EVENT_GET}`, {
-        params: { eventId: props.id },
-      })
+    RequestEvent(props.id)
       .then((res) => {
-        const result: EventDetailRes = res.data.data;
+        const result: EventDetailRes = res.data;
         setDetailImage(result.detailImage);
         setActiveEventData(result.eventProductRes);
       })

@@ -1,7 +1,6 @@
 import { RequestDeleteAddress } from "@/Service/AddressService/AddressService";
 import { AddressDataType } from "@/Types/address/AddressType";
 import AddressEditModal from "@/components/modals/AddressEditModal";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -11,8 +10,6 @@ type Props = {
 };
 
 export default function AddressCard({ Address, fetchUserAddress }: Props) {
-  const router = useRouter();
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const modalClose = () => {

@@ -16,12 +16,14 @@ export function CardProduct(prop: Prop) {
     <section id="purchase-card">
       <div className="flex">
         <div className="bold">{date}</div>
-        <div className="right">
+        <div
+          className="right"
+          onClick={() => {
+            router.push(`/purchaseDetail/${historyId}`);
+          }}
+        >
           주문 상세
           <img
-            onClick={() => {
-              router.push(`/purchaseDetail/${historyId}`);
-            }}
             className="arrow"
             src="/assets/images/icons/arrow-point-to-right.png"
           />

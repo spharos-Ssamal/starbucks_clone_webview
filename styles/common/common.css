@@ -33,7 +33,6 @@ h1 {
 .first-section-sub-one {
 }
 
-
 #starbucks-logo {
   width: 80px;
 }
@@ -73,6 +72,18 @@ h1 {
   height: 100%;
   background-color: white;
   z-index: 101;
+}
+
+.modalWrap .exitDiv {
+  width: 30px;
+  height: 30px;
+}
+
+.modalWrap div img {
+  width: 20px;
+  height: auto;
+  margin: 15px 15px 15px 15px;
+  opacity: 0.5;
 }
 
 .modalWrapOver {

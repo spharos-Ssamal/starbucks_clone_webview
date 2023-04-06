@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import RecommandProductCard from "../ui/RecommandProductCard";
 
-import axios from "axios";
 import Config from "@/configs/config.export";
-import { REQUEST_RECOMMEND_READ } from "@/constants/Apis/URL";
 import {
   BaseRes,
   eventData,

@@ -146,7 +146,15 @@ export default function ProductOrderSection(props: Props) {
               alt="cart"
               onClick={onClickCart}
             />
-            <OrderButton38widthColorReverse>
+            <OrderButton38widthColorReverse
+              onClick={() => {
+                Swal.fire({
+                  icon: "warning",
+                  title: "아직 개발되지 않았습니다.",
+                  text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                });
+              }}
+            >
               선물하기
             </OrderButton38widthColorReverse>
             <OrderButton35width onClick={onClickPurchase}>

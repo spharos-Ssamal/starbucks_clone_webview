@@ -1,16 +1,18 @@
-import React, { useState } from "react";
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
+import Link from "next/link";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState } from "@/state/cart/atom/cartState";
 import { SearchModal } from "../modals/SearchModal";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Swal from "sweetalert2";
 
+
 export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
+  const [isLogin, setIsLogin] = useRecoilState<UserAuthInfo>(userLoginState);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
-  const isLogin = useRecoilValue(userLoginState);
   const router = useRouter();
 
   const handleLogout = () => {
@@ -28,6 +30,7 @@ export default function HeaderTopRightIcons() {
       if (result.isConfirmed) {
         // logout
         router.push("/");
+
       }
     });
   };
@@ -50,8 +53,8 @@ export default function HeaderTopRightIcons() {
           </li>
           <li>
             {isLogin.isLogin && cartCnt > 0 ?  <p className="cart-badge">{cartCnt}</p> : ""}
+
             <Image
-              onClick={() => router.push("/cart")}
               src="/assets/images/icons/shopping-cart.svg"
               width={20}
               height={20}
@@ -75,7 +78,6 @@ export default function HeaderTopRightIcons() {
             />
           </li>)
           }
-          
         </ul>
       </nav>
     </div>
