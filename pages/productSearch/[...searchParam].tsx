@@ -368,7 +368,7 @@ export default function ProductLookup() {
             next={fetchData}
             style={{ display: "flex", flexDirection: "column-reverse" }}
             hasMore={hasMore}
-            loader={<h4>loading</h4>}
+            loader={<h4></h4>}
           >
             <div className="product-container">
               {products.length != 0 ? (
