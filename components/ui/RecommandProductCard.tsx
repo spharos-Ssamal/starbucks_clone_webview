@@ -30,7 +30,6 @@ export default function RecommandProductCard(props: { data: eventProductRes }) {
         </Link>
       </div>
       <div className="recommand-product-item__info">
-        <p className="item-new">New</p>
         <p className="item-title">{props.data.products.name}</p>
         <p className="item-price">
           <span>{props.data.products.price.toLocaleString()}</span>원{" "}

@@ -82,7 +82,6 @@ export default function ProductLookup() {
   const fetchSeasonData = () => {
     getSeasonInfo()
       .then((res) => {
-        console.log(res);
         setSeasonMenuData([...res.data.seasonInfo]);
       })
       .catch((ex) => {
@@ -91,7 +90,6 @@ export default function ProductLookup() {
   };
 
   const fetchProductData = (param: string) => {
-    console.log(param);
     if (filterParams.searchOption === SEARCH_OPTION_STORE) {
       fetchProductDataInStore(param);
     } else if (filterParams.searchOption === SEARCH_OPTION_PRODUCT_NAME) {
@@ -165,7 +163,6 @@ export default function ProductLookup() {
       });
       setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
     });
-    console.log("setup All categories");
   };
 
   const setupSubCategoryFilter = (subCategoryId: number) => {
@@ -223,8 +220,6 @@ export default function ProductLookup() {
 
     queryUrl += `&page=${pageNo}&size=6&sort=${sortOption}`;
 
-    console.log("Query : " + queryUrl);
-
     return queryUrl;
   };
 
@@ -253,7 +248,6 @@ export default function ProductLookup() {
   }, []);
 
   useEffect(() => {
-    console.log(router);
     if (router.query.category) {
       if (
         router.query.category !== "1" &&
@@ -334,42 +328,45 @@ export default function ProductLookup() {
         )}
         <SeasonFilterList data={seasonMenuData} setPageNo={setPageNo} />
       </div>
-      <div className="searchResultContent">
-        <div className="content-order">
-          <select id="xyz" onChange={handleOnChangeSelect}>
-            <option value={ORDER_BY_PRODUCT_ID_DESC}>신상품순</option>
-            <option value={ORDER_BY_PRODUCT_PRICE_ASC}>낮은가격순</option>
-            <option value={ORDER_BY_PRODUCT_PRICE_DESC}>높은가격순</option>
-          </select>
+
+      {products.length !== 0 ? (
+        <div className="searchResultContent">
+          <div className="content-order">
+            <select id="xyz" onChange={handleOnChangeSelect}>
+              <option value={ORDER_BY_PRODUCT_ID_DESC}>신상품순</option>
+              <option value={ORDER_BY_PRODUCT_PRICE_ASC}>낮은가격순</option>
+              <option value={ORDER_BY_PRODUCT_PRICE_DESC}>높은가격순</option>
+            </select>
+          </div>
+
+          <section className="searchResultProduct">
+            <InfiniteScroll
+              dataLength={products.length}
+              next={fetchData}
+              style={{ display: "flex", flexDirection: "column-reverse" }}
+              hasMore={hasMore}
+              loader={<h4></h4>}
+            >
+              <div className="product-container">
+                {products &&
+                  products.map((element, idx) => (
+                    <ProductCard
+                      key={"product " + element.id + idx}
+                      productId={element.id}
+                      imageSrc={element.thumbnail}
+                      productTitle={element.name}
+                      productPrice={`${element.price}`}
+                    />
+                  ))}
+              </div>
+            </InfiniteScroll>
+          </section>
         </div>
-        <section className="searchResultProduct">
-          <InfiniteScroll
-            dataLength={products.length}
-            next={fetchData}
-            style={{ display: "flex", flexDirection: "column-reverse" }}
-            hasMore={hasMore}
-            loader={<h4></h4>}
-          >
-            <div className="product-container">
-              {products.length != 0 ? (
-                products.map((element, idx) => (
-                  <ProductCard
-                    key={"product " + element.id + idx}
-                    productId={element.id}
-                    imageSrc={element.thumbnail}
-                    productTitle={element.name}
-                    productPrice={`${element.price}`}
-                  />
-                ))
-              ) : (
-                <>
-                  <Nodata text="검색 결과가 없습니다." icon="item" />
-                </>
-              )}
-            </div>
-          </InfiniteScroll>
-        </section>
-      </div>
+      ) : (
+        <>
+          <Nodata text="검색 결과가 없습니다." icon="item" />
+        </>
+      )}
     </>
   );
 }

@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Swal from "sweetalert2";
-
+import { UserAuthInfo } from "@/state/user/type/UserInfo";
+import { RequestLogout } from "@/Service/AuthService/AuthService";
 
 export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
@@ -28,9 +29,23 @@ export default function HeaderTopRightIcons() {
       denyButtonText: `취소`,
     }).then((result) => {
       if (result.isConfirmed) {
-        // logout
-        router.push("/");
-
+        RequestLogout()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "즐거운 시간 보내셨나요?",
+              text: "다음에도 찾아주세요~*^^*",
+            });
+            localStorage.removeItem("ACCESS_TOKEN");
+            setIsLogin({
+              isLogin: false,
+              userId: "",
+            });
+            router.push("/");
+          })
+          .catch((ex) => {
+            console.log(ex);
+          });
       }
     });
   };
@@ -52,7 +67,11 @@ export default function HeaderTopRightIcons() {
             />
           </li>
           <li>
-            {isLogin.isLogin && cartCnt > 0 ?  <p className="cart-badge">{cartCnt}</p> : ""}
+            {isLogin.isLogin && cartCnt > 0 ? (
+              <p className="cart-badge">{cartCnt}</p>
+            ) : (
+              ""
+            )}
 
             <Image
               src="/assets/images/icons/shopping-cart.svg"
@@ -61,23 +80,25 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          {
-            isLogin.isLogin ? ( <li onClick={handleLogout}>
-            <Image
-              src="/assets/images/icons/logout.svg"
-              alt=""
-              width={40}
-              height={40}
-            />
-          </li> ) : ( <li onClick={() => router.push("/login")}>
-            <Image
-              src="/assets/images/icons/user.svg"
-              alt=""
-              width={20}
-              height={20}
-            />
-          </li>)
-          }
+          {isLogin.isLogin ? (
+            <li onClick={handleLogout}>
+              <Image
+                src="/assets/images/icons/logout.svg"
+                alt=""
+                width={40}
+                height={40}
+              />
+            </li>
+          ) : (
+            <li onClick={() => router.push("/login")}>
+              <Image
+                src="/assets/images/icons/user.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
+            </li>
+          )}
         </ul>
       </nav>
     </div>

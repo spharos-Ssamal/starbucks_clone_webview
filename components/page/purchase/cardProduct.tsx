@@ -1,6 +1,7 @@
 import { PurchaseProductInfo } from "@/Types/purchase/types";
 import { useRouter } from "next/router";
 import { StringLiteral } from "typescript";
+import HistoryCard from "./HistoryCard";
 
 interface Prop {
   historyId: string;
@@ -33,16 +34,10 @@ export function CardProduct(prop: Prop) {
         <div>
           {purchaseProductInfo &&
             purchaseProductInfo.map((element, idx) => (
-              <>
-                <div key={element.productId + idx} className="item-info">
-                  <img src={element.thumbnail} alt="" className="product-img" />
-                  <div className="card-info">
-                    <p className="name">{element.productName}</p>
-                    <span className="bold">{element.price}</span>
-                    <span className="opacity">{element.count} 개</span>
-                  </div>
-                </div>
-              </>
+              <HistoryCard
+                key={element.productName + " " + idx}
+                purchaseProductInfo={element}
+              />
             ))}
         </div>
       </div>

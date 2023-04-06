@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Config from "@/configs/config.export";
+import Nodata from "@/components/ui/Nodata";
 
 export default function Best() {
   const { baseUrl } = Config();
@@ -19,7 +20,12 @@ export default function Best() {
   return (
     <>
       <div>
-        <div className="header-sub">
+        <div
+          className="header-sub"
+          style={{
+            margin: "90px 0 0 0",
+          }}
+        >
           <nav>
             <ul>
               <li className="active">케이크</li>
@@ -32,7 +38,8 @@ export default function Best() {
           </nav>
         </div>
       </div>
-      <section id="best-cake" className="first-section-sub-one">
+      <Nodata text={"준비 중입니다."} />
+      {/* <section id="best-cake" className="first-section-sub-one">
         <div className="product-container">
           <div className="product-item">
             <img src="assets/images/best/cake/01.jpg" className="thumbnail" />
@@ -90,7 +97,7 @@ export default function Best() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <footer></footer>
     </>
   );
