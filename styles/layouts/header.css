@@ -48,6 +48,7 @@
 
 .header-top nav ul li {
   display: inline-block;
+  position: relative;
   list-style: none;
   margin: 0 8px;
 }
@@ -181,4 +182,16 @@
 .header-sub nav ul li a {
   text-decoration: none;
   color: inherit;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 0.6rem;
+  z-index: 100;
+  padding:  1px 6px;
 }

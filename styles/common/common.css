@@ -116,17 +116,3 @@ h1 {
   }
 }
 
-.cart-badge {
-  position: absolute;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: var(--color-red);
-  color: white;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}

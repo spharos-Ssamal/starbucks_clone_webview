@@ -3,16 +3,31 @@ import Config from "@/configs/config.export";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 export default function MyPage() {
   const { baseUrl } = Config();
   const isLogin = useRecoilValue(userLoginState);
   const router = useRouter();
 
+  if (!isLogin.isLogin) {
+    Swal.fire({
+      text: "로그인이 필요한 서비스입니다!",
+      color: "#fff",
+      background: "#009b39",
+      toast: true,
+      showConfirmButton: false,
+      position: "bottom",
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  return (
+    <LoginToAction />
+  )}
+
   return (
     <>
-      {isLogin.isLogin ? (
-        <>
+      
           <section id="order-status">
             <div>
               <h2>주문/배송 현황</h2>
@@ -161,10 +176,7 @@ export default function MyPage() {
               </div>
             </div>
           </section>
-        </>
-      ) : (
-        <LoginToAction />
-      )}
+       
     </>
   );
 }

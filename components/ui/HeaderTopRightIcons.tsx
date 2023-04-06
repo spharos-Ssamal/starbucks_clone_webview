@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { cartState } from "@/state/cart/atom/cartState";
 import { SearchModal } from "../modals/SearchModal";
 import { useRouter } from "next/router";
+import { userLoginState } from "@/state/user/atom/userLoginState";
 
 export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const isLogin = useRecoilValue(userLoginState);
   const router = useRouter();
 
   return (
@@ -28,7 +29,7 @@ export default function HeaderTopRightIcons() {
             />
           </li>
           <li>
-            <p className="cart-badge">{cartCnt}</p>
+            {isLogin.isLogin && <p className="cart-badge">{cartCnt}</p> }
             <Image
               onClick={() => router.push("/cart")}
               src="/assets/images/icons/shopping-cart.svg"

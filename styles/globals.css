@@ -34,4 +34,6 @@
 @import url(modals/ShareModal.css);
 
 @import url(modules/swiper.css);
+@import url(modules/swal.css);
+@import url(modules/sliderpane.css);
 @import url(pages/searchResult.css);
