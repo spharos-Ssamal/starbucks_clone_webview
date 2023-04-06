@@ -14,6 +14,7 @@ const nextConfig = {
       "i.ibb.co",
       "image.enuri.info",
       "sitem.ssgcdn.com",
+      "sui.ssgcdn.com",
     ],
   },
 };
