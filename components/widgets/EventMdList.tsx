@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import Config from "@/configs/config.export";
 import {
-  BaseRes,
   eventData,
   eventProductRes,
-  getEventRes,
 } from "@/constants/Apis/Types/ResponseType";
-import { REQUEST_EVENT_GET } from "@/constants/Apis/URL";
 import RecommandProductCard from "../ui/RecommandProductCard";
+import { RequestEvent } from "@/Service/EventService/EventService";
 
 function EventMdList(props: { data: eventData; title?: string }) {
   const { baseUrl } = Config();
@@ -17,11 +14,9 @@ function EventMdList(props: { data: eventData; title?: string }) {
   );
 
   const fetchEventData = useCallback(async () => {
-    axios
-      .get(`${baseUrl}/${REQUEST_EVENT_GET}?eventId=${props.data.id}`)
+    RequestEvent(props.data.id)
       .then((res) => {
-        const eventProductRes: eventProductRes[] =
-          res.data.data.eventProductRes;
+        const eventProductRes: eventProductRes[] = res.data.eventProductRes;
         setRecommendDataList([...eventProductRes]);
       })
       .catch((err) => {

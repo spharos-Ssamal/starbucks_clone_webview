@@ -2,25 +2,20 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 import { cartListType, cartType } from "@/Types/cart/cartListType";
 import Swal from "sweetalert2";
 import CartFooter from "@/components/page/cart/CartFooter";
 import CartInfo from "@/components/page/cart/CartInfo";
 import CartList from "@/components/page/cart/CartList";
 import CartMenu from "@/components/page/cart/CartMenu";
-import Config from "@/configs/config.export";
 import { cartListState } from "@/state/cart/atom/cartListState";
 import Nodata from "@/components/ui/Nodata";
-import { REQUEST_CART_GET_ALL } from "@/constants/Apis/URL";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import { RequestCartGet } from "@/Service/CartService/CartService";
 
 function Cart() {
   const router = useRouter();
   const isLogin = useRecoilValue(userLoginState);
-
-  const baseUrl = Config().baseUrl;
 
   const setCartList = useSetRecoilState<cartType>(cartListState);
   const cartData = useRecoilValue<cartType>(cartListState);

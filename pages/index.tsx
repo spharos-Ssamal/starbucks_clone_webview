@@ -22,15 +22,12 @@ export default function Home() {
   useEffect(() => {
     RequestRecommendActive()
       .then((res) => {
-        console.log(res);
         setData(res);
       })
       .catch((err) => {
-        console.log("Get the Fuck out");
         console.log(err);
       });
     RequestEventActive().then((res) => {
-      console.log(res);
       let rndNumber = Math.floor(Math.random() * res.length);
       setViewByOthersData(res[rndNumber]);
     });

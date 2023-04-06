@@ -12,7 +12,6 @@ import { AddressDataType } from "@/Types/address/AddressType";
 
 export default function Address() {
   const isLogin = useRecoilValue(userLoginState);
-  const router = useRouter();
   const [addressList, setAddressList] = useState<AddressDataType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

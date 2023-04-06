@@ -38,7 +38,6 @@ export function SearchModal(props: Props) {
     } else {
       props.closeModal();
       if (searchData.includes("#")) {
-        console.log("Fuck");
         setFilterParams({
           ...filterParams,
           searchOption: SEARCH_OPTION_PRODUCT_HASHTAG,

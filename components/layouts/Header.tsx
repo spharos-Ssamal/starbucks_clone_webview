@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 // component
 import SignupModal from "../modals/SignupModal";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { headerMenu } from "@/Types/starbucksTypes";
 
 import { headerNavMenus } from "../../data/starbucksStaticDatas";
@@ -14,6 +14,9 @@ import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
 import SideMenuModal from "../modals/SideMenuModal";
+import { cartState } from "@/state/cart/atom/cartState";
+import { cartListState } from "@/state/cart/atom/cartListState";
+import { cartType } from "@/Types/cart/cartListType";
 
 // css lazy loading
 // import dynamic from "next/dynamic";
@@ -23,6 +26,8 @@ import SideMenuModal from "../modals/SideMenuModal";
 
 function Header() {
   const isLogin = useRecoilValue(userIsLogin);
+  const [cartAmount, setCartState] = useRecoilState(cartState);
+  const cartData = useRecoilValue<cartType>(cartListState);
 
   const router = useRouter();
   const { pathname, query } = useRouter();
@@ -55,19 +60,16 @@ function Header() {
     "/productSearch/[...searchParam]",
   ];
 
-  const backMainList = [];
-
-  const handlePushPage = () => {
-    router.push("/login");
-  };
-
   const handleSideMenuClose = () => {
     setIsSideMenuOpen(false);
   };
 
+  useEffect(() => {
+    setCartState(cartData.cartList.length + cartData.cartListFreeze.length);
+  }, []);
+
   return (
     <>
-      {/* <LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
       <SignupModal
         isSignupModalOpen={isSignupModalOpen}
         setIsSignupModalOpen={setIsSignupModalOpen}

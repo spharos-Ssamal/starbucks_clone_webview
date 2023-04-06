@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { UserInfo } from "../type/UserInfo";
+import { UserAuthInfo } from "../type/UserInfo";
 
 const localStorage =
   typeof window !== "undefined" ? window.localStorage : undefined;
@@ -10,7 +10,7 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
-export const userLoginState = atom<UserInfo>({
+export const userLoginState = atom<UserAuthInfo>({
   key: "userLoginState",
   default: {
     userId: "",

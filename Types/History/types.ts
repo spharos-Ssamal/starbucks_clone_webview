@@ -1,4 +1,5 @@
 import { ProductInfo } from "../Product/Request";
+import { AddressDataType } from "../address/AddressType";
 
 export interface PurchasedProductInfo {
   productId: number;
@@ -11,12 +12,11 @@ export interface PurchasedProductInfo {
 export interface HistoryInfo {
   purchaseHistoryId: string;
   productInfoList: PurchasedProductInfo[];
-  baseAddress: string;
-  detailAddress: string;
-  message: string;
+  addressInfo: AddressDataType;
   regTime: string;
   updateTime: string;
   purchasePrice: number;
+  paymentMethod: string;
   shippingFee: number;
   discountPrice: number;
   totalPrice: number;

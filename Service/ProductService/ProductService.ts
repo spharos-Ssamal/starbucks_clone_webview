@@ -9,6 +9,7 @@ import {
   REQUEST_EVENT_ACTIVE,
   REQUEST_BANNER,
   REQUEST_RECOMMEND_READ,
+  REQUEST_PRODUCT_READ,
 } from "@/constants/Apis/URL";
 
 export async function RequestRecommendActive() {
@@ -51,6 +52,14 @@ export async function RequestCategoryAggregationHashTag(hashtag: string) {
 
 export async function RequestProduct(req: string) {
   return await CustomAxios.get(REQUEST_PRODUCT + req).then((res) => res.data);
+}
+
+export async function RequestGetProductDetailInfo(productId: number) {
+  return await CustomAxios.get(REQUEST_PRODUCT_READ, {
+    params: {
+      productId: productId,
+    },
+  }).then((res) => res.data);
 }
 
 export async function RequestProductUsingName(req: string) {

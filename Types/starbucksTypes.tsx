@@ -9,26 +9,15 @@ export interface loginData {
   password: string;
 }
 
-export interface productDataType {
-  id: number,
-  name: string,
-  price: number,
-  description: string,
-  thumbnail: string,
-  size: string,
-  season: string
-}
-
 export interface chunsikDataType {
-
-  categoryName: string,
+  categoryName: string;
   products: {
-    id: number,
-    description: string,
-    name: string,
-    price: number,
-    size: string,
-    thumbnail: string,
-    season: string,
-  }
+    id: number;
+    description: string;
+    name: string;
+    price: number;
+    size: string;
+    thumbnail: string;
+    season: string;
+  };
 }

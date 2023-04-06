@@ -27,6 +27,7 @@ import {
   ShippingAddressInfo,
   initShippingAddressInfo,
 } from "@/Types/address/AddressType";
+import ChangeAddressModal from "@/components/modals/ChangeAddressModal";
 
 export default function Payment() {
   const router = useRouter();
@@ -37,6 +38,8 @@ export default function Payment() {
   const [purchaseType, setPurchaseType] = useState("product");
   const [paymentType, setPaymentType] = useState("STARBUCKS_CARD");
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>(initPaymentInfo);
+  const [changeAddressModalOpen, setChangeAddressModalOpen] =
+    useState<boolean>(false);
 
   const [shippingAddress, setShippingAddress] = useState<ShippingAddressInfo>(
     initShippingAddressInfo
@@ -94,7 +97,7 @@ export default function Payment() {
     });
   };
 
-  const requestPaymentConfirm = () => {
+  const requestPayment = () => {
     const productsBePurchase: ProductBePurchased[] = prePurchaseProducts.map(
       (element) => ({
         id: element.id,
@@ -105,7 +108,7 @@ export default function Payment() {
     const request: PaymentConfirmReq = {
       userId: isLogin.userId,
       purchasedList: productsBePurchase,
-      paymentMethod: "CREDIT_CARD",
+      paymentMethod: paymentType,
       addressId: shippingAddress.id,
       shippingFee: paymentInfo.shippingFee,
       amountOfProductPrice: paymentInfo.amountOfProductPrice,
@@ -119,38 +122,53 @@ export default function Payment() {
             (element) => element.cartId && RequestCartDelete(element.cartId)
           );
         }
-
-        console.log(res);
+        const historyId = res.data.historyId;
         Swal.fire({
           icon: "success",
           text: "주문이 완료되었습니다.",
+        }).then(() => {
+          router.push(`/paymentDone/${historyId}`);
         });
-        router.push("/");
       })
       .catch((ex) => {
         console.log(ex);
         Swal.fire({
           icon: "error",
           text: "주문이 실패했습니다.",
+        }).then(() => {
+          router.push("/");
         });
-        router.push("/");
       });
+  };
+
+  const requestPaymentConfirm = () => {
+    Swal.fire({
+      icon: "question",
+      title: "결제 확인",
+      text: `${paymentInfo.amountOfTotalPrice} 을 결제 하시겠습니까?`,
+
+      showCancelButton: true,
+      confirmButtonColor: "#009b39",
+      confirmButtonText: "승인",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        requestPayment();
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "취소",
+          text: "취소 되었습니다.",
+        });
+      }
+    });
   };
 
   useEffect(() => {
     RequestGetDefaultAddress(isLogin.userId)
       .then((res) => {
         const defaultAddress: AddressDataType = res.data.result;
-        setShippingAddress({
-          id: defaultAddress.id,
-          recipient: defaultAddress.recipient,
-          alias: defaultAddress.alias,
-          zipCode: defaultAddress.zipCode,
-          baseAddress: defaultAddress.baseAddress,
-          detailAddress: defaultAddress.detailAddress,
-          contactInfo1: defaultAddress.contactInfo1,
-          defaultAddress: defaultAddress.defaultAddress,
-        });
+        setShippingAddress(defaultAddress);
       })
       .catch((ex) => {
         console.log(ex);
@@ -191,15 +209,20 @@ export default function Payment() {
 
   return (
     <>
+      <ChangeAddressModal
+        isModalOpen={changeAddressModalOpen}
+        setIsModalOpen={setChangeAddressModalOpen}
+        setShippingAddress={setShippingAddress}
+      />
       <section id="pay-title">
         <p className="title">결제하기</p>
       </section>
       <section id="pay-delivery">
         <div className="delivery-info-title">
           <p>배송 정보</p>
-          <Link href="">
+          <a onClick={() => setChangeAddressModalOpen(true)}>
             <div className="delivery-change">변경</div>
-          </Link>
+          </a>
         </div>
         <div className="delivery-info">
           <div className="delivery-name">
@@ -249,7 +272,17 @@ export default function Payment() {
         <div className="details">
           <summary>
             <div className="grey-wrap">
-              <p>쿠폰 및 할인</p>
+              <p
+                onClick={() => {
+                  Swal.fire({
+                    icon: "warning",
+                    title: "아직 개발되지 않았습니다.",
+                    text: "아직 개발중입니다. 다음 버전에서 만나요~",
+                  });
+                }}
+              >
+                쿠폰 및 할인
+              </p>
               <div className="grey-arrow-down-wrap">
                 <img
                   src="/assets/images/icons/arrow-down-sign-to-navigate.png"
@@ -266,12 +299,20 @@ export default function Payment() {
       <section id="mobile-gift">
         <div>
           <p>모바일 상품권</p>
-          <Link href="">
+          <a
+            onClick={() => {
+              Swal.fire({
+                icon: "warning",
+                title: "아직 개발되지 않았습니다.",
+                text: "아직 개발중입니다. 다음 버전에서 만나요~",
+              });
+            }}
+          >
             <div>
               <p>사용하기</p>
               <img src="/assets/images/icons/arrow-point-to-right.png" alt="" />
             </div>
-          </Link>
+          </a>
         </div>
       </section>
       <section id="pay-method">
@@ -281,15 +322,17 @@ export default function Payment() {
         <div className="pay-choice">
           <div className="radio-pd14">
             <div>
-              <input type="radio" name="pay" /> 스타벅스 카드(1)
-            </div>
-            <div className="textRedAlert">
-              잔액 부족
-              <img src="/assets/images/icons/alert.png" />
+              <input
+                type="radio"
+                name="pay"
+                defaultChecked={true}
+                onClick={() => setPaymentType("STARBUCKS_CARD")}
+              />{" "}
+              스타벅스 카드
             </div>
           </div>
 
-          <div className="pay-sb-card">
+          {/* <div className="pay-sb-card">
             <div className="eGiftCardWrap">
               <div className="eGiftCard">
                 <img src="/assets/images/banner/banner01.png" />
@@ -322,10 +365,15 @@ export default function Payment() {
                 <span>더보기</span>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="radio-pd14-pd30">
-            <input type="radio" name="pay" /> 신용카드
+            <input
+              type="radio"
+              name="pay"
+              onClick={() => setPaymentType("CREDIT_CARD")}
+            />{" "}
+            신용카드
           </div>
         </div>
       </section>

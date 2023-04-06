@@ -132,25 +132,16 @@ export default function ProductLookup() {
         { categoryId: 1, categoryName: "전체" },
         ...result,
       ]);
-      setFilterParams({
-        ...filterParams,
-        category: 1,
-      });
     });
   };
 
   const getCategoryAggregationByHashtag = (searchData: string) => {
     RequestCategoryAggregationHashTag(searchData).then((res) => {
       const result: CategoryAggregationRes[] = res.data;
-      console.log(result);
       setCategoryAggregation([
         { categoryId: 1, categoryName: "전체" },
         ...result,
       ]);
-      setFilterParams({
-        ...filterParams,
-        category: 1,
-      });
     });
   };
 
@@ -163,24 +154,17 @@ export default function ProductLookup() {
       },
     ]);
 
-    RequestSubCategoryList(1)
-      .then((res) => {
-        let myData: MenuDataType[] = [];
-        res.data.subCategories.forEach((item: headerMenu) => {
-          myData.push({
-            id: item.id,
-            name: item.name,
-            key: "category",
-          });
+    RequestSubCategoryList(1).then((res) => {
+      let myData: MenuDataType[] = [];
+      res.data.subCategories.forEach((item: headerMenu) => {
+        myData.push({
+          id: item.id,
+          name: item.name,
+          key: "category",
         });
-        setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
-      })
-      .then(() =>
-        setFilterParams({
-          ...filterParams,
-          category: 1,
-        })
-      );
+      });
+      setFilterMenuData((filterMenuData) => [...filterMenuData, ...myData]);
+    });
     console.log("setup All categories");
   };
 
@@ -251,14 +235,12 @@ export default function ProductLookup() {
 
   useEffect(() => {
     const queryParam = generateQueryParams();
-    console.log(queryParam);
     fetchProductData(queryParam);
   }, [pageNo, sortOption]);
 
   useEffect(() => {
     fetchSeasonData();
     const searchParam = filterParams.searchOption;
-    console.log(searchParam);
     if (searchParam === SEARCH_OPTION_STORE) {
       setupAllCategories();
     } else if (searchParam === SEARCH_OPTION_PRODUCT_NAME) {
@@ -284,12 +266,10 @@ export default function ProductLookup() {
   }, [router]);
 
   useEffect(() => {
-    console.log(filterParams.searchOption);
     const param = router.asPath.slice(
       "/productSearch".length + filterParams.searchOption.length + 2,
       router.asPath.length
     );
-    console.log(param);
     setPageNo(0);
     fetchProductData(param);
   }, [router.asPath]);
@@ -368,7 +348,7 @@ export default function ProductLookup() {
             next={fetchData}
             style={{ display: "flex", flexDirection: "column-reverse" }}
             hasMore={hasMore}
-            loader={<h4>loading</h4>}
+            loader={<h4></h4>}
           >
             <div className="product-container">
               {products.length != 0 ? (

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { useRecoilState } from "recoil";
 import router from "next/router";
 import Link from "next/link";
@@ -10,11 +10,16 @@ import { LoginReq } from "@/Types/UserRequest/Request";
 import { LoginRes } from "@/Types/UserRequest/Response";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import StButton from "@/components/ui/StButton";
-import { UserInfo } from "@/state/user/type/UserInfo";
+import { UserAuthInfo } from "@/state/user/type/UserInfo";
 import { RequestLogin } from "@/Service/AuthService/AuthService";
 
-export default function LoginForm(props: { inputData: LoginReq; setInputData: Function; isError: any; setIsError: any;}) {
-  
+export default function LoginForm(props: {
+  inputData: LoginReq;
+  setInputData: Function;
+  isError: any;
+  setIsError: any;
+  setIsSignupModalOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   const BASE_URL = Config().baseUrl;
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +27,6 @@ export default function LoginForm(props: { inputData: LoginReq; setInputData: Fu
     props.setInputData({ ...props.inputData, [name]: value });
   };
 
-  
   return (
     <>
       <div>
@@ -47,9 +51,9 @@ export default function LoginForm(props: { inputData: LoginReq; setInputData: Fu
           ) : null}
         </div>
         <div id="login-service">
-          <Link href={"/"}>아이디 찾기</Link>
-          <Link href={"/"}>비밀번호 찾기</Link>
-          <Link href={"/"}>회원가입</Link>
+          <a>아이디 찾기</a>
+          <a>비밀번호 찾기</a>
+          <a onClick={() => props.setIsSignupModalOpen(true)}> 회원가입</a>
         </div>
       </div>
     </>

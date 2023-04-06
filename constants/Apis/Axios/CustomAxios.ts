@@ -43,7 +43,6 @@ CustomAxios.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const responseData: BaseRes | any = error.response?.data;
-    console.log("interceptor!" + responseData.data);
     if (responseData === undefined) {
       localStorage.removeItem("ACCESS_TOKEN");
       localStorage.removeItem("userInfo");

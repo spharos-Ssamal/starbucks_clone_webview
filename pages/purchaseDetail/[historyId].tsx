@@ -2,6 +2,7 @@ import { getUsersPurchaseInfo } from "@/Service/HistoryService/HistoryService";
 import { HistoryInfo } from "@/Types/History/types";
 import ProductDetailFooterInfo from "@/components/ui/ProductDetailFooterInfo";
 import Separator from "@/components/ui/Separator";
+import { PAYMENT_METHOD_CREDIT_CARD } from "@/constants/enums/PaymentMethod";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -15,20 +16,7 @@ export default function PurchaseDetail() {
       .then((res) => {
         const result: HistoryInfo = res.data;
         console.log(result);
-        setHistoryInfo({
-          purchaseHistoryId: result.purchaseHistoryId,
-          productInfoList: [...result.productInfoList],
-          baseAddress: result.baseAddress,
-          detailAddress: result.detailAddress,
-          message: result.message,
-          regTime: result.regTime,
-          updateTime: result.updateTime,
-          purchasePrice: result.purchasePrice,
-          shippingFee: result.shippingFee,
-          discountPrice: result.discountPrice,
-          totalPrice: result.totalPrice,
-          canceled: false,
-        });
+        setHistoryInfo(result);
       })
       .catch((ex) => {
         Swal.fire({
@@ -45,8 +33,6 @@ export default function PurchaseDetail() {
       if (historyId !== undefined && typeof historyId == "string") {
         fetchHistoryDetailInfo(historyId);
       }
-    } else {
-      console.log("Fuck");
     }
   }, [router.query]);
 
@@ -62,13 +48,7 @@ export default function PurchaseDetail() {
           >
             <div className="purchase-flex">
               <div>
-                <div className="bold">
-                  {historyInfo.regTime}
-                  {/* <span className="light-opacity">
-                <img src="/assets/images/icons/giftbox.png" />
-                선물주문
-              </span> */}
-                </div>
+                <div className="bold">{historyInfo.regTime}</div>
                 <div className="no">
                   주문번호
                   <span className="no_numeric">
@@ -97,7 +77,6 @@ export default function PurchaseDetail() {
                         }}
                       />
                       <div className="purch-card-info">
-                        <p className="bold">선물수락</p>
                         <p className="name">{element.productName}</p>
                         <span className="bold">{element.price} 원</span>
                         <span className="opacity">{element.count} 개</span>
@@ -105,6 +84,29 @@ export default function PurchaseDetail() {
                     </div>
                   </>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="purchaseDetail-address-info">
+            <div className="purchaseDetail-address-info-head">
+              <p>배송 정보</p>
+            </div>
+            <div className="pay">
+              <div className="pay-price">
+                <p>
+                  {historyInfo.addressInfo.recipient} (
+                  {historyInfo.addressInfo.alias})
+                </p>
+                <p>
+                  ({historyInfo.addressInfo.zipCode}){" "}
+                  {historyInfo.addressInfo.baseAddress}{" "}
+                  {historyInfo.addressInfo.detailAddress}
+                </p>
+              </div>
+              <Separator color="lightgrey" gutter={0.6} />
+              <div className="pay-price">
+                <p>{historyInfo.addressInfo.shippingMemo}</p>
               </div>
             </div>
           </section>
@@ -167,7 +169,12 @@ export default function PurchaseDetail() {
                 <p className="price">0원</p>
               </div>
               <div className="pay-price">
-                <p>스타벅스 카드</p>
+                {historyInfo.paymentMethod === PAYMENT_METHOD_CREDIT_CARD ? (
+                  <p>신용 카드</p>
+                ) : (
+                  <p>스타벅스 카드</p>
+                )}
+
                 <p className="price">33,000원</p>
               </div>
             </div>

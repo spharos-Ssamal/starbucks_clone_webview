@@ -7,7 +7,6 @@ import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <div className="container">

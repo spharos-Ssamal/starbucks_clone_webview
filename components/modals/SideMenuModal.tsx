@@ -23,11 +23,11 @@ export default function SideMenuModal(props: Iprops) {
   const [filterParams, setFilterParams] =
     useRecoilState<searchParams>(storeFilterState);
 
-  const handleStore = () => {
+  const handleStore = (categoryId: number) => {
     setFilterParams({
       searchOption: SEARCH_OPTION_STORE,
       searchName: "",
-      category: 1,
+      category: categoryId,
       subCategories: [],
       seasons: [],
       productSize: [],
@@ -38,7 +38,7 @@ export default function SideMenuModal(props: Iprops) {
       },
     });
     props.closeModal();
-    router.push("/productSearch/store?category=1");
+    router.push(`/productSearch/store?category=${categoryId}`);
   };
 
   const handleOpenEventPage = () => {
@@ -92,7 +92,7 @@ export default function SideMenuModal(props: Iprops) {
       </section>
       <section id="category-items">
         <div className="get-all-items">
-          <button type="button" onClick={handleStore}>
+          <button type="button" onClick={() => handleStore(1)}>
             <a> 전체상품보기 </a>
             <span>
               <img src="/assets/images/icons/contents/right-arrow.png" alt="" />
@@ -103,10 +103,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=2");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(2)}
           >
             <div className="category">
               <div className="category-img">
@@ -123,10 +120,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=3");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(3)}
           >
             <div className="category">
               <div className="category-img">
@@ -143,10 +137,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=4");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(4)}
           >
             <div className="category">
               <div className="category-img">
@@ -163,10 +154,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=5");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(5)}
           >
             <div className="category">
               <div className="category-img">
@@ -183,10 +171,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=6");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(6)}
           >
             <div className="category">
               <div className="category-img">
@@ -203,10 +188,7 @@ export default function SideMenuModal(props: Iprops) {
           <button
             type="button"
             className="category-button"
-            onClick={() => {
-              router.push("/store?category=7");
-              props.closeModal();
-            }}
+            onClick={() => handleStore(7)}
           >
             <div className="category">
               <div className="category-img">
