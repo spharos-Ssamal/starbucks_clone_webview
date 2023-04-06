@@ -13,31 +13,30 @@ import Swal from 'sweetalert2';
 import { RequestLogin } from '@/Service/AuthService/AuthService';
 import { LoginRes } from '@/Types/UserRequest/Response';
 import { userLoginState } from '@/state/user/atom/userLoginState';
+import { useLottie } from "lottie-react";
+import Congratulation from '@/public/assets/lottie/congratulations.json'
+import CongratulationAnimation from '@/components/modals/CongratulationAnimation';
 
 export default function LoginModal() {
 
   const [loginData, setLoginData] = useRecoilState<UserInfo>(userLoginState);
+  const options = {
+    animationData: Congratulation,
+    loop: false,
+    autoplay: true,
+  };
+  const [isView, setIsView] = useState<boolean>(false);
+  const { View } = useLottie(options);
 
   const [inputData, setInputData] = useState<LoginReq>({
     userEmail: "",
     password: "",
   });
 
-  const [isError, setIsError] = useState({
-    userEmail: false,
-    password: false,
-  });
-
   const handleSubmit = () => {
     
-    if (inputData.userEmail === "" || inputData.password === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "이메일과 비밀번호를 입력해주세요!",
-      });
-      return;
-    } else {
+    if (inputData.userEmail !== "" && inputData.password !== "") {
+    
       RequestLogin({
         userEmail: inputData.userEmail,
         password: inputData.password,
@@ -51,13 +50,20 @@ export default function LoginModal() {
             isLogin: true,
           });
           localStorage.setItem("ACCESS_TOKEN", accessToken);
-        })
-        .then(() => {
+          setIsView(true);
           Swal.fire({
             icon: "success",
-            text: "Welcome!",
+            title: `술무쓰요?님 환영합니다!`,
+            toast: true,
+            position: "top",
+            color: "#009b39",
+            background: "#fff",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            router.back();
           });
-          router.back();
+          
         })
         .catch((err) => {
           console.log(err);
@@ -66,6 +72,17 @@ export default function LoginModal() {
             text: "Login Error!",
           });
         });
+    } else {
+      Swal.fire({
+        text: "아이디와 비밀번호를 입력해주세요!",
+        color: "#fff",
+        background: "#009b39",
+        toast: true,
+        showConfirmButton: false,
+        position: "top",
+        timer: 2000,
+        timerProgressBar: true,
+      });
     }
   };
 
@@ -79,14 +96,15 @@ export default function LoginModal() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {isView &&
+      <CongratulationAnimation />
+      }
       <NavigationButton heading="left"/>
       <div className="slide-in-login">
         <LoginTop />
         <LoginForm
           inputData={inputData}
           setInputData={setInputData}
-          isError={isError}
-          setIsError={setIsError}
         />
       </div>
       <div className="submit-container">

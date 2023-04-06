@@ -14,6 +14,8 @@ import HeaderTopRightIcons from "../ui/HeaderTopRightIcons";
 
 import HeaderBottomMenuList from "../ui/HeaderBottomMenuList";
 import SideMenuModal from "../modals/SideMenuModal";
+import CongratulationAnimation from "../modals/CongratulationAnimation";
+import { userLoginState } from "@/state/user/atom/userLoginState";
 
 // css lazy loading
 // import dynamic from "next/dynamic";
@@ -22,7 +24,7 @@ import SideMenuModal from "../modals/SideMenuModal";
 // });
 
 function Header() {
-  const isLogin = useRecoilValue(userIsLogin);
+  const isLogin = useRecoilValue(userLoginState);
 
   const router = useRouter();
   const { pathname, query } = useRouter();
@@ -76,7 +78,7 @@ function Header() {
         isModalOpen={isSideMenuOpen}
         closeModal={handleSideMenuClose}
       />
-
+      
       <header>
         <div className="header-top">
           {backButtonList.includes(pathname, 0) ? (
