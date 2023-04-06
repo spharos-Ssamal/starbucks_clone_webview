@@ -23,21 +23,19 @@ function Cart() {
   const [amountOfPrice, setAmountOfPrice] = useState(0);
   const [numOfProduct, setNumOfProduct] = useState(0);
 
-  if (!isLogin.isLogin) {
-    Swal.fire({
-      text: "로그인이 필요한 서비스입니다!",
-      color: "#fff",
-      background: "#009b39",
-      toast: true,
-      showConfirmButton: false,
-      position: "bottom",
-      timer: 2000,
-      timerProgressBar: true,
-    });
-  return (
-    <LoginToAction />
-  )}
   useEffect(() => {
+    if (!isLogin.isLogin) {
+      Swal.fire({
+        text: "로그인이 필요한 서비스입니다!",
+        color: "#fff",
+        background: "#009b39",
+        toast: true,
+        showConfirmButton: false,
+        position: "bottom",
+        timer: 2000,
+        timerProgressBar: true,
+      });
+    } else {
       RequestCartGet(isLogin.userId)
         .then((res) => {
           setCartList({
@@ -52,6 +50,7 @@ function Cart() {
         .catch((err) => {
           console.log(err);
         });
+    }
   }, []);
 
   return (
@@ -59,28 +58,33 @@ function Cart() {
       <Head>
         <title>장바구니</title>
       </Head>
-
-      {cartData &&
-      cartData.cartList.length === 0 &&
-      cartData.cartListFreeze.length === 0 ? (
-        <section id="cart-header" style={{ paddingBottom: "50vh" }}>
-          <p className="title">장바구니</p>
-          <Nodata text="장바구니가 비었습니다." icon="cart" />
-        </section>
+      {!isLogin.isLogin ? (
+        <LoginToAction />
       ) : (
         <>
-          <CartMenu />
-          <CartList />
-          <CartInfo
-            amountOfPrice={amountOfPrice}
-            setAmountOfPrice={setAmountOfPrice}
-            numOfProduct={numOfProduct}
-            setNumOfProduct={setNumOfProduct}
-          />
-          <CartFooter
-            amountOfPrice={amountOfPrice}
-            numOfProduct={numOfProduct}
-          />
+          {cartData &&
+          cartData.cartList.length === 0 &&
+          cartData.cartListFreeze.length === 0 ? (
+            <section id="cart-header" style={{ paddingBottom: "50vh" }}>
+              <p className="title">장바구니</p>
+              <Nodata text="장바구니가 비었습니다." icon="cart" />
+            </section>
+          ) : (
+            <>
+              <CartMenu />
+              <CartList />
+              <CartInfo
+                amountOfPrice={amountOfPrice}
+                setAmountOfPrice={setAmountOfPrice}
+                numOfProduct={numOfProduct}
+                setNumOfProduct={setNumOfProduct}
+              />
+              <CartFooter
+                amountOfPrice={amountOfPrice}
+                numOfProduct={numOfProduct}
+              />
+            </>
+          )}
         </>
       )}
     </>
