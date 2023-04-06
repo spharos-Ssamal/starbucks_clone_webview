@@ -38,6 +38,16 @@
   height: 40px;
 }
 
+.period-button input {
+  border: 1px solid var(--color-gray-button);
+  background-color: var(--color-white);
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  height: 95%;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 .period-button button {
   border: 1px solid var(--color-gray-button);
   background-color: var(--color-white);

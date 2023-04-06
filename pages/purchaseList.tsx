@@ -11,24 +11,35 @@ import { useRecoilValue } from "recoil";
 export default function PurchaseList() {
   const isLogin = useRecoilValue(userLoginState);
   const [purchaseHistory, setPurchaseHistory] = useState<PurchaseHistory[]>([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
+  const onChangeDatePicker = (e: any) => {
+    const { name, value } = e.target;
+    if (name === "startDate") {
+      setStartDate(value);
+    } else {
+      setEndDate(value);
+    }
+  };
+
+  const onSubmitResult = () => {
     if (isLogin.userId !== undefined) {
-      getUsersPurchaseHistory(isLogin.userId, "2023-03-01", "2023-05-01").then(
+      getUsersPurchaseHistory(isLogin.userId, startDate, endDate).then(
         (res) => {
           const result: PurchaseHistory[] = res.data.histories;
           setPurchaseHistory([...result]);
         }
       );
     }
-  }, []);
+  };
 
   return (
     <div>
       <section id="purchase-list-date">
         <h1>주문 내역</h1>
         <div className="purchase-list-period-setting">
-          <div className="purchase-list-period-setting-info flex-between">
+          {/* <div className="purchase-list-period-setting-info flex-between">
             <p>전체</p>
             <p id="period">2022.03.03 ~ 2023.03.02</p>
             <button>
@@ -37,16 +48,19 @@ export default function PurchaseList() {
                 src="./assets/images/icons/arrow-down-sign-to-navigate.png"
               />
             </button>
-          </div>
-          <div className="flex-between period-button">
-            <button>1개월</button>
-            <button className="clicked">1년</button>
-            <button>기간 설정</button>
-          </div>
+          </div> */}
+          {/* <div className="flex-between period-button">
+            <button name={DATE_OPTION_MONTH}>1개월</button>
+            <button name={DATE_OPTION_YEAR} className="clicked">
+              1년
+            </button>
+            <button name={DATE_OPTION_OPTIONAL}>기간 설정</button>
+          </div> */}
           <div className="flex-between period-date">
-            <input type="date" /> ~ <input type="date" />
+            <input name="startDate" type="date" onChange={onChangeDatePicker} />{" "}
+            ~ <input name="endDate" type="date" onChange={onChangeDatePicker} />
           </div>
-          <div className="purchase-list-form">
+          {/* <div className="purchase-list-form">
             <div className="flex-between purchase-list-option">
               <div>
                 <label htmlFor="purchase-list-category">주문 유형</label>
@@ -71,11 +85,14 @@ export default function PurchaseList() {
             <section className="purchase-list-submit">
               <button type="submit">조회</button>
             </section>
-          </div>
+          </div> */}
+          <section className="purchase-list-submit">
+            <button onClick={onSubmitResult}>조회</button>
+          </section>
         </div>
       </section>
-      <section className="purchase-list-product">주문 내역이 없습니다.</section>
-      {purchaseHistory &&
+
+      {purchaseHistory.length !== 0 ? (
         purchaseHistory.map((element) => (
           <CardProduct
             key={"PurchasedProduct " + element.historyId}
@@ -83,7 +100,12 @@ export default function PurchaseList() {
             date={element.date}
             purchaseProductInfo={element.productInfoList}
           />
-        ))}
+        ))
+      ) : (
+        <section className="purchase-list-product">
+          주문 내역이 없습니다.
+        </section>
+      )}
     </div>
   );
 }

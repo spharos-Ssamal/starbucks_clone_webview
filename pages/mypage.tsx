@@ -9,40 +9,40 @@ import { useRecoilValue } from "recoil";
 import Swal from "sweetalert2";
 
 export default function MyPage() {
-  const { baseUrl } = Config();
   const isLogin = useRecoilValue(userLoginState);
   const [userInfo, setUserInfo] = useState<UserInfoRes>();
   const router = useRouter();
 
-  if (!isLogin.isLogin) {
-    Swal.fire({
-      text: "로그인이 필요한 서비스입니다!",
-      color: "#fff",
-      background: "#009b39",
-      toast: true,
-      showConfirmButton: false,
-      position: "bottom",
-      timer: 2000,
-      timerProgressBar: true,
-    });
-  return (
-    <LoginToAction />
-  )}
-
   useEffect(() => {
-    RequestGetUserInfo(isLogin.userId)
-      .then((res) => {
-        const result: UserInfoRes = res.data;
-        setUserInfo(result);
-      })
-      .catch((ex) => {
-        console.log(ex);
+    if (!isLogin.isLogin) {
+      Swal.fire({
+        text: "로그인이 필요한 서비스입니다!",
+        color: "#fff",
+        background: "#009b39",
+        toast: true,
+        showConfirmButton: false,
+        position: "bottom",
+        timer: 2000,
+        timerProgressBar: true,
       });
+    } else {
+      RequestGetUserInfo(isLogin.userId)
+        .then((res) => {
+          const result: UserInfoRes = res.data;
+          setUserInfo(result);
+        })
+        .catch((ex) => {
+          console.log(ex);
+        });
+    }
   }, []);
 
   return (
     <>
-      
+      {!isLogin.isLogin ? (
+        <LoginToAction />
+      ) : (
+        <>
           <section id="order-status">
             <div>
               <h2>{userInfo?.userNickname} 님 환영합니다.</h2>
@@ -222,7 +222,8 @@ export default function MyPage() {
               </div>
             </div>
           </section>
-       
+        </>
+      )}
     </>
   );
 }
