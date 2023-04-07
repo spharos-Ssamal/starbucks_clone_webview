@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState } from "@/state/cart/atom/cartState";
 import { SearchModal } from "../modals/SearchModal";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userLoginState } from "@/state/user/atom/userLoginState";
 import Swal from "sweetalert2";
 import { UserAuthInfo } from "@/state/user/type/UserInfo";
@@ -14,7 +14,16 @@ export default function HeaderTopRightIcons() {
   const cartCnt = useRecoilValue(cartState);
   const [isLogin, setIsLogin] = useRecoilState<UserAuthInfo>(userLoginState);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const [loginIcon, setLoginIcon] = useState<string>('');
   const router = useRouter();
+
+  useEffect(()=>{
+    if(isLogin.isLogin){
+      setLoginIcon('/assets/images/icons/logout.svg');
+    }else{
+      setLoginIcon('/assets/images/icons/user.svg');
+    }
+  },[isLogin.isLogin])
 
   const handleLogout = () => {
     Swal.fire({
@@ -32,9 +41,14 @@ export default function HeaderTopRightIcons() {
         RequestLogout()
           .then(() => {
             Swal.fire({
-              icon: "success",
-              title: "즐거운 시간 보내셨나요?",
-              text: "다음에도 찾아주세요~*^^*",
+              text: "로그아웃 되었습니다.",
+              toast: true,
+              showConfirmButton: false,
+              color: "#fff",
+              background: "#009b39",
+              timerProgressBar: true,
+              position: "top",
+              timer: 2000,
             });
             localStorage.removeItem("ACCESS_TOKEN");
             setIsLogin({
@@ -80,25 +94,16 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          {isLogin.isLogin ? (
-            <li onClick={handleLogout}>
-              <Image
-                src="/assets/images/icons/logout.svg"
-                alt=""
-                width={40}
-                height={40}
-              />
-            </li>
-          ) : (
-            <li onClick={() => router.push("/login")}>
-              <Image
-                src="/assets/images/icons/user.svg"
-                alt=""
-                width={20}
-                height={20}
-              />
-            </li>
-          )}
+          
+          <li onClick={isLogin.isLogin && isLogin.isLogin ? handleLogout : ()=>router.push('/cart')}>
+            <Image
+              src={loginIcon && loginIcon}
+              alt=""
+              width={40}
+              height={40}
+            />
+          </li>
+          
         </ul>
       </nav>
     </div>

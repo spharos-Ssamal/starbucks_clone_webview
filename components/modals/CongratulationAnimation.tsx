@@ -27,8 +27,9 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   z-index: 9999;
-  margin: 0 auto;
-  background-color: #067040;
+  margin: auto;
+  background-color: rgba(0,0,0);
+  background-image: url('assets/images/starbucksIllustrate/starbucks-logo.png');
   display: flex;
   align-items: center;
   `;
