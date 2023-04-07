@@ -150,7 +150,9 @@ npm install
 
 - [화면 명세서](https://github.com/spharos-Ssamal/starbucks_clone_webview/wiki/%ED%99%94%EB%A9%B4%EB%AA%85%EC%84%B8%EC%84%9C)
 - [기능 및 API 명세서](https://github.com/spharos-Ssamal/starbucks_clone_webview/wiki/%EA%B8%B0%EB%8A%A5-%EB%B0%8F-API-%EB%AA%85%EC%84%B8%EC%84%9C)
-- [ERD Cloud] () \* 업데이트 예정
+- [ERD 다이어그램]
+  ![image](https://user-images.githubusercontent.com/36991763/230520459-8a63bbb6-2a13-4206-b807-e9001a7836c8.png)
+
 
 <br />
 <br />
