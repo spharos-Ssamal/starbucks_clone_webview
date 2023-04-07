@@ -1,0 +1,24 @@
+.swiper {
+  position: relative;
+}
+
+.swiper .swiper-wrapper {
+  width: 100%;
+}
+.swiper .swiper-pagination {
+  position: absolute;
+  top: 30vh !important;
+  z-index: 90;
+}
+.swiper .swiper-pagination-bullet {
+  background-color: var(--color-primary);
+  margin: 0 5px !important;
+}
+.event-banner__item__img {
+  height: 35vh;
+  overflow: hidden;
+}
+.event-banner__item__img img {
+  width: 100%;
+  height: auto;
+}

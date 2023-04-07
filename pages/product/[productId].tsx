@@ -1,94 +1,128 @@
-import * as React from 'react';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Config from "@/configs/config.export";
+import { getImageSize } from "react-image-size";
+
+import RecommandMdList from "@/components/widgets/RecommandMdList";
+import EventMdList from "@/components/widgets/EventMdList";
+
+import {
+  GetProductDetailInfoRes,
+  productResponseDetailImages,
+} from "@/Types/Product/Response";
+import { eventData } from "@/constants/Apis/Types/ResponseType";
+import { imageType } from "@/Types/image/imageType";
+import PageDetailInfoCommon from "@/components/widgets/PageDetailInfoCommon";
+import ProductHeader from "@/components/page/product/ProductHeader";
+import ProductDetailList from "@/components/page/product/ProductDetailList";
+import ProductOrderSection from "@/components/page/product/ProductOrderSection";
+import {
+  RequestEventActive,
+  RequestGetProductDetailInfo,
+  RequestRecommendActive,
+} from "@/Service/ProductService/ProductService";
+import { ProductInfo } from "@/Types/Product/Request";
 
 export default function Product() {
+  const { query } = useRouter();
+  const { baseUrl } = Config();
 
-  // 1 Fetch the product data from the API
-  // axios.get('https://api.example.com/products/1')
+  const [productData, setProductData] = useState<ProductInfo>();
+  const [productImages, setProductImages] = useState<
+    productResponseDetailImages[]
+  >([]);
+  const [recommandData, setRecommandData] = useState<eventData>(
+    {} as eventData
+  );
+  const [viewByOthersData, setViewByOthersData] = useState<eventData>(
+    {} as eventData
+  );
+  const [importImgSize, setImportImgSize] = useState<imageType>({
+    width: 0,
+    height: 0,
+  });
 
-  // useState and useEffect hooks
+  useEffect(() => {
+    if (typeof query.productId === "string") {
+      RequestGetProductDetailInfo(parseInt(query.productId))
+        .then((res) => {
+          const productInfoResult: GetProductDetailInfoRes = res.data;
+
+          setProductData(productInfoResult.productInfo);
+          getImageSize(productInfoResult.productInfo.thumbnail).then((size) => {
+            setImportImgSize({
+              width: size.width,
+              height: size.height,
+            });
+          });
+          let images: productResponseDetailImages[] = [];
+          productInfoResult.imageList.forEach(
+            async (item: productResponseDetailImages) => {
+              const { width, height } = await getImageSize(item.imageUrl);
+              images.push({
+                id: item.id,
+                imageUrl: item.imageUrl,
+                width: width,
+                height: height,
+              });
+            }
+          );
+          setProductImages(images);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [baseUrl, query.productId]);
+
+  useEffect(() => {
+    RequestRecommendActive()
+      .then((res) => {
+        let rndNumber = Math.floor(Math.random() * res.data.length);
+        setRecommandData(res.data[rndNumber]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    RequestEventActive()
+      .then((res) => {
+        let rndNumber = Math.floor(Math.random() * res.data.length);
+        setViewByOthersData(res.data[rndNumber]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [baseUrl]);
 
   return (
     <>
-      <section>
-        <div className="top_thumb_wide">
-          <img
-            src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg"
-            alt="Single_Prod"
+      {productData && (
+        <>
+          <Head>
+            <title>{productData.description}</title>
+            <meta name="description" content={productData.description} />
+            <meta property="og:title" content={productData.description} />
+          </Head>
+          <ProductHeader
+            productData={productData}
+            importImgSize={importImgSize}
           />
-          <div className="single_prod_top">
-            <div className="single_prod_head">스타벅스 종이 필터 #2</div>
-            <div className="best">Best</div>
-            <div className="prod_icon_share">
-              <img src="./assets/images/icons/share.svg" width={25} />
-            </div>
-            <div>
-              <p>
-                원두 그대로의 맛과 향을 추출할 수 있도록 고안된 스타벅스 종이필터
-                #2(2~3인용, 50매)
-              </p>
-              <h2>4,500원</h2>
-            </div>
-          </div>
-        </div>
-        <div className="middle">
-          <div className="middle_padding_top">
-            <h3>상품정보</h3>
-          </div>
-          <div className="prod_imgs">
-            <img
-              src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg?type=f296_296"
-              width="100%"
-              height="100%"
-              alt="Single_Prod"
-            />
-            <img
-              src="https://shop-phinf.pstatic.net/20210919_196/1632031439764T01QH_JPEG/33167273578501640_2124951771.jpg?type=f296_296"
-              width="100%"
-              height="100%"
-              alt="Single_Prod"
-            />
-          </div>
-          <div className="middle_padding_bt">
-            <button className="click_for_more">
-              <div className="more_text">상품정보 더보기</div>
-              <div className="bottom-chevron">
-                <img src="./assets/images/icons/left-chevron.svg" />
-              </div>
-            </button>
-          </div>
-        </div>
-        <div className="bottom">
-          <div className="others">다른 고객이 함께 본 상품 - 미완</div>
-        </div>
-      </section>
-      <div className="expandForm">
-        <div className="drag_me">
-          <form>
-            <div className="small_graybox">
-              <p>스타벅스 종이 필터 #2</p>
-              <div className="one-line">
-                <div className="left_set">
-                  <div className="circle_qty">-</div>
-                  <div className="numeric">3</div>
-                  <div className="circle_qty">+</div>
-                </div>
-                <div className="right_set">
-                  <div className="numeric_price">4,500원</div>
-                </div>
-              </div>
-            </div>
-            <div className="total_price">
-              <p>합계</p>
-              <p className="price_larger">4,500</p>
-              <p className="price_larger">원</p>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div className="fixed-bottom">
-        <div className="drag_me" />
-        <div className="btn-action">구매하기</div>
-      </div>
+          <ProductDetailList productImages={productImages} />
+          <RecommandMdList data={recommandData} />
+          <EventMdList
+            title="다른 고객이 함께 본 상품"
+            data={viewByOthersData}
+          />
+          <PageDetailInfoCommon />
+          <ProductOrderSection
+            productName={productData.name}
+            productPrice={productData.price}
+            productId={productData.id}
+          />
+        </>
+      )}
     </>
   );
 }

@@ -1,33 +1,36 @@
-function RecommandMdList() {
+import { useEffect, useState } from "react";
+import RecommandProductCard from "../ui/RecommandProductCard";
+
+import Config from "@/configs/config.export";
+import {
+  BaseRes,
+  eventData,
+  eventProductRes,
+} from "@/constants/Apis/Types/ResponseType";
+import { RequestRecommendProduct } from "@/Service/ProductService/ProductService";
+
+function RecommandMdList(props: { data: eventData; title?: string }) {
+  const { baseUrl } = Config();
+  const [recommandData, setRecommandData] = useState<BaseRes>({} as BaseRes);
+
+  useEffect(() => {
+    RequestRecommendProduct(props.data.id)
+      .then((res) => {
+        setRecommandData(res);
+      })
+      .catch((err) => console.log(err));
+  }, [props, baseUrl]);
+
   return (
     <section className="recommand" id="recommand-md-1">
-    <div>
-      <h2>Cherry Blossom🌸</h2>
+      <h2>{props.title ? props.title : props.data.name}</h2>
       <div className="recommand-product-list">
-        <div className="recommand-product-item">
-          <div className="recommand-product-item__img">
-            <img src="assets/images/products/01.png" alt="23 SS 체리 밸류 로맨틱 텀블러 355ml" />
-          </div>
-          <div className="recommand-product-item__info">
-            <p className="item-new">New</p>
-            <p className="item-title">23 SS 체리 밸류 로맨틱 텀블러 355ml</p>
-            <p className="item-price"><span>32,000</span>원</p>
-          </div>
-        </div>
-        <div className="recommand-product-item">
-          <div className="recommand-product-item__img">
-            <img src="assets/images/products/01.png" alt="" />
-          </div>
-          <div className="recommand-product-item__info">
-            <p className="item-new hide">New</p>
-            <p className="item-title">23 SS 체리 밸류 로맨틱 텀블러 355ml</p>
-            <p className="item-price"><span>32,000</span>원</p>
-          </div>
-        </div>
-        
+        {recommandData.data &&
+          recommandData.data.map((item: eventProductRes, idx: number) => (
+            <RecommandProductCard key={idx} data={item} />
+          ))}
       </div>
-    </div>
-  </section>
+    </section>
   );
 }
 

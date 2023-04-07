@@ -1,21 +1,23 @@
-import '../public/assets/css/style.css'
-import type { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import Header from "../components/layouts/Header";
+import { RecoilRoot } from "recoil";
 
-import Header from '../components/layouts/Header'
+import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
-
-  const isLogin = true;
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
-    <div className='container'>
-      {
-        router.pathname === '/login' ? null :  <Header />
-      }
-      <Component {...pageProps} />
+    <div className="container">
+      <RecoilRoot>
+        <div className="header-container">
+          {router.pathname === "/signup" ? null : <Header />}
+        </div>
+        <div className="main_container">
+          <Component {...pageProps} />
+        </div>
+      </RecoilRoot>
     </div>
-    ); 
-  }
+  );
+}

@@ -1,0 +1,90 @@
+.login-header {
+  padding: 0 1rem;
+  margin-top: 5vw;
+}
+
+.login-header h1 {
+  font-size: 1.7rem;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.greeting {
+  margin-top: 1rem;
+  padding: 1.5rem;
+}
+
+.greeting h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1.5rem;
+  margin-bottom: 0px;
+}
+
+.greeting p {
+  font-size: 0.8rem;
+}
+
+#login-input {
+  padding: 1.5rem;
+  margin-bottom: 0;
+}
+
+#login-input input {
+  border: 0;
+  border-bottom: 1.5px solid rgba(128, 128, 128, 0.15);
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: 100%;
+  outline: none;
+  padding: 0rem;
+  height: 2rem;
+  vertical-align: bottom;
+  display: inline;
+  margin-bottom: 2rem;
+  transition: 0.5s;
+}
+
+#login-input input:last-child {
+  margin-bottom: 0px;
+}
+
+#login-input input::placeholder {
+  color: var(--color-black);
+  font-weight: normal;
+  transition: 0.5s;
+}
+
+#login-input input:focus {
+  border-radius: 0px;
+  border-bottom: 1px solid var(--color-light-green);
+  transition: 0.5s;
+}
+
+#login-input input:focus::placeholder {
+  /* opacity: 0; */
+  transition: 0.5s;
+  position: relative;
+  top: -15px;
+  font-size: 70%;
+}
+
+#login-service {
+  text-align: center;
+}
+
+#login-service a:nth-child(2) {
+  border-left: 1px solid rgba(128, 128, 128, 0.381);
+  border-right: 1px solid rgba(128, 128, 128, 0.381);
+}
+
+#login-service a {
+  padding: 0 10px;
+  text-decoration: none;
+  margin: 0;
+  color: var(--color-soft-black);
+  opacity: 0.9;
+  font-size: 0.8rem;
+}
