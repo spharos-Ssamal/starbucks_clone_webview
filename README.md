@@ -1,4 +1,4 @@
-# _스타벅스 앱 온라인쇼핑몰 클론코딩_
+# _스타벅스 앱 온라인쇼핑몰 클론코딩_ WebView
 
 ### _'23 Spharos Academy 1st Clone Coding_
 
@@ -139,9 +139,22 @@ yarn run local
 
 # 4. 시연\_demo \* 업데이트 예정
 
-```sh
-링크 / 로그인 아이디 / 비밀번호
-```
+## 검색
+![KakaoTalk_20230407_121233138](https://user-images.githubusercontent.com/36991763/230533789-ab5a5c05-91c5-452f-9a30-6f90c65b52d2.gif)
+
+## 주소록 관리
+![배송지 관리](https://user-images.githubusercontent.com/36991763/230533815-671c3547-aaad-4408-8c8b-22af47f1b1f8.gif)
+
+
+## 단건 결제
+![단건 결제](https://user-images.githubusercontent.com/36991763/230533826-4dc9cee2-44b2-48eb-95b5-7667f5d3e37b.gif)
+
+
+## 장바구니 결제
+![장바구니 및 결제](https://user-images.githubusercontent.com/36991763/230533839-2af4094d-86a7-49b4-87ec-4789dc332923.gif)
+
+## 구매 목록 확인
+![주문 내역 조회](https://user-images.githubusercontent.com/36991763/230533846-ad614745-5a4b-49d1-9696-823b94d99460.gif)
 
 <br />
 <br />
@@ -150,7 +163,7 @@ yarn run local
 
 - [화면 명세서](https://github.com/spharos-Ssamal/starbucks_clone_webview/wiki/%ED%99%94%EB%A9%B4%EB%AA%85%EC%84%B8%EC%84%9C)
 - [기능 및 API 명세서](https://github.com/spharos-Ssamal/starbucks_clone_webview/wiki/%EA%B8%B0%EB%8A%A5-%EB%B0%8F-API-%EB%AA%85%EC%84%B8%EC%84%9C)
-- [ERD 다이어그램]
+- [ERD 다이어그램]  
   ![image](https://user-images.githubusercontent.com/36991763/230520459-8a63bbb6-2a13-4206-b807-e9001a7836c8.png)
 
 
