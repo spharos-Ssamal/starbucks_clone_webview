@@ -127,11 +127,11 @@
 
 - 다운로드 혹은 [git clone]하기
 - [next.js 실행하기]
-
+- Back-end 셋업 방법은 아래의 링크를 참조하세요
+  - https://github.com/spharos-Ssamal/starbucks_clone_api/wiki/%EB%A1%9C%EC%BB%AC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%85%8B%EC%97%85-%EB%B0%A9%EB%B2%95
 ```sh
 yarn install
-or
-npm install
+yarn run local
 ```
 
 <br />
