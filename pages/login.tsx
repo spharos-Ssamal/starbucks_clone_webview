@@ -50,7 +50,6 @@ export default function LoginModal() {
           localStorage.setItem("ACCESS_TOKEN", accessToken);
           setIsView(true);
           Swal.fire({
-            icon: "success",
             title: `${loginRes.userName}님 환영합니다!`,
             toast: true,
             position: "top",
