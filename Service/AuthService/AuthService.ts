@@ -7,6 +7,7 @@ import {
   REQUEST_REISSUE_JWT_TOKEN,
   REQUEST_VERIFY_EMAIL,
 } from "@/constants/Apis/URL";
+import { useLogoutForce } from "@/customHooks/useLogoutForce";
 import {
   LoginReq,
   RegisterReq,
@@ -39,9 +40,6 @@ export async function RequestReissueToken() {
         title: "에러!",
         text: "서버와의 연결이 끊어졌습니다.",
       });
-      localStorage.removeItem("ACCESS_TOKEN");
-      localStorage.removeItem("userInfo");
-      location.reload();
       return Promise.reject();
     });
 }

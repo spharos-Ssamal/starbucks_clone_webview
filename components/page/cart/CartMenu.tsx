@@ -44,7 +44,6 @@ export default function CartMenu() {
           await RequestCartDelete(e)
             .then((res) => {
               const deletedId: number = res.data;
-              console.log(deletedId);
               cartListNow = cartListNow.filter((e) => e.id !== deletedId);
               cartListFreezeNow = cartListFreezeNow.filter(
                 (e) => e.id !== deletedId

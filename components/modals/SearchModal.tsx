@@ -90,24 +90,13 @@ export function SearchModal(props: Props) {
                   placeholder="검색어를 입력해 주세요."
                 />
                 <div className="search-icons">
-                  <ul>
-                    <div>
-                      <li>
-                        <img
-                          onClick={() => onClickSearchButton()}
-                          src="/assets/images/icons/search.svg"
-                        />
-                      </li>
-                    </div>
-                    <div>
-                      <li>
-                        <img
-                          onClick={props.closeModal}
-                          src="/assets/images/icons/close.png"
-                        />
-                      </li>
-                    </div>
-                  </ul>
+                  <img
+                    onClick={() => onClickSearchButton()}
+                    src="/assets/images/icons/search.svg"
+                  />
+                </div>
+                <div className="search-icons" onClick={props.closeModal}>
+                  <img src="/assets/images/icons/close.png" />
                 </div>
               </form>
             </div>
@@ -120,15 +109,6 @@ export function SearchModal(props: Props) {
             <hr />
             <div className="delete-keywords">
               <button>전체삭제</button>
-            </div>
-          </div>
-
-          <div className="recommand-tag">
-            <div className="recommand-tage-title">
-              <h3>추천 태그</h3>
-            </div>
-            <div className="tag-list">
-              <SearchHashtagButton tagTitle={"test"} />
             </div>
           </div>
         </div>

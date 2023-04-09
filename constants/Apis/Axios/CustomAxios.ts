@@ -8,6 +8,7 @@ import {
 import { RequestReissueToken } from "@/Service/AuthService/AuthService";
 import Config from "@/configs/config.export";
 import qs from "qs";
+import Router from "next/router";
 
 const { baseUrl } = Config();
 export const CustomAxios = axios.create({
@@ -42,6 +43,7 @@ CustomAxios.interceptors.request.use((config) => {
 CustomAxios.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    console.log(error);
     const responseData: BaseRes | any = error.response?.data;
     if (responseData.status === "UNAUTHORIZED") {
       if (responseData.data === CODE_EXPIRED_TOKEN) {
@@ -55,6 +57,7 @@ CustomAxios.interceptors.response.use(
         } catch (err) {
           localStorage.removeItem("ACCESS_TOKEN");
           localStorage.removeItem("userInfo");
+          window.location.replace("/");
         }
       }
     } else if (
@@ -67,6 +70,7 @@ CustomAxios.interceptors.response.use(
       ) {
         localStorage.removeItem("ACCESS_TOKEN");
         localStorage.removeItem("userInfo");
+        window.location.replace("/");
       }
     }
 

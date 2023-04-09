@@ -1,12 +1,10 @@
 import { getUsersPurchaseHistory } from "@/Service/HistoryService/HistoryService";
-import {
-  PurchaseHistory,
-  GetUsersPurchaseHistoryRes,
-} from "@/Types/purchase/types";
+import { PurchaseHistory } from "@/Types/purchase/types";
 import { CardProduct } from "@/components/page/purchase/cardProduct";
 import { userLoginState } from "@/state/user/atom/userLoginState";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 export default function PurchaseList() {
   const isLogin = useRecoilValue(userLoginState);
@@ -25,12 +23,20 @@ export default function PurchaseList() {
 
   const onSubmitResult = () => {
     if (isLogin.userId !== undefined) {
-      getUsersPurchaseHistory(isLogin.userId, startDate, endDate).then(
-        (res) => {
-          const result: PurchaseHistory[] = res.data.histories;
-          setPurchaseHistory([...result]);
-        }
-      );
+      if (startDate === "" || endDate == "") {
+        Swal.fire({
+          icon: "warning",
+          title: "알림",
+          text: "시작 날짜와 종료 날짜를 입력 해 주세요.",
+        });
+      } else {
+        getUsersPurchaseHistory(isLogin.userId, startDate, endDate).then(
+          (res) => {
+            const result: PurchaseHistory[] = res.data.histories;
+            setPurchaseHistory([...result]);
+          }
+        );
+      }
     }
   };
 
