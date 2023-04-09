@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { cartState } from "@/state/cart/atom/cartState";
 import { SearchModal } from "../modals/SearchModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,19 +9,18 @@ import { UserAuthInfo } from "@/state/user/type/UserInfo";
 import { RequestLogout } from "@/Service/AuthService/AuthService";
 
 export default function HeaderTopRightIcons() {
-  const cartCnt = useRecoilValue(cartState);
   const [isLogin, setIsLogin] = useRecoilState<UserAuthInfo>(userLoginState);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
-  const [loginIcon, setLoginIcon] = useState<string>('');
+  const [loginIcon, setLoginIcon] = useState<string>("");
   const router = useRouter();
 
-  useEffect(()=>{
-    if(isLogin.isLogin){
-      setLoginIcon('/assets/images/icons/logout.svg');
-    }else{
-      setLoginIcon('/assets/images/icons/user.svg');
+  useEffect(() => {
+    if (isLogin.isLogin) {
+      setLoginIcon("/assets/images/icons/logout.svg");
+    } else {
+      setLoginIcon("/assets/images/icons/user.svg");
     }
-  },[isLogin.isLogin])
+  }, [isLogin.isLogin]);
 
   const handleLogout = () => {
     Swal.fire({
@@ -80,13 +77,7 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          <li>
-            {isLogin.isLogin && cartCnt > 0 ? (
-              <p className="cart-badge">{cartCnt}</p>
-            ) : (
-              ""
-            )}
-
+          <li onClick={() => router.push("/cart")}>
             <Image
               src="/assets/images/icons/shopping-cart.svg"
               width={20}
@@ -94,16 +85,16 @@ export default function HeaderTopRightIcons() {
               alt={""}
             />
           </li>
-          
-          <li onClick={isLogin.isLogin && isLogin.isLogin ? handleLogout : ()=>router.push('/cart')}>
-            <Image
-              src={loginIcon && loginIcon}
-              alt=""
-              width={40}
-              height={40}
-            />
+
+          <li
+            onClick={
+              isLogin.isLogin && isLogin.isLogin
+                ? handleLogout
+                : () => router.push("/cart")
+            }
+          >
+            <Image src={loginIcon && loginIcon} alt="" width={40} height={40} />
           </li>
-          
         </ul>
       </nav>
     </div>

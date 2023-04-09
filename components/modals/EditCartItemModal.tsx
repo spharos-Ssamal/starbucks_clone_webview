@@ -38,7 +38,11 @@ export default function EditCartItemModal(props: Props) {
 
   const onClickConfirm = () => {
     if (
-      cartData.cartList.findIndex((e) => e.id === props.cartItemInfo.id) !== -1
+      cartData.cartList.findIndex((e) => e.id === props.cartItemInfo.id) !==
+        -1 ||
+      cartData.cartListFreeze.findIndex(
+        (e) => e.id === props.cartItemInfo.id
+      ) !== -1
     ) {
       Swal.fire({
         title: "알림",
@@ -67,21 +71,6 @@ export default function EditCartItemModal(props: Props) {
                 return element;
               }
             }),
-          });
-
-          Swal.fire({
-            icon: "success",
-            title: "success!",
-            text: "상품 갯수가 변경 되었습니다.",
-          });
-        } else if (
-          cartData.cartListFreeze.findIndex(
-            (e) => e.id === props.cartItemInfo.id
-          ) !== -1
-        ) {
-          updateProductItemCountRequest();
-          setCartData({
-            ...cartData,
             cartListFreeze: cartData.cartListFreeze.map((element) => {
               if (element.id === props.cartItemInfo.id) {
                 return {
@@ -100,9 +89,10 @@ export default function EditCartItemModal(props: Props) {
           Swal.fire({
             icon: "success",
             title: "success!",
-            text: "삼품 갯수가 변경 되었습니다.",
+            text: "상품 갯수가 변경 되었습니다.",
+          }).then(() => {
+            props.setIsModalOpen(false);
           });
-          props.setIsModalOpen(false);
         }
       });
     }

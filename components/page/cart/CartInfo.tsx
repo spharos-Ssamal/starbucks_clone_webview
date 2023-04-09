@@ -17,8 +17,6 @@ export default function CartInfo(props: Props) {
   const [shippingPrice, setShippingPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
 
-  const [cartAmount, setCartState] = useRecoilState(cartState);
-
   useEffect(() => {
     let shippingFeeCount = 0;
     const cartListNow = cartData.cartList.filter((e) => e.check);
@@ -46,7 +44,6 @@ export default function CartInfo(props: Props) {
     props.setAmountOfPrice(
       cartListPrice + cartListFrozenPrice + shippingFeeCount
     );
-    setCartState(cartData.cartList.length + cartData.cartListFreeze.length);
     props.setNumOfProduct(cartListNow.length + cartListFreezeNow.length);
   }, [cartData]);
 
