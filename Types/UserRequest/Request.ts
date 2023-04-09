@@ -19,15 +19,20 @@ export interface VeriftyEmailReq {
 }
 
 export interface inputRegisterType {
-  userEmail: string;
+  userEmail: string ;
   userName: string;
   userNickname: string;
-  birthday: Date;
+  loginId: string;
+  birthday: number;
   password: string;
   confirmPassword: string;
-  phone: string;
   isUserConfirm: boolean;
+  isLoginIdConfirm: boolean;
   privateAgree: privateAgreeType;
+  isEmailAgree:boolean;
+  isNickAgree:boolean;
+  isNameConfirm:boolean;
+  isNumber:number;
 }
 
 export interface privateAgreeType {

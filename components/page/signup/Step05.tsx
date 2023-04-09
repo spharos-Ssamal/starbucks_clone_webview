@@ -1,59 +1,72 @@
-import { inputRegisterType } from '@/Types/UserRequest/Request';
-import React, {useState, useEffect } from 'react';
+import CloseBtn from "@/components/ui/CloseBtn";
+import { inputRegisterType } from "@/types/UserRequest/Request";
+import React from "react";
+import Image from "next/image";
 
 interface ChildProps {
   inputData: inputRegisterType;
   setInputData: React.Dispatch<React.SetStateAction<inputRegisterType>>;
 }
-const Step05 = ( { inputData, setInputData } : ChildProps) => {
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.checked)
-    const { name, checked } = e.target;
-    setInputData({
-      ...inputData,
-      [name]: checked,
-    });
-  }
-
-  useEffect(()=> {
-    console.log(inputData)
-  },[inputData])
-
+export default function Step05({ inputData, setInputData }: ChildProps) {
   return (
-    <> 
-    <div className='slide-in'>
-      <header>
-          <div className="signup-header">
-              <a href="javascript:window.history.back();"><img src="./assets/images/icons/close.png" className="back-button"/></a>
-              <p className="page-num">①－②－③－❹</p>
-          </div>
-          <section className="greeting">
-              <h2 className="signup-info">닉네임을<br />입력해 주세요.</h2>
-          </section>
-          <section className="agree-input margin-top-zero">
-              <input type="checkbox" id="optional-agree" name="optional-agree" />
-              <label>선택적 개인정보 수집동의 및 이용약관</label>
-              </section>
-          <section id="id-password-input">
-              <input type="text" id="user_email" name="email" placeholder="닉네임 (한글 6자리 이내)" />
-          </section>
-          
-          <section className="email-guideline">
-              <p className="notice">· 매장에서 주문한 메뉴를 찾으실 때, 등록한 닉네임으로 불러 드립니다.</p>
-          </section>
-          
-      </header>
-      <section id="identification-input">
-          
-      </section>
-      <section className="submit-container">
-          <button type="submit">다음</button>
-      </section>    
 
-    </div>
-    </>
+      <div className="container">
+        <div className="clear-close">
+         <CloseBtn/>
+        </div>
+
+        <div className="main-clear-title">
+          {inputData.userNickname ? (
+            <h1>
+              {inputData.userNickname}님, <br />
+              회원가입이 완료되었습니다.
+            </h1>
+          ) : (
+            <h1>
+              {inputData.loginId}님, <br />
+              회원가입이 완료되었습니다.
+            </h1>
+          )}
+        </div>
+
+        <div className="clear-result">
+          <p>2023년 2월 20일 광고성 정보 수신동의 여부 처리 결과</p>
+        </div>
+        <div className="box-wrap">
+          <div className="left-box">E-Mail 광고성 정보</div>
+          <div className="right-box">수신거부</div>
+        </div>
+        <div className="box-wrap">
+          <div className="left-box">SMS 광고성 정보</div>
+          <div className="right-box">수신거부</div>
+        </div>
+        <div className="clear-company">
+          <p>제공자: 주식회사 에스씨케이컴퍼니</p>
+        </div>
+        <div className="clear-total-star">
+        <div className="clear-star">
+          <Image className="clear-star" src="/assets/images/products/별혜택.jpg" alt="별혜택" height={100} width={1000}/>
+        </div>
+        <div className="clear-card">
+          <Image className="clear-star"
+          src="/assets/images/products/회원가입완료.jpg"
+          alt="회원가입완료"
+          height={300}
+          width={700}
+          />
+        </div>
+        <div className="clear-how">
+          <p>
+            웰컴 첫 구매 무료 음료 쿠폰과
+            <br />
+            별 적립 혜택을 받을 수 있는
+            <br />
+            방법이 궁금하시다면?
+          </p>
+        </div>
+        </div>
+      </div>
+
   );
 }
-
-export default Step05;
