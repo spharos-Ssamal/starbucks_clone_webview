@@ -43,35 +43,30 @@ CustomAxios.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const responseData: BaseRes | any = error.response?.data;
-    if (responseData === undefined) {
-      localStorage.removeItem("ACCESS_TOKEN");
-      localStorage.removeItem("userInfo");
-    } else {
-      if (responseData.status === "UNAUTHORIZED") {
-        if (responseData.data === CODE_EXPIRED_TOKEN) {
-          const originRequest = error.config;
-          try {
-            await RequestReissueToken();
-            if (originRequest !== undefined) {
-              const result = await CustomAxios(originRequest);
-              return result;
-            }
-          } catch (err) {
-            localStorage.removeItem("ACCESS_TOKEN");
-            localStorage.removeItem("userInfo");
+    if (responseData.status === "UNAUTHORIZED") {
+      if (responseData.data === CODE_EXPIRED_TOKEN) {
+        const originRequest = error.config;
+        try {
+          await RequestReissueToken();
+          if (originRequest !== undefined) {
+            const result = await CustomAxios(originRequest);
+            return result;
           }
-        }
-      } else if (
-        responseData.status === "FORBIDDEN" ||
-        responseData.status === "BAD_REQUEST"
-      ) {
-        if (
-          responseData.data === CODE_REFRESH_TOKEN_EXPIRED ||
-          responseData.data === CODE_INVALID_TOKEN
-        ) {
+        } catch (err) {
           localStorage.removeItem("ACCESS_TOKEN");
           localStorage.removeItem("userInfo");
         }
+      }
+    } else if (
+      responseData.status === "FORBIDDEN" ||
+      responseData.status === "BAD_REQUEST"
+    ) {
+      if (
+        responseData.data === CODE_REFRESH_TOKEN_EXPIRED ||
+        responseData.data === CODE_INVALID_TOKEN
+      ) {
+        localStorage.removeItem("ACCESS_TOKEN");
+        localStorage.removeItem("userInfo");
       }
     }
 
